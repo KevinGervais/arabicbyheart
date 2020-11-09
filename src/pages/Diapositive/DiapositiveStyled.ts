@@ -19,21 +19,31 @@ export const DiapositiveStyled = styled.div<DiapositiveStyledProps>`
     const color = colors[colorName]
     return css`
       background: ${color[100]};
-      span, svg, input {
+      span, svg, input, h4 {
         color: ${color[700]};
       }
-      svg {
+      svg:not(.fa-play), h4 {
         border: 3px solid ${color[700]};
         ${() => ["mac", "windows"].includes(getOS()) && css`
           &:hover {
-            transform: scale(1.025);
+            transform: scale(1.05);
+            &:first-child {
+              transform: rotate(180deg) scale(1.05);
+            }
           }
         `}
+
         &:active {
-          transform: scale(1.025);
+          transform: scale(1.05);
+          &:first-child {
+            transform: rotate(180deg) scale(1.05);
+          }
           color: ${color[900]};
           border: 3px solid ${color[900]};
         }
+      }
+      h4 {
+        border: 2px solid ${color[700]};
       }
     `
   }}
@@ -44,7 +54,7 @@ export const DiapositiveStyled = styled.div<DiapositiveStyledProps>`
     display: flex;
     flex-direction: column;
     text-align: center;
-    span:first-child {
+    span:not(:last-child) {
       font-size: 50px;
       font-weight: bold;
     }
@@ -53,8 +63,17 @@ export const DiapositiveStyled = styled.div<DiapositiveStyledProps>`
       position: fixed;
       width: 100vw;
       text-align: center;
-      top: 130px;
+      top: 100px;
       left: 0;
+    }
+    h4 {
+      ${clickable};
+      ${center};
+      margin-top: 30px;
+      transition: 0.3s all ease-in-out;
+      height: 30px;
+      padding: 0 15px;
+
     }
   }
   & > svg {
@@ -78,6 +97,5 @@ export const DiapositiveStyled = styled.div<DiapositiveStyledProps>`
     background: transparent;
     pointer-events: none;
     font-size: 30px;
-
   }
 `

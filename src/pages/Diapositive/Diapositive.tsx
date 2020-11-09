@@ -6,6 +6,7 @@ import ArrowIcon from "@/images/rightArrow"
 
 import { DiapositiveStyled } from "./DiapositiveStyled"
 import { DiapositiveProps, DiapositiveState } from "./model"
+import { DiapositiveItem } from "./DiapositiveItem"
 export class DiapositiveClass extends React.Component<DiapositiveProps, DiapositiveState> {
   items: VocabularyItem[] = []
   timeRef: HTMLInputElement | undefined
@@ -16,13 +17,13 @@ export class DiapositiveClass extends React.Component<DiapositiveProps, Diaposit
     if (!selectedCategory || !diapositiveSettings) {
       this.state = {
         currentIndex: 0,
-        timeCounter: false
+        timeCounter: false,
       }
       this.items = []
     } else {
       this.state = {
         currentIndex: 0,
-        timeCounter: diapositiveSettings.delay
+        timeCounter: diapositiveSettings.delay,
       }
       this.setItems(props)
     }
@@ -55,6 +56,11 @@ export class DiapositiveClass extends React.Component<DiapositiveProps, Diaposit
     if (!selectedCategory || !diapositiveSettings || !item) {
       return <DiapositiveStyled index={0} />
     }
+    const vocabularyGroup: VocabularyGroup = selectedCategory.items
+      .find((group: VocabularyGroup) => group.list
+        .find((vocItem: VocabularyItem) => vocItem._id === item._id
+        )) as VocabularyGroup
+
     if (diapositiveSettings.isMicrophone) {
       const audio = new Audio(item.audio)
       audio.play()
@@ -85,10 +91,11 @@ export class DiapositiveClass extends React.Component<DiapositiveProps, Diaposit
         }} />
 
         <div className="content">
-          <div className="item">
-            <span>{item.title}</span>
-            <span>{say[item.lang]}</span>
-          </div>
+          <DiapositiveItem
+            currentVocabularyGroup={vocabularyGroup}
+            currentVocabularyItem={item}
+            say={say}
+          />
         </div>
         {diapositiveSettings.delay !== false && <input ref={(ref: HTMLInputElement) => {
           this.timeRef = ref

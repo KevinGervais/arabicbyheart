@@ -18,5 +18,6 @@ export const fr: Say = {
   ar: "Arabe",
   askDelete: "Supprimer la catégorie?",
   yes: "Oui",
-  badBrowser: "Cette application est uniquement disponible sur google chrome pour l'instant..."
+  badBrowser: "Cette application est uniquement disponible sur google chrome pour l'instant...",
+  showAnswer: "Afficher la réponse"
 }

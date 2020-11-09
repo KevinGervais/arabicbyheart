@@ -1,5 +1,5 @@
 import { Say } from "@/languages/model"
-import { DiapositiveSettings, VocabularyCategory } from "@/model"
+import { DiapositiveSettings, VocabularyCategory, VocabularyGroup, VocabularyItem } from "@/model"
 
 export interface DiapositiveProps {
   say: Say
@@ -14,4 +14,14 @@ export interface DiapositiveState {
 
 export interface DiapositiveStyledProps {
   index: number
+}
+
+export interface DiapositiveItemProps {
+  currentVocabularyGroup: VocabularyGroup
+  currentVocabularyItem: VocabularyItem
+  say: Say
+}
+
+export interface DiapositiveItemState {
+  isAnswerShown: boolean
 }

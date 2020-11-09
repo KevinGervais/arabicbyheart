@@ -25,4 +25,5 @@ export type SayKeywords =
   | "askDelete"
   | "yes"
   | "badBrowser"
+  | "showAnswer"
 
