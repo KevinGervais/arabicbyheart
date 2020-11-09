@@ -42,6 +42,7 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
   goToDiapositive: () => void
   deleteCategory: () => void
   onAudioStop: () => void
+  saveDiapositiveSettings: () => void
 
   constructor(props: CategoryProps) {
     super(props)
@@ -55,6 +56,7 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
     this.goToDiapositive = functions.goToDiapositive.bind(this)
     this.deleteCategory = functions.deleteCategory.bind(this)
     this.onAudioStop = functions.onAudioStop.bind(this)
+    this.saveDiapositiveSettings = functions.saveDiapositiveSettings.bind(this)
     this.state = {
       ...this.getInitialState(),
       isMicrophone: true,
@@ -85,6 +87,7 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
     if (!oldProps.selectedCategory && selectedCategory) {
       this.setState(this.getInitialState())
     }
+
     if (recordingIndex !== oldState.recordingIndex && recordingIndex !== -1) {
       window.setTimeout(() => {
         if (this.state.recordingIndex !== -1) {
@@ -93,6 +96,7 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
       }, 10000)
     }
   }
+
 
   render(): JSX.Element | null {
     const { selectedCategory, say } = this.props
@@ -192,10 +196,14 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
             </VocabularyItemStyled>
           ))}</div>
 
-        <BottomMenuStyled>
+        <BottomMenuStyled >
           {isBottomMenuOpened && (
             <div
-              onClick={(evt: React.MouseEvent<HTMLDivElement>) => evt.stopPropagation()}
+
+              onClick={(evt: React.MouseEvent<HTMLDivElement>) => {
+                evt.stopPropagation()
+                this.saveDiapositiveSettings()
+              }}
               className="left-content"
             >
               {Array(selectedCategory.columnCount).fill(0).map((_: number, index: number) => (
