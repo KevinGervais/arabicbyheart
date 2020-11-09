@@ -1,0 +1,83 @@
+import { getOS } from "@/functions"
+import { colors } from "@/styles/colors"
+import { center, clickable } from "@/styles/mixins"
+import { AllColors } from "@/styles/model"
+import styled, { css } from "styled-components"
+
+import { DiapositiveStyledProps } from "./model"
+const colorList = Object.keys(colors).sort(Math.random)
+
+export const DiapositiveStyled = styled.div<DiapositiveStyledProps>`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  ${(props: DiapositiveStyledProps) => {
+    const index = props.index % 15
+    const colorName = colorList[index] as keyof AllColors
+    const color = colors[colorName]
+    return css`
+      background: ${color[100]};
+      span, svg, input {
+        color: ${color[700]};
+      }
+      svg {
+        border: 3px solid ${color[700]};
+        ${() => ["mac", "windows"].includes(getOS()) && css`
+          &:hover {
+            transform: scale(1.025);
+          }
+        `}
+        &:active {
+          transform: scale(1.025);
+          color: ${color[900]};
+          border: 3px solid ${color[900]};
+        }
+      }
+    `
+  }}
+  .content {
+    ${center};
+  }
+  .item {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    span:first-child {
+      font-size: 50px;
+      font-weight: bold;
+    }
+    span:last-child {
+      font-size: 24px;
+      position: fixed;
+      width: 100vw;
+      text-align: center;
+      top: 130px;
+      left: 0;
+    }
+  }
+  & > svg {
+    ${clickable};
+    width: 30px;
+    height: 30px;
+    padding: 10px;
+    border-radius: 29px;
+    margin: 50px;
+    transition: 0.3s all ease-in-out;
+    &:first-child {
+      transform: rotate(180deg);
+    }
+  }
+  input {
+    position: fixed;
+    width: 100vw;
+    text-align: center;
+    bottom: 30px;
+    left: 0;
+    background: transparent;
+    pointer-events: none;
+    font-size: 30px;
+
+  }
+`

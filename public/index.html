@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script>
+    if ((["vocabulary-by-hearth.herokuapp.com","vocabulary-by-hearth.herokuapp.com"].includes(window.location.host)) && (window.location.protocol != "https:")){
+    window.location.protocol = "https";
+    }
+  </script>
+  <meta charset="utf-8" />
+  <meta name="viewport"
+    content="initial-scale=1, width=device-width, height=device-height, viewport-fit=cover, maximum-scale=1.0, user-scalable=no, minimum-scale=1.0" />
+</head>
+
+<body>
+  <div id="root">
+    <style>
+      html,
+      body,
+      .loading,
+      #root {
+        height: 100%;
+        margin: 0;
+        -webkit-app-region: drag;
+      }
+
+      .loading {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-size: 150px;
+        width: 100%;
+      }
+
+      svg {
+        width: 92px;
+        animation: scale 1s ease-in-out infinite;
+      }
+
+      @keyframes scale {
+        50% {
+          transform: scale(1.05);
+        }
+      }
+    </style>
+    <div class='loading'>
+    </div>
+  </div>
+  <script>
+    const colors = {
+      red: {
+        "300": "#e57373",
+        "500": "#f44336",
+      },
+      pink: {
+        "300": "#f06292",
+        "500": "#e91e63",
+      },
+      purple: {
+        "300": "#ba68c8",
+        "500": "#9c27b0",
+      },
+      deeppurple: {
+        "300": "#9575cd",
+        "500": "#673ab7",
+      },
+      indigo: {
+        "300": "#7986cb",
+        "500": "#3f51b5",
+      },
+      blue: {
+        "300": "#64b5f6",
+        "500": "#2196f3",
+      },
+      lightblue: {
+        "300": "#4fc3f7",
+        "500": "#03a9f4",
+      },
+      cyan: {
+        "300": "#4dd0e1",
+        "500": "#00bcd4",
+      },
+      teal: {
+        "300": "#4db6ac",
+        "500": "#009688",
+      },
+      green: {
+        "300": "#81c784",
+        "500": "#4caf50",
+      },
+      lightgreen: {
+        "300": "#aed581",
+        "500": "#8bc34a",
+      },
+      lime: {
+        "300": "#dce775",
+        "500": "#cddc39",
+      },
+      amber: {
+        "300": "#ffd54f",
+        "500": "#ffc107",
+      },
+      orange: {
+        "300": "#ffb74d",
+        "500": "#ff9800",
+      },
+      deeporange: {
+        "300": "#ff8a65",
+        "500": "#ff5722",
+      },
+      brown: {
+        "300": "#a1887f",
+        "500": "#795548",
+      },
+      grey: {
+        "300": "#e0e0e0",
+        "500": "#9e9e9e",
+      },
+      bluegrey: {
+        "300": "#90a4ae",
+        "500": "#607d8b",
+      }
+    }
+    const selectedColor = colors[localStorage.getItem("themeColor") || "lightblue"]
+    document.querySelector(".loading").style.backgroundColor = selectedColor["300"]
+    const isWindows = ["Win32", "Win64", "Windows", "WinCE"].includes(window.navigator
+      .platform)
+    const isElectron = window.process && window.process.type === "renderer"
+    if (isWindows && isElectron) {
+      document.querySelector("#root").style.height = "calc(100vh - 32px)"
+      document.querySelector(".loading").style.height = "calc(100vh - 32px)"
+    }
+  </script>
+</body>
+
+</html>

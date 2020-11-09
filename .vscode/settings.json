@@ -1,0 +1,10 @@
+{
+  "tslint.autoFixOnSave": true,
+  "tslint.enable": true,
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2,
+  "editor.detectIndentation": false,
+  "gitlens.currentLine.enabled": false,
+  "gitlens.codeLens.authors.enabled": false,
+  "gitlens.codeLens.recentChange.enabled": false,
+}

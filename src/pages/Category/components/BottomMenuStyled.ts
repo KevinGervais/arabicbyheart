@@ -1,0 +1,44 @@
+import { getOS } from "@/functions"
+import { center, clickable } from "@/styles/mixins"
+import styled, { css } from "styled-components"
+
+export const BottomMenuStyled = styled.div`
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  box-shadow: 0 0 5px hsla(0, 0%, 0%, 0.3);
+  overflow: hidden;
+  border-radius: 30px;
+  background: white;
+  .right-content {
+    ${center};
+    ${clickable};
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+    background: ${() => window.theme.primary500};
+    ${() => ["mac", "windows"].includes(getOS()) && css`
+      &:hover {
+        background: ${() => window.theme.primary600};
+      }
+    `}
+    &:active {
+      background: ${() => window.theme.primary700};
+    }
+    svg {
+      color: white;
+      height: 25px;
+    }
+  }
+  .left-content {
+    & > div {
+      ${center};
+      ${clickable};
+      width: 50px;
+      height: 50px;
+      border-radius: 25px;
+      border: 1px solid ${() => window.theme.primary300};
+      margin: 5px;
+    }
+  }
+`
