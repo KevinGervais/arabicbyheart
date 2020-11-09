@@ -10,6 +10,7 @@ const theme: Theme = {
   ),
   // gray
   ...getColor("grey", "grey"),
+  ...getColor("orange", "secondary"),
   // success
   success: "hsl(120, 85%, 50%)",
   success95: "hsl(120, 80%, 95%)",

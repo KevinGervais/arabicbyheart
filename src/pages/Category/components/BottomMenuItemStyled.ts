@@ -11,32 +11,32 @@ export const BottomMenuItemStyled = styled.div<BottomMenuItemStyledProps>`
   height: 50px;
   margin: 5px;
   border-radius: 25px;
-  border: 1px solid ${() => window.theme.primary300};
+  border: 1px solid ${() => window.theme.secondary300};
   svg {
     height: 25px;
     color: inherit;
   }
   ${() => ["mac", "windows"].includes(getOS()) && css`
       &:hover {
-        background: ${() => window.theme.primary50};
+        background: ${() => window.theme.secondary50};
       }
     `}
     &:active {
-      background: ${() => window.theme.primary100};
+      background: ${() => window.theme.secondary100};
     }
   ${(props: BottomMenuItemStyledProps) => props.isActive && css`
-    background: ${() => window.theme.primary300};
+    background: ${() => window.theme.secondary300};
     color: white;
     svg {
       color: inherit;
     }
     ${() => ["mac", "windows"].includes(getOS()) && css`
       &:hover {
-        background: ${() => window.theme.primary400};
+        background: ${() => window.theme.secondary400};
       }
     `}
     &:active {
-      background: ${() => window.theme.primary500};
+      background: ${() => window.theme.secondary500};
     }
   `}
 `

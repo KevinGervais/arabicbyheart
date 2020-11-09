@@ -24,14 +24,20 @@ export interface Theme {
   grey700: string
   grey800: string
   grey900: string
-  success: string
-  success95: string
-  success80: string
-  success70: string
-  success60: string
-  success40: string
-  success30: string
-  success20: string
+  secondary50: string
+  secondary100: string
+  secondary200: string
+  secondary300: string
+  secondary400: string
+  secondary500: string
+  secondary600: string
+  secondary700: string
+  secondary800: string
+  secondary900: string
+  secondarya100?: string
+  secondarya200?: string
+  secondarya400?: string
+  secondarya700?: string
   error: string
   error95: string
   error80: string

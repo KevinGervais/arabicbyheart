@@ -7,6 +7,7 @@ export const CategoryStyled = styled.div<{}>`
   flex-direction: column;
   align-items: center;
   width: 100%;
+  height: calc(100% - 20px);
   .add-button {
     display: flex;
     align-items: center;
@@ -126,7 +127,9 @@ export const CategoryStyled = styled.div<{}>`
   .content {
     display: flex;
     justify-content: space-evenly;
+    overflow: scroll;
     flex-wrap: wrap;
     width: 100%;
+    padding-bottom: 40px;
   }
 `

@@ -16,14 +16,14 @@ export const BottomMenuStyled = styled.div`
     width: 60px;
     height: 60px;
     border-radius: 30px;
-    background: ${() => window.theme.primary500};
+    background: ${() => window.theme.secondary500};
     ${() => ["mac", "windows"].includes(getOS()) && css`
       &:hover {
-        background: ${() => window.theme.primary600};
+        background: ${() => window.theme.secondary600};
       }
     `}
     &:active {
-      background: ${() => window.theme.primary700};
+      background: ${() => window.theme.secondary700};
     }
     svg {
       color: white;
@@ -37,7 +37,7 @@ export const BottomMenuStyled = styled.div`
       width: 50px;
       height: 50px;
       border-radius: 25px;
-      border: 1px solid ${() => window.theme.primary300};
+      border: 1px solid ${() => window.theme.secondary300};
       margin: 5px;
     }
   }

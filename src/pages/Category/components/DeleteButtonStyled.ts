@@ -11,20 +11,21 @@ export const DeleteButtonStyled = styled.div<{}>`
   box-shadow: 0 0 5px hsla(0, 0%, 0%, 0.3);
   overflow: hidden;
   border-radius: 30px;
+  background: white;
   .left-content {
     ${center};
     ${clickable};
     width: 60px;
     height: 60px;
     border-radius: 30px;
-    background: ${() => window.theme.primary500};
+    background: ${() => window.theme.secondary500};
     ${() => ["mac", "windows"].includes(getOS()) && css`
       &:hover {
-        background: ${() => window.theme.primary600};
+        background: ${() => window.theme.secondary600};
       }
     `}
     &:active {
-      background: ${() => window.theme.primary700};
+      background: ${() => window.theme.secondary700};
     }
     svg {
       color: white;
@@ -40,16 +41,16 @@ export const DeleteButtonStyled = styled.div<{}>`
       padding: 10px;
       height: 30px;
       border-radius: 10px;
-      border: 2px solid ${() => getColor("red", "primary").primary500};
-      color: ${() => getColor("red", "primary").primary500};
+      border: 2px solid ${() => getColor("red", "secondary").secondary500};
+      color: ${() => getColor("red", "secondary").secondary500};
       margin-left: 20px;
       ${() => ["mac", "windows"].includes(getOS()) && css`
       &:hover {
-        background: ${() => getColor("red", "primary").primary50};
+        background: ${() => getColor("red", "secondary").secondary50};
       }
     `}
     &:active {
-      background: ${() => getColor("red", "primary").primary100};
+      background: ${() => getColor("red", "secondary").secondary100};
     }
     }
   }
