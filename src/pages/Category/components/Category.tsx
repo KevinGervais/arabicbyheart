@@ -136,11 +136,20 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
                 <input
                   placeholder={say.vocabularyPlacehoder}
                   value={titleList[index]}
+                  onKeyDown={(evt: React.KeyboardEvent<HTMLInputElement>) => {
+                    if (evt.key.length === 1 && languageList[index] === "ar") {
+                      evt.preventDefault()
+                      const newTitleList = [...titleList]
+                      newTitleList[index] = newTitleList[index] + functions.latinKeyToArabic(evt.key)
+                      this.setState({ titleList: newTitleList })
+                    }
+                  }}
                   onChange={(evt: React.ChangeEvent<HTMLInputElement>) => {
                     const newTitleList = [...titleList]
                     newTitleList[index] = evt.target.value
                     this.setState({ titleList: newTitleList })
                   }}
+
                 />
                 {recordingIndex !== index && <MicroIcon onClick={() => {
                   this.setState({ recordingIndex: index })
@@ -186,10 +195,10 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
                 <div key={item._id} className="item">
                   <span>{item.lang}</span>
                   <h4>{item.title}</h4>
-                  <PlayIcon onClick={() => {
+                  {item.audio !== "" && <PlayIcon onClick={() => {
                     const audio = new Audio(item.audio)
                     audio.play()
-                  }} />
+                  }} />}
                 </div>
               ))}
               <DeleteIcon onClick={() => this.deleteItem(index)} />

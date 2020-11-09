@@ -61,7 +61,7 @@ export class DiapositiveClass extends React.Component<DiapositiveProps, Diaposit
         .find((vocItem: VocabularyItem) => vocItem._id === item._id
         )) as VocabularyGroup
 
-    if (diapositiveSettings.isMicrophone) {
+    if (diapositiveSettings.isMicrophone && item.audio !== "") {
       const audio = new Audio(item.audio)
       audio.play()
     }

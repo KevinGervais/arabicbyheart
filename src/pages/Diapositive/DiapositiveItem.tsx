@@ -25,7 +25,7 @@ export class DiapositiveItem extends React.Component<DiapositiveItemProps, Diapo
         {!isAnswerShown && (
           <span>
             {currentVocabularyItem.title}
-            <PlayIcon onClick={() => new Audio(currentVocabularyItem.audio).play()} />
+            {currentVocabularyItem.audio !== "" && <PlayIcon onClick={() => new Audio(currentVocabularyItem.audio).play()} />}
           </span>
         )}
         {!isAnswerShown && (
@@ -34,7 +34,7 @@ export class DiapositiveItem extends React.Component<DiapositiveItemProps, Diapo
         {isAnswerShown && currentVocabularyGroup.list.map((vocItem: VocabularyItem) => (
           <span>
             {vocItem.title}
-            <PlayIcon onClick={() => new Audio(vocItem.audio).play()} />
+            {vocItem.audio !== "" && <PlayIcon onClick={() => new Audio(vocItem.audio).play()} />}
           </span>
         ))}
         <span>{say[currentVocabularyItem.lang]}</span>
