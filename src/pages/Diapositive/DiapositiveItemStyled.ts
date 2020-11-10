@@ -33,7 +33,7 @@ export const DiapositiveItemStyled = styled.div<{}>`
       position: fixed;
       width: 100vw;
       text-align: center;
-      top: 100px;
+      top: 150px;
       left: 0;
     }
     h4 {

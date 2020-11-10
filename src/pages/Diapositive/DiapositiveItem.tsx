@@ -31,7 +31,16 @@ export class DiapositiveItem extends React.Component<DiapositiveItemProps, Diapo
         {!isAnswerShown && (
           <h4 onClick={() => this.setState({ isAnswerShown: true })}>{say.showAnswer}</h4>
         )}
-        {isAnswerShown && currentVocabularyGroup.list.map((vocItem: VocabularyItem) => (
+        {isAnswerShown && currentVocabularyGroup.list.sort((itemA: VocabularyItem, itemB: VocabularyItem) => {
+          if (itemA._id === currentVocabularyItem._id) {
+            return -1
+          }
+          if (itemB._id === currentVocabularyItem._id) {
+            return 1
+          } else {
+            return 0
+          }
+        }).map((vocItem: VocabularyItem) => (
           <span>
             {vocItem.title}
             {vocItem.audio !== "" && <PlayIcon onClick={() => new Audio(vocItem.audio).play()} />}

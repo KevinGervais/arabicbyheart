@@ -19,7 +19,7 @@ export const DiapositiveStyled = styled.div<DiapositiveStyledProps>`
     const color = colors[colorName]
     return css`
       background: ${color[100]};
-      span, svg, input, h4 {
+      span, svg, input, h4, h3 {
         color: ${color[700]};
       }
       svg:not(.fa-play), h4 {
@@ -50,31 +50,14 @@ export const DiapositiveStyled = styled.div<DiapositiveStyledProps>`
   .content {
     ${center};
   }
-  .item {
-    display: flex;
-    flex-direction: column;
+  h3 {
+    position: fixed;
+    width: 100vw;
+    font-weight: bold;
+    font-size: 30px;
     text-align: center;
-    span:not(:last-child) {
-      font-size: 50px;
-      font-weight: bold;
-    }
-    span:last-child {
-      font-size: 24px;
-      position: fixed;
-      width: 100vw;
-      text-align: center;
-      top: 100px;
-      left: 0;
-    }
-    h4 {
-      ${clickable};
-      ${center};
-      margin-top: 30px;
-      transition: 0.3s all ease-in-out;
-      height: 30px;
-      padding: 0 15px;
-
-    }
+    top: 100px;
+    left: 0;
   }
   & > svg {
     ${clickable};

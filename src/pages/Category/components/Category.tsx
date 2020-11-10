@@ -140,7 +140,8 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
                     if (evt.key.length === 1 && languageList[index] === "ar") {
                       evt.preventDefault()
                       const newTitleList = [...titleList]
-                      newTitleList[index] = newTitleList[index] + functions.latinKeyToArabic(evt.key)
+                      const key = evt.altKey && evt.key === " " ? "ُ" : functions.latinKeyToArabic(evt.key)
+                      newTitleList[index] = newTitleList[index] + key
                       this.setState({ titleList: newTitleList })
                     }
                   }}
