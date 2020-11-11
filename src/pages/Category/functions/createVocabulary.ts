@@ -5,6 +5,8 @@ import localforage from "localforage"
 
 import { CategoryClass } from "../components/Category"
 
+import { getImage } from "."
+
 export function createVocabulary(this: CategoryClass): void {
   const { selectedCategory } = this.props
   const { titleList, audioList, languageList } = this.state
@@ -17,8 +19,8 @@ export function createVocabulary(this: CategoryClass): void {
       lang: languageList[index],
       _id: generateId()
     }))
-  this.getImage()
-    .then((image: string) => {
+  getImage(titleList, languageList)
+    .then((image: string | undefined) => {
       const newGroup: VocabularyGroup = {
         image,
         list: newItems,

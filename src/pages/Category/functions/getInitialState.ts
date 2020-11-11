@@ -28,7 +28,7 @@ export function getInitialState(this: CategoryClass, isSkipOptions?: boolean): C
         .map((_: string, index: number) => speechLanguages[index] || speechLanguages[3])
     }
     if (diapositiveSettings) {
-      state = { ...state, ...diapositiveSettings }
+      state = { ...state, ...diapositiveSettings, isDiaporamaImage: diapositiveSettings.isImage }
       if (diapositiveSettings.isTitlesFromListActive.length !== selectedCategory.columnCount) {
         state.isTitlesFromListActive = Array(selectedCategory.columnCount).fill(true)
       }

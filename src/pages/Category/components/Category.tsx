@@ -9,10 +9,14 @@ import StopIcon from "@/images/stop"
 import PlayIcon from "@/images/play"
 import DeleteIcon from "@/images/delete"
 import DiapoIcon from "@/images/diapo"
+import SyncIcon from "@/images/sync"
 import InfinityIcon from "@/images/infinity"
+import ImageIcon from "@/images/image"
 import NoMicroIcon from "@/images/noMicro"
 import ShuffleIcon from "@/images/shuffle"
 import { SpeechLanguages, VocabularyGroup, VocabularyItem } from "@/model"
+import localforage from "localforage"
+import { setReduxState } from "@/redux"
 
 import { Select } from "../../../ui/components/Select"
 import { CategoryProps, CategoryState } from "../model"
@@ -37,7 +41,6 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
   setAudio: (evt: any) => void
   setTitle: (evt: SpeechRecognitionEvent) => void
   createVocabulary: () => void
-  getImage: () => Promise<string>
   deleteItem: (index: number) => void
   goToDiapositive: () => void
   deleteCategory: () => void
@@ -51,23 +54,28 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
     this.setAudio = functions.setAudio.bind(this)
     this.getInitialState = functions.getInitialState.bind(this)
     this.createVocabulary = functions.createVocabulary.bind(this)
-    this.getImage = functions.getImage.bind(this)
     this.deleteItem = functions.deleteItem.bind(this)
     this.goToDiapositive = functions.goToDiapositive.bind(this)
     this.deleteCategory = functions.deleteCategory.bind(this)
     this.onAudioStop = functions.onAudioStop.bind(this)
     this.saveDiapositiveSettings = functions.saveDiapositiveSettings.bind(this)
-    this.state = {
-      ...this.getInitialState(),
+    let state: CategoryState = {
       isMicrophone: true,
       isShuffle: true,
+      isDiaporamaImage: true,
       delay: 5,
+    } as any
+
+    state = {
+      ...state,
+      ...this.getInitialState(),
       isCreatingVocabulary: false,
       isBottomMenuOpened: false,
       recordingIndex: -1,
       isAskingDelete: false
-
     }
+
+    this.state = state
 
     const speechReco = window.SpeechRecognition || (window as any).webkitSpeechRecognition
     this.titleSpeech = new speechReco()
@@ -99,7 +107,7 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
 
 
   render(): JSX.Element | null {
-    const { selectedCategory, say } = this.props
+    const { selectedCategory, say, vocabularyCategoryList } = this.props
     const {
       isCreatingVocabulary,
       isBottomMenuOpened,
@@ -110,7 +118,8 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
       isMicrophone,
       isShuffle,
       delay,
-      isAskingDelete
+      isAskingDelete,
+      isDiaporamaImage
     } = this.state
     if (!selectedCategory) {
       return null
@@ -192,17 +201,37 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
         <div className="content">
           {selectedCategory.items.map((vocabularyColumns: VocabularyGroup, index: number) => (
             <VocabularyItemStyled key={vocabularyColumns._id}>
-              {vocabularyColumns.list.map((item: VocabularyItem) => (
-                <div key={item._id} className="item">
-                  <span>{item.lang}</span>
-                  <h4>{item.title}</h4>
-                  {item.audio !== "" && <PlayIcon onClick={() => {
-                    const audio = new Audio(item.audio)
-                    audio.play()
-                  }} />}
+              {vocabularyColumns.image && (
+                <div className="img" onClick={() => {
+                  const itemLangList = vocabularyColumns.list.map((item: VocabularyItem) => item.lang)
+                  const itemTitleList = vocabularyColumns.list.map((item: VocabularyItem) => item.title)
+                  functions.getImage(itemTitleList, itemLangList, vocabularyColumns.image).then((image: string | undefined) => {
+                    vocabularyColumns.image = image
+                    const newVocabularyCategoryList = [...vocabularyCategoryList]
+                    setReduxState({
+                      selectedCategory: { ...selectedCategory },
+                      vocabularyCategoryList: newVocabularyCategoryList
+                    })
+                    localforage.setItem("vocabularyCategoryList", newVocabularyCategoryList)
+                  })
+                }}>
+                  <img src={vocabularyColumns.image} alt={vocabularyColumns.list[0].title} />
+                  <SyncIcon />
                 </div>
-              ))}
-              <DeleteIcon onClick={() => this.deleteItem(index)} />
+              )}
+              <div className="vertical-container">
+                {vocabularyColumns.list.map((item: VocabularyItem) => (
+                  <div key={item._id} className="item">
+                    <span>{item.lang}</span>
+                    <h4>{item.title}</h4>
+                    {item.audio !== "" && <PlayIcon onClick={() => {
+                      const audio = new Audio(item.audio)
+                      audio.play()
+                    }} />}
+                  </div>
+                ))}
+                <DeleteIcon onClick={() => this.deleteItem(index)} />
+              </div>
             </VocabularyItemStyled>
           ))}</div>
 
@@ -229,6 +258,12 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
                   {`${say.vocabularyTitle} ${index + 1}`}
                 </BottomMenuItemStyled>
               ))}
+              <BottomMenuItemStyled
+                isActive={isDiaporamaImage}
+                onClick={() => this.setState({ isDiaporamaImage: !isDiaporamaImage })}
+              >
+                <ImageIcon />
+              </BottomMenuItemStyled>
               <BottomMenuItemStyled
                 isActive={isMicrophone}
                 onClick={() => this.setState({ isMicrophone: !isMicrophone })}

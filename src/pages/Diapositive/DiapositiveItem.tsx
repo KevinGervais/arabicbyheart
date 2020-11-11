@@ -10,28 +10,46 @@ export class DiapositiveItem extends React.Component<DiapositiveItemProps, Diapo
     isAnswerShown: false
   }
   componentDidUpdate(oldProps: DiapositiveItemProps): void {
-    const { currentVocabularyItem } = this.props
+    const { currentVocabularyItem, currentVocabularyGroup } = this.props
     const { isAnswerShown } = this.state
-    if (isAnswerShown && oldProps.currentVocabularyItem._id !== currentVocabularyItem._id) {
+    if (
+      isAnswerShown
+      && (
+        (
+          currentVocabularyItem
+          && oldProps.currentVocabularyItem
+          && oldProps.currentVocabularyItem._id !== currentVocabularyItem._id
+        )
+        || (
+          currentVocabularyGroup.image !== oldProps.currentVocabularyGroup.image
+        ))
+    ) {
       this.setState({ isAnswerShown: false })
     }
   }
 
   render(): JSX.Element {
-    const { currentVocabularyGroup, currentVocabularyItem, say } = this.props
+    const { currentVocabularyGroup, currentVocabularyItem, say, isImage } = this.props
     const { isAnswerShown } = this.state
     return (
       <DiapositiveItemStyled>
         {!isAnswerShown && (
-          <span>
-            {currentVocabularyItem.title}
-            {currentVocabularyItem.audio !== "" && <PlayIcon onClick={() => new Audio(currentVocabularyItem.audio).play()} />}
-          </span>
+          <>
+            {isImage && currentVocabularyGroup.image && <img src={currentVocabularyGroup.image} alt={currentVocabularyItem && currentVocabularyItem.title} />}
+            {currentVocabularyItem && !currentVocabularyItem.isImageOnly && <span>
+              {currentVocabularyItem.title}
+              {currentVocabularyItem.audio !== "" && <PlayIcon onClick={() => new Audio(currentVocabularyItem.audio).play()} />}
+            </span>}
+            <h4 onClick={() => this.setState({ isAnswerShown: true })}>{say.showAnswer}</h4>
+          </>
         )}
-        {!isAnswerShown && (
-          <h4 onClick={() => this.setState({ isAnswerShown: true })}>{say.showAnswer}</h4>
+        {isAnswerShown && isImage && currentVocabularyGroup.image && (
+          <img src={currentVocabularyGroup.image} alt={currentVocabularyItem && currentVocabularyItem.title} />
         )}
         {isAnswerShown && currentVocabularyGroup.list.sort((itemA: VocabularyItem, itemB: VocabularyItem) => {
+          if (!currentVocabularyItem) {
+            return 0
+          }
           if (itemA._id === currentVocabularyItem._id) {
             return -1
           }
@@ -46,7 +64,11 @@ export class DiapositiveItem extends React.Component<DiapositiveItemProps, Diapo
             {vocItem.audio !== "" && <PlayIcon onClick={() => new Audio(vocItem.audio).play()} />}
           </span>
         ))}
-        <span>{say[currentVocabularyItem.lang]}</span>
+        {isAnswerShown && !isImage && currentVocabularyGroup.image && (
+          <img src={currentVocabularyGroup.image} alt={currentVocabularyItem && currentVocabularyItem.title} />
+        )}
+
+        {currentVocabularyItem && <span>{say[currentVocabularyItem.lang]}</span>}
       </DiapositiveItemStyled>
     )
   }

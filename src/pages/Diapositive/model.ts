@@ -18,10 +18,16 @@ export interface DiapositiveStyledProps {
 
 export interface DiapositiveItemProps {
   currentVocabularyGroup: VocabularyGroup
-  currentVocabularyItem: VocabularyItem
+  currentVocabularyItem: DiapositiveItemObject
+  isImage: boolean
   say: Say
 }
 
 export interface DiapositiveItemState {
   isAnswerShown: boolean
+}
+
+export interface DiapositiveItemObject extends VocabularyItem {
+  image?: string
+  isImageOnly: boolean
 }

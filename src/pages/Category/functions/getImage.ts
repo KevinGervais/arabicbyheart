@@ -1,19 +1,34 @@
+import { SpeechLanguages } from '@/model'
 import GoogleImages from 'google-images'
 
-import { CategoryClass } from "../components/Category"
-
-export async function getImage(this: CategoryClass): Promise<string> {
-  const { languageList } = this.state
+export async function getImage(
+  titleList: string[],
+  languageList: SpeechLanguages[],
+  lastImage?: string
+): Promise<string | undefined> {
   const enIndex = languageList.indexOf("en")
   const frIndex = languageList.indexOf("fr")
   const arIndex = languageList.indexOf("ar")
   const index = enIndex === -1 ? frIndex === -1 ? arIndex : frIndex : enIndex
-  const client = new GoogleImages('877397795c5259820', 'AIzaSyD5dxjKQnFJ_dHZ7p4tS5OkfuGst_-frfo')
-  const result: GoogleImages.Image[] = await client.search("Steve Angello", { safe: "off" })
-  console.log(result)
+  const client = new GoogleImages('877397795c5259820', 'AIzaSyAhz8mkUkgg5QGFGusRDqK30LoIcM9YpzU')
+  const result: GoogleImages.Image[] = await client.search(titleList[index], { safe: "off" })
   if (result[0]) {
-    return result[0].thumbnail.url
+    if (lastImage) {
+      const foundIndex = result.findIndex((img: GoogleImages.Image) => img.thumbnail.url === lastImage)
+      if (foundIndex === -1) {
+        return result[0].thumbnail.url
+      } else {
+        if (result[foundIndex + 1]) {
+          return result[foundIndex + 1].thumbnail.url
+
+        } else {
+          return result[0].thumbnail.url
+        }
+      }
+    } else {
+      return result[0].thumbnail.url
+    }
   } else {
-    return ""
+    return undefined
   }
 }

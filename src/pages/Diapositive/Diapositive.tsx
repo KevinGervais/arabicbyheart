@@ -5,10 +5,10 @@ import { connect } from "react-redux"
 import ArrowIcon from "@/images/rightArrow"
 
 import { DiapositiveStyled } from "./DiapositiveStyled"
-import { DiapositiveProps, DiapositiveState } from "./model"
+import { DiapositiveItemObject, DiapositiveProps, DiapositiveState } from "./model"
 import { DiapositiveItem } from "./DiapositiveItem"
 export class DiapositiveClass extends React.Component<DiapositiveProps, DiapositiveState> {
-  items: VocabularyItem[] = []
+  items: DiapositiveItemObject[] = []
   timeRef: HTMLInputElement | undefined
   lastInterval: number = -1
   constructor(props: DiapositiveProps) {
@@ -35,9 +35,19 @@ export class DiapositiveClass extends React.Component<DiapositiveProps, Diaposit
       this.items = []
       return
     }
-    this.items = selectedCategory.items.map((group: VocabularyGroup) => (
-      group.list.filter((val: VocabularyItem, index: number) => diapositiveSettings.isTitlesFromListActive[index])
-    )).flat()
+    this.items = selectedCategory.items.map((group: VocabularyGroup) => {
+      const filteredList = group.list
+        .filter((val: VocabularyItem, index: number) => diapositiveSettings.isTitlesFromListActive[index])
+      let isImageOnly: boolean = false
+      if (filteredList.length === 0) {
+        filteredList.push(group.list[0])
+        isImageOnly = true
+      }
+      const diapositiveItem = filteredList.map((vocabularyItem: VocabularyItem): DiapositiveItemObject => (
+        { ...vocabularyItem, image: group.image, isImageOnly }
+      ))
+      return diapositiveItem
+    }).flat()
     if (diapositiveSettings.isShuffle) {
       this.items = this.items.sort(Math.random)
     }
@@ -52,8 +62,8 @@ export class DiapositiveClass extends React.Component<DiapositiveProps, Diaposit
   render(): JSX.Element | null {
     const { selectedCategory, diapositiveSettings, say } = this.props
     const { currentIndex } = this.state
-    const item: VocabularyItem | undefined = this.items[currentIndex]
-    if (!selectedCategory || !diapositiveSettings || !item) {
+    const item: DiapositiveItemObject | undefined = this.items[currentIndex]
+    if (!selectedCategory || !diapositiveSettings || item === undefined) {
       return <DiapositiveStyled index={0} />
     }
     const vocabularyGroup: VocabularyGroup = selectedCategory.items
@@ -93,6 +103,7 @@ export class DiapositiveClass extends React.Component<DiapositiveProps, Diaposit
         <div className="content">
           <h3>{`${currentIndex + 1}/${this.items.length}`}</h3>
           <DiapositiveItem
+            isImage={diapositiveSettings.isImage}
             currentVocabularyGroup={vocabularyGroup}
             currentVocabularyItem={item}
             say={say}

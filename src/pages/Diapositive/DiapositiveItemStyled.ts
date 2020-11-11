@@ -6,6 +6,7 @@ export const DiapositiveItemStyled = styled.div<{}>`
     display: flex;
     flex-direction: column;
     text-align: center;
+    align-items: center;
     span:not(:last-child) {
       font-size: 50px;
       font-weight: bold;
@@ -44,5 +45,12 @@ export const DiapositiveItemStyled = styled.div<{}>`
       height: 30px;
       padding: 0 15px;
 
+    }
+    img {
+      flex-shrink: 0;
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 30px;
     }
 `

@@ -34,7 +34,7 @@ export interface VocabularyCategory {
 export interface VocabularyGroup {
   _id: string
   list: VocabularyItem[]
-  image: string
+  image?: string
 }
 
 export interface VocabularyItem {
@@ -53,4 +53,5 @@ export interface DiapositiveSettings {
   isMicrophone: boolean
   isShuffle: boolean
   delay: diapositiveDelay
+  isImage: boolean
 }
