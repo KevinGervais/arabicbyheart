@@ -17,6 +17,7 @@ export interface CategoryState {
   languageList: SpeechLanguages[]
   isTitlesFromListActive: boolean[]
   isMicrophone: boolean
+  isCreatingWithImage: boolean
   isDiaporamaImage: boolean
   isShuffle: boolean
   delay: diapositiveDelay

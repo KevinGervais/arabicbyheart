@@ -19,6 +19,7 @@ export const en: Say = {
   askDelete: "Delete the category?",
   yes: "Yes",
   badBrowser: "This app is only available on google chrome now...",
-  showAnswer: "Show answer"
+  showAnswer: "Show answer",
+  isWithImage: "With image"
 
 }

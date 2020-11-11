@@ -26,4 +26,6 @@ export type SayKeywords =
   | "yes"
   | "badBrowser"
   | "showAnswer"
+  | "isWithImage"
+
 

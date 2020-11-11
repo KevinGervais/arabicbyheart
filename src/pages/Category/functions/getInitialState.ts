@@ -17,10 +17,12 @@ export function getInitialState(this: CategoryClass, isSkipOptions?: boolean): C
     titleList: Array(selectedCategory.columnCount).fill(""),
     audioList: Array(selectedCategory.columnCount).fill(""),
     isTitlesFromListActive: Array(selectedCategory.columnCount).fill(true),
+    isCreatingWithImage: true,
   }
   if (!isSkipOptions) {
     const lastVocabulary: VocabularyGroup | undefined = selectedCategory.items[selectedCategory.items.length - 1]
     if (lastVocabulary) {
+      state.isCreatingWithImage = !!lastVocabulary.image
       state.languageList = lastVocabulary.list.map((vocItem: VocabularyItem) => vocItem.lang)
     } else {
       state.languageList = Array(selectedCategory.columnCount)

@@ -17,6 +17,7 @@ import ShuffleIcon from "@/images/shuffle"
 import { SpeechLanguages, VocabularyGroup, VocabularyItem } from "@/model"
 import localforage from "localforage"
 import { setReduxState } from "@/redux"
+import { Toggle } from "@/ui/components"
 
 import { Select } from "../../../ui/components/Select"
 import { CategoryProps, CategoryState } from "../model"
@@ -63,6 +64,7 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
       isMicrophone: true,
       isShuffle: true,
       isDiaporamaImage: true,
+      isCreatingWithImage: true,
       delay: 5,
     } as any
 
@@ -119,7 +121,8 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
       isShuffle,
       delay,
       isAskingDelete,
-      isDiaporamaImage
+      isDiaporamaImage,
+      isCreatingWithImage
     } = this.state
     if (!selectedCategory) {
       return null
@@ -184,6 +187,11 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
               </div>
             ))}
             <div>
+              <Toggle
+                active={isCreatingWithImage}
+                label={say.isWithImage}
+                onChange={() => this.setState({ isCreatingWithImage: !isCreatingWithImage })}
+              />
               <div className="button" onClick={this.createVocabulary}>
                 <SaveIcon />
               </div>
