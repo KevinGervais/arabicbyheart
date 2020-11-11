@@ -10,7 +10,7 @@ export class DiapositiveItem extends React.Component<DiapositiveItemProps, Diapo
     isAnswerShown: false
   }
   componentDidUpdate(oldProps: DiapositiveItemProps): void {
-    const { currentVocabularyItem, currentVocabularyGroup } = this.props
+    const { currentVocabularyItem, currentVocabularyGroup, } = this.props
     const { isAnswerShown } = this.state
     if (
       isAnswerShown
@@ -29,7 +29,8 @@ export class DiapositiveItem extends React.Component<DiapositiveItemProps, Diapo
   }
 
   render(): JSX.Element {
-    const { currentVocabularyGroup, currentVocabularyItem, say, isImage } = this.props
+    const { currentVocabularyGroup, currentVocabularyItem, say, isImage, languageList } = this.props
+    const index: number = currentVocabularyGroup.list.findIndex((item: VocabularyItem) => item._id = currentVocabularyItem._id)
     const { isAnswerShown } = this.state
     return (
       <DiapositiveItemStyled>
@@ -68,7 +69,7 @@ export class DiapositiveItem extends React.Component<DiapositiveItemProps, Diapo
           <img src={currentVocabularyGroup.image} alt={currentVocabularyItem && currentVocabularyItem.title} />
         )}
 
-        {currentVocabularyItem && <span>{say[currentVocabularyItem.lang]}</span>}
+        {currentVocabularyItem && <span>{say[languageList[index]]}</span>}
       </DiapositiveItemStyled>
     )
   }

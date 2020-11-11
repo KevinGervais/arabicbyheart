@@ -27,6 +27,7 @@ export type NotchPosition = "left" | "right" | "top" | "bottom" | undefined
 export interface VocabularyCategory {
   title: string
   columnCount: number
+  languageList: SpeechLanguages[]
   items: VocabularyGroup[]
   _id: string
 }
@@ -41,7 +42,6 @@ export interface VocabularyItem {
   _id: string
   title: string
   audio: string
-  lang: SpeechLanguages
 }
 
 export type diapositiveDelay = 2 | 3 | 5 | 10 | 15 | false

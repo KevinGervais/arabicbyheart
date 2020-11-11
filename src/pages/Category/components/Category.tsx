@@ -213,9 +213,10 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
             <VocabularyItemStyled key={vocabularyColumns._id}>
               {vocabularyColumns.image && (
                 <div className="img" onClick={() => {
-                  const itemLangList = vocabularyColumns.list.map((item: VocabularyItem) => item.lang)
                   const itemTitleList = vocabularyColumns.list.map((item: VocabularyItem) => item.title)
-                  functions.getImage(itemTitleList, itemLangList, vocabularyColumns.image).then((image: string | undefined) => {
+                  functions.getImage(
+                    itemTitleList, selectedCategory.languageList, vocabularyColumns.image
+                  ).then((image: string | undefined) => {
                     vocabularyColumns.image = image
                     const newVocabularyCategoryList = [...vocabularyCategoryList]
                     setReduxState({
@@ -230,9 +231,9 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
                 </div>
               )}
               <div className="vertical-container">
-                {vocabularyColumns.list.map((item: VocabularyItem) => (
+                {vocabularyColumns.list.map((item: VocabularyItem, columnIndex: number) => (
                   <div key={item._id} className="item">
-                    <span>{item.lang}</span>
+                    <span>{languageList[columnIndex]}</span>
                     <h4>{item.title}</h4>
                     {item.audio !== "" && <PlayIcon onClick={() => {
                       const audio = new Audio(item.audio)
@@ -256,7 +257,7 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
               className="left-content"
             >
               {Array(selectedCategory.columnCount).fill(0).map((_: number, index: number) => {
-                const lang = selectedCategory.items[0].list[index].lang
+                const lang = languageList[index]
                 const langOccurences = languageList.filter((language: SpeechLanguages) => language === lang).length
                 const langIndex = languageList.slice(0, index + 1).filter((language: SpeechLanguages) => language === lang).length
                 return (

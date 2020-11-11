@@ -1,4 +1,4 @@
-import { VocabularyCategory, VocabularyItem } from "@/model"
+import { SpeechLanguages, VocabularyCategory, VocabularyItem } from "@/model"
 import { ReduxState } from "@/redux/model"
 import React from "react"
 import { connect } from "react-redux"
@@ -30,6 +30,7 @@ export class HomeClass extends React.Component<HomeProps, HomeState> {
       columnCount,
       title: newCategoryTitle,
       items: [],
+      languageList: Array(columnCount).fill("fr", 0, 1).fill("ar", 1),
       _id: generateId()
     }
 
@@ -83,11 +84,18 @@ export class HomeClass extends React.Component<HomeProps, HomeState> {
             >
               <h1>{category.title || say.category}</h1>
               {category.items[0] && (
-                <span>{category.items[0].list.map((item: VocabularyItem) => say[item.lang]).join(" - ")}</span>
+                <span>{category.items[0].list
+                  .filter((item: VocabularyItem, index: number) => {
+                    const lang = category.languageList[index]
+                    const langIndex = category.languageList.slice(0, index + 1).filter((language: SpeechLanguages) => language === lang).length
+                    return langIndex < 2
+                  })
+                  .map((item: VocabularyItem, index: number) => say[category.languageList[index]]).join(" - ")}</span>
               )}
               <RightArrowIcon />
             </VocabularyCategoryStyled>
-          ))}
+          )
+          )}
         </div>
       </HomeStyled>
     )

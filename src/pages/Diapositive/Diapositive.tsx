@@ -107,6 +107,7 @@ export class DiapositiveClass extends React.Component<DiapositiveProps, Diaposit
             isImage={diapositiveSettings.isImage}
             currentVocabularyGroup={vocabularyGroup}
             currentVocabularyItem={item}
+            languageList={selectedCategory.languageList}
             say={say}
           />
         </div>

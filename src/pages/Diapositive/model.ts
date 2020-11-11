@@ -1,5 +1,5 @@
 import { Say } from "@/languages/model"
-import { DiapositiveSettings, VocabularyCategory, VocabularyGroup, VocabularyItem } from "@/model"
+import { DiapositiveSettings, SpeechLanguages, VocabularyCategory, VocabularyGroup, VocabularyItem } from "@/model"
 
 export interface DiapositiveProps {
   say: Say
@@ -19,6 +19,7 @@ export interface DiapositiveStyledProps {
 export interface DiapositiveItemProps {
   currentVocabularyGroup: VocabularyGroup
   currentVocabularyItem: DiapositiveItemObject
+  languageList: SpeechLanguages[]
   isImage: boolean
   say: Say
 }

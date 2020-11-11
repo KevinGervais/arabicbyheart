@@ -17,10 +17,9 @@ export function createVocabulary(this: CategoryClass): void {
   }
   const newItems: VocabularyItem[] = Array((selectedCategory as VocabularyCategory).columnCount)
     .fill("")
-    .map((_: string, index: number) => ({
+    .map((_: string, index: number): VocabularyItem => ({
       title: titleList[index],
       audio: audioList[index],
-      lang: languageList[index],
       _id: generateId()
     }))
   const makeVocabulary = (image?: string) => {
@@ -29,7 +28,7 @@ export function createVocabulary(this: CategoryClass): void {
       list: newItems,
       _id: generateId()
     }
-    const newSelectedCategory: VocabularyCategory = { ...selectedCategory as VocabularyCategory }
+    const newSelectedCategory: VocabularyCategory = { ...selectedCategory as VocabularyCategory, languageList }
     newSelectedCategory.items.push(newGroup)
     const categoryIndex = vocabularyCategoryList
       .findIndex((category: VocabularyCategory) => category._id === newSelectedCategory._id)

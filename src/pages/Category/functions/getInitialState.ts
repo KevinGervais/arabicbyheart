@@ -1,6 +1,6 @@
 import { VocabularyGroup, VocabularyItem } from "@/model"
 
-import { CategoryClass, speechLanguages } from "../components/Category"
+import { CategoryClass } from "../components/Category"
 import { CategoryInitState, CategoryState } from "../model"
 
 
@@ -22,11 +22,9 @@ export function getInitialState(this: CategoryClass, isSkipOptions?: boolean): C
     const lastVocabulary: VocabularyGroup | undefined = selectedCategory.items[selectedCategory.items.length - 1]
     if (lastVocabulary) {
       state.isCreatingWithImage = !!lastVocabulary.image
-      state.languageList = lastVocabulary.list.map((vocItem: VocabularyItem) => vocItem.lang)
+      state.languageList = lastVocabulary.list.map((vocItem: VocabularyItem, index: number) => selectedCategory.languageList[index])
     } else {
-      state.languageList = Array(selectedCategory.columnCount)
-        .fill("")
-        .map((_: string, index: number) => speechLanguages[index] || speechLanguages[3])
+      state.languageList = selectedCategory.languageList
     }
     if (diapositiveSettings) {
       state = { ...state, ...diapositiveSettings, isDiaporamaImage: diapositiveSettings.isImage }
