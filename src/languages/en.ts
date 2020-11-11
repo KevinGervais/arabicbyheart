@@ -11,7 +11,7 @@ export const en: Say = {
   categoryPlacehoder: "Enter a category",
   addVocabulary: "Add some vocabulary",
   vocabularyPlacehoder: "Enter a word or reccord audio",
-  vocabularyTitle: "Word",
+  vocabularyTitle: "Description",
   en: "English",
   fr: "French",
   ar: "Arabic",

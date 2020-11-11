@@ -245,7 +245,7 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
             </VocabularyItemStyled>
           ))}</div>
 
-        <BottomMenuStyled >
+        {selectedCategory.items.length > 0 && <BottomMenuStyled>
           {isBottomMenuOpened && (
             <div
 
@@ -255,19 +255,24 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
               }}
               className="left-content"
             >
-              {Array(selectedCategory.columnCount).fill(0).map((_: number, index: number) => (
-                <BottomMenuItemStyled
-                  key={index}
-                  isActive={isTitlesFromListActive[index]}
-                  onClick={() => {
-                    const newIsTitlesFromListActive = [...isTitlesFromListActive]
-                    newIsTitlesFromListActive[index] = !newIsTitlesFromListActive[index]
-                    this.setState({ isTitlesFromListActive: newIsTitlesFromListActive })
-                  }}
-                >
-                  {`${say.vocabularyTitle} ${index + 1}`}
-                </BottomMenuItemStyled>
-              ))}
+              {Array(selectedCategory.columnCount).fill(0).map((_: number, index: number) => {
+                const lang = selectedCategory.items[0].list[index].lang
+                const langOccurences = languageList.filter((language: SpeechLanguages) => language === lang).length
+                const langIndex = languageList.slice(0, index + 1).filter((language: SpeechLanguages) => language === lang).length
+                return (
+                  <BottomMenuItemStyled
+                    key={index}
+                    isActive={isTitlesFromListActive[index]}
+                    onClick={() => {
+                      const newIsTitlesFromListActive = [...isTitlesFromListActive]
+                      newIsTitlesFromListActive[index] = !newIsTitlesFromListActive[index]
+                      this.setState({ isTitlesFromListActive: newIsTitlesFromListActive })
+                    }}
+                  >
+                    {`${lang} ${langOccurences > 1 ? langIndex : ""}`}
+                  </BottomMenuItemStyled>
+                )
+              })}
               <BottomMenuItemStyled
                 isActive={isDiaporamaImage}
                 onClick={() => this.setState({ isDiaporamaImage: !isDiaporamaImage })}
@@ -309,7 +314,7 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
             {!isBottomMenuOpened && <DiapoIcon />}
             {isBottomMenuOpened && <PlayIcon />}
           </div>
-        </BottomMenuStyled>
+        </BottomMenuStyled>}
         <DeleteButtonStyled onClick={(evt: React.MouseEvent<HTMLDivElement>) => evt.stopPropagation()} >
           <div className="left-content" onClick={() => this.setState({ isAskingDelete: !isAskingDelete })}>
             <DeleteIcon />
@@ -321,7 +326,7 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
             </div>
           )}
         </DeleteButtonStyled>
-      </CategoryStyled >
+      </CategoryStyled>
     )
   }
 }

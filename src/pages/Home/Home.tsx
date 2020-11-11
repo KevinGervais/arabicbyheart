@@ -1,4 +1,4 @@
-import { VocabularyCategory } from "@/model"
+import { VocabularyCategory, VocabularyItem } from "@/model"
 import { ReduxState } from "@/redux/model"
 import React from "react"
 import { connect } from "react-redux"
@@ -82,6 +82,9 @@ export class HomeClass extends React.Component<HomeProps, HomeState> {
               }}
             >
               <h1>{category.title || say.category}</h1>
+              {category.items[0] && (
+                <span>{category.items[0].list.map((item: VocabularyItem) => say[item.lang]).join(" - ")}</span>
+              )}
               <RightArrowIcon />
             </VocabularyCategoryStyled>
           ))}

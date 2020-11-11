@@ -44,7 +44,7 @@ export const CategoryStyled = styled.div<{}>`
     border-radius: 20px;
     margin: 20px 0;
     width: 100%;
-    max-width: 500px;
+    max-width: 600px;
     box-shadow: 0 0 5px hsla(0, 0%, 0%, 0.3);
     & > div {
       display: flex;
@@ -81,12 +81,13 @@ export const CategoryStyled = styled.div<{}>`
         ${center}
         height: 100%;
         background: ${() => window.theme.grey200};
-        width: 150px;
+        width: 100px;
+        flex-shrink: 0;
       }
       .select {
         background: ${() => window.theme.primary600};
         color: white;
-        width: 150px;
+        width: 100px;
         height: 100%;
       }
       .button {
