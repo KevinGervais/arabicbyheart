@@ -4,6 +4,7 @@ import { getReduxState, setReduxState } from "@/redux"
 import localforage from "localforage"
 
 import { CategoryClass } from "../components/Category"
+import { CategoryState } from "../model"
 
 import { getImage } from "."
 
@@ -40,7 +41,7 @@ export function createVocabulary(this: CategoryClass): void {
     })
     localforage.setItem("vocabularyCategoryList", newVocabularyCategoryList)
 
-    this.setState(this.getInitialState(true))
+    this.setState(this.getInitialState(true) as CategoryState)
   }
   if (isCreatingWithImage) {
     getImage(titleList, languageList)

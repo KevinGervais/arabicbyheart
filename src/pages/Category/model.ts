@@ -27,3 +27,12 @@ export interface CategoryState {
 export interface BottomMenuItemStyledProps {
   isActive: boolean
 }
+
+export interface CategoryInitState {
+  titleList: string[]
+  audioList: string[]
+  languageList?: SpeechLanguages[]
+  isTitlesFromListActive?: boolean[]
+  isCreatingWithImage?: boolean
+  isDiaporamaImage?: boolean
+}

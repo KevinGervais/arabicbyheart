@@ -20,7 +20,7 @@ import { setReduxState } from "@/redux"
 import { Toggle } from "@/ui/components"
 
 import { Select } from "../../../ui/components/Select"
-import { CategoryProps, CategoryState } from "../model"
+import { CategoryInitState, CategoryProps, CategoryState } from "../model"
 import * as functions from "../functions"
 
 import { CategoryStyled } from "./CategoryStyled"
@@ -37,7 +37,6 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
   titleReader?: FileReader
   audioChanged: boolean = false
   titleChanged: boolean = false
-  getInitialState: (isSkipLanguage?: boolean | undefined) => CategoryState
   setFinalAudio: () => void
   setAudio: (evt: any) => void
   setTitle: (evt: SpeechRecognitionEvent) => void
@@ -47,6 +46,7 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
   deleteCategory: () => void
   onAudioStop: () => void
   saveDiapositiveSettings: () => void
+  getInitialState: (isSkipOptions?: boolean | undefined) => CategoryInitState
 
   constructor(props: CategoryProps) {
     super(props)
@@ -95,7 +95,7 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
     const { selectedCategory } = this.props
     const { recordingIndex } = this.state
     if (!oldProps.selectedCategory && selectedCategory) {
-      this.setState(this.getInitialState())
+      this.setState(this.getInitialState() as CategoryState)
     }
 
     if (recordingIndex !== oldState.recordingIndex && recordingIndex !== -1) {
@@ -196,7 +196,7 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
                 <SaveIcon />
               </div>
               <div className="button" onClick={() => this.setState({
-                ...this.getInitialState(true),
+                ...this.getInitialState(true) as CategoryState,
                 isCreatingVocabulary: false,
                 recordingIndex: -1,
               })}>

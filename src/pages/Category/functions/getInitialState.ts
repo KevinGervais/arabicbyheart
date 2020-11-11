@@ -1,10 +1,10 @@
 import { VocabularyGroup, VocabularyItem } from "@/model"
 
 import { CategoryClass, speechLanguages } from "../components/Category"
-import { CategoryState } from "../model"
+import { CategoryInitState, CategoryState } from "../model"
 
 
-export function getInitialState(this: CategoryClass, isSkipOptions?: boolean): CategoryState {
+export function getInitialState(this: CategoryClass, isSkipOptions?: boolean): CategoryInitState {
   const { selectedCategory, diapositiveSettings } = this.props
   if (!selectedCategory) {
     return {
@@ -13,11 +13,10 @@ export function getInitialState(this: CategoryClass, isSkipOptions?: boolean): C
       languageList: []
     } as unknown as CategoryState
   }
-  let state: Partial<CategoryState> = {
+  let state: CategoryInitState = {
     titleList: Array(selectedCategory.columnCount).fill(""),
     audioList: Array(selectedCategory.columnCount).fill(""),
     isTitlesFromListActive: Array(selectedCategory.columnCount).fill(true),
-    isCreatingWithImage: true,
   }
   if (!isSkipOptions) {
     const lastVocabulary: VocabularyGroup | undefined = selectedCategory.items[selectedCategory.items.length - 1]
@@ -36,5 +35,5 @@ export function getInitialState(this: CategoryClass, isSkipOptions?: boolean): C
       }
     }
   }
-  return state as CategoryState
+  return state
 }
