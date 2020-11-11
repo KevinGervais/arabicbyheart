@@ -49,7 +49,8 @@ export class DiapositiveClass extends React.Component<DiapositiveProps, Diaposit
       return diapositiveItem
     }).flat()
     if (diapositiveSettings.isShuffle) {
-      this.items = this.items.sort(Math.random)
+      console.log("shuffling")
+      this.items = this.items.sort(() => Math.random() - 0.5)
     }
   }
 
