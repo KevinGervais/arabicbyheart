@@ -46,7 +46,7 @@ export const HomeStyled = styled.div<{}>`
         color: ${() => window.theme.grey400};
       }
       &:nth-child(2) {
-        width: 130px;
+        width: 70px;
         background: ${() => window.theme.grey200};
       }
     }

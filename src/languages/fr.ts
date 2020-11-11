@@ -12,7 +12,6 @@ export const fr: Say = {
   vocabularyPlacehoder: "Entrer un mot ou enregister l'audio",
   addVocabulary: "Ajouter du vocabulaire",
   vocabularyTitle: "Mot",
-  vocabularyCount: "colonne(s)",
   en: "Anglais",
   fr: "Français",
   ar: "Arabe",

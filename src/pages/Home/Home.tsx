@@ -17,8 +17,8 @@ export class HomeClass extends React.Component<HomeProps, HomeState> {
     super(props)
     this.state = {
       newCategoryTitle: "",
-      newCategoryVocabularyCount: "",
-      isCreatingCategory: false
+      newCategoryVocabularyCount: "2",
+      isCreatingCategory: false,
     }
   }
   createVocabularyCategory = (): void => {
@@ -57,12 +57,17 @@ export class HomeClass extends React.Component<HomeProps, HomeState> {
               onChange={(evt: React.ChangeEvent<HTMLInputElement>) => this.setState({ newCategoryTitle: evt.target.value })}
             />
             <input
-              placeholder={say.vocabularyCount}
               value={newCategoryVocabularyCount}
               type="number"
               min="1"
               max="5"
-              onChange={(evt: React.ChangeEvent<HTMLInputElement>) => this.setState({ newCategoryVocabularyCount: evt.target.value })}
+              onChange={(evt: React.ChangeEvent<HTMLInputElement>) => (
+                this.setState({
+                  newCategoryVocabularyCount: (
+                    Number(evt.target.value) < 1 && evt.target.value !== ""
+                  ) ? "1" : Number(evt.target.value) > 5 ? "5" : evt.target.value
+                })
+              )}
             />
             <SaveIcon onClick={this.createVocabularyCategory} />
             <CloseIcon onClick={() => this.setState({ newCategoryTitle: "", isCreatingCategory: false })} />
