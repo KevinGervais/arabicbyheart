@@ -74,12 +74,19 @@ export const CategoryStyled = styled.div<{}>`
       h4 {
         display: flex;
         align-items: flex-end;
+        flex-shrink: 0;
         padding: 0 20px;
+      }
+      span {
+        ${center}
+        height: 100%;
+        background: ${() => window.theme.grey200};
+        width: 150px;
       }
       .select {
         background: ${() => window.theme.primary600};
         color: white;
-        width: 75px;
+        width: 150px;
         height: 100%;
       }
       .button {

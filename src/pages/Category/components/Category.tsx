@@ -164,6 +164,8 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
                   }}
 
                 />
+                {selectedCategory.items.length > 0 &&
+                  <span>{say[languageList[index]]}</span>}
                 {recordingIndex !== index && <MicroIcon onClick={() => {
                   this.setState({ recordingIndex: index })
                   this.titleSpeech.lang = languageList[index]
@@ -175,15 +177,15 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
                   }
                 }} />}
                 {recordingIndex === index && <StopIcon onClick={this.onAudioStop} />}
-                <Select
+                {selectedCategory.items.length === 0 && <Select
                   optionList={speechLanguages}
                   outputList={speechLanguages.map((lang: SpeechLanguages) => say[lang])}
-                  value={languageList[index]}
+                  value={say[languageList[index]]}
                   onChange={(newVal: string) => {
                     const newLanguageList = [...languageList]
                     newLanguageList[index] = newVal as SpeechLanguages
                     this.setState({ languageList: newLanguageList })
-                  }} />
+                  }} />}
               </div>
             ))}
             <div>
