@@ -11,6 +11,7 @@ export const VocabularyItemStyled = styled.div`
   width: 30%;
   max-width: 500px;
   box-shadow: 0 0 5px hsla(0, 0%, 0%, 0.3);
+  background: white;
   .vertical-container {
     width: 100%;
     display: flex;

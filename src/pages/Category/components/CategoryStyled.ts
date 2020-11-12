@@ -46,6 +46,7 @@ export const CategoryStyled = styled.div<{}>`
     width: 100%;
     max-width: 600px;
     box-shadow: 0 0 5px hsla(0, 0%, 0%, 0.3);
+    background: white;
     & > div {
       display: flex;
       width: 100%;

@@ -68,6 +68,7 @@ export const HomeStyled = styled.div<{}>`
   }
 
   .category-list {
+    background: white;
     width: 100%;
     max-width: 400px;
     box-shadow: 0 0 5px hsla(0, 0%, 0%, 0.3);

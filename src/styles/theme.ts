@@ -5,12 +5,12 @@ const theme: Theme = {
   // primary
   ...getColor(
     (localStorage.getItem("themeColor") as keyof AllColors | null) ||
-    "lightblue",
+    "cyan",
     "primary"
   ),
   // gray
   ...getColor("grey", "grey"),
-  ...getColor("orange", "secondary"),
+  ...getColor("pink", "secondary"),
   // success
   success: "hsl(120, 85%, 50%)",
   success95: "hsl(120, 80%, 95%)",

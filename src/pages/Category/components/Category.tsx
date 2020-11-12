@@ -18,7 +18,7 @@ import { SpeechLanguages, VocabularyGroup, VocabularyItem } from "@/model"
 import localforage from "localforage"
 import { setReduxState } from "@/redux"
 import { Toggle } from "@/ui/components"
-import { cloneCategory, getBrowser } from "@/functions"
+import { cloneCategory } from "@/functions"
 import Tooltip from "react-tooltip"
 
 import { Select } from "../../../ui/components/Select"
@@ -315,6 +315,7 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
                 {delay !== false && `${delay} s`}
                 {delay === false && <InfinityIcon />}
               </BottomMenuItemStyled>
+              <Tooltip effect="solid" place="right" />
             </div>
           )}
           <div

@@ -5,7 +5,7 @@ import { ReduxState } from "@/redux/model"
 import { TitleBar } from "../components"
 import { Home, Category, Diapositive } from "../../pages"
 
-import { RoutesStyled } from "./styles"
+import { RoutesStyled } from "./RoutesStyled"
 import { RoutesProps } from "./model"
 
 const RoutesNotConnected = (props: RoutesProps): JSX.Element => {

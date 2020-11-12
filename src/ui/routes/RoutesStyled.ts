@@ -4,6 +4,9 @@ import { getOS, isElectron } from "@/functions"
 export const RoutesStyled = styled.div<{}>`
   display: flex;
   flex-direction: column;
+  background: url("tasbih.svg");
+  background-size: 200px;
+  background-color: ${() => window.theme.primary50};
   ${() =>
     getOS() === "windows" && isElectron()
       ? css`
