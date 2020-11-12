@@ -139,6 +139,6 @@ export const CategoryStyled = styled.div<{}>`
     overflow: scroll;
     flex-wrap: wrap;
     width: 100%;
-    padding-bottom: 40px;
+    padding-bottom: 100px;
   }
 `

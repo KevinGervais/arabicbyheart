@@ -41,7 +41,7 @@ export interface VocabularyGroup {
 export interface VocabularyItem {
   _id: string
   title: string
-  audio: string
+  audio?: string
 }
 
 export type diapositiveDelay = 2 | 3 | 5 | 10 | 15 | false

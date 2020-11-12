@@ -124,7 +124,8 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
       delay,
       isAskingDelete,
       isDiaporamaImage,
-      isCreatingWithImage
+      isCreatingWithImage,
+      audioList
     } = this.state
     if (!selectedCategory) {
       return null
