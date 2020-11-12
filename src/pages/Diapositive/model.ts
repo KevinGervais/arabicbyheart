@@ -14,6 +14,7 @@ export interface DiapositiveState {
 
 export interface DiapositiveStyledProps {
   readonly index: number
+  readonly indexCount: number
 }
 
 export interface DiapositiveItemProps {

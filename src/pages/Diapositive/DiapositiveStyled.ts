@@ -5,7 +5,7 @@ import { AllColors } from "@/styles/model"
 import styled, { css } from "styled-components"
 
 import { DiapositiveStyledProps } from "./model"
-const colorList = Object.keys(colors).sort(Math.random)
+const colorList = Object.keys(colors).sort(() => Math.random() - 0.5)
 
 export const DiapositiveStyled = styled.div<DiapositiveStyledProps>`
   display: flex;
@@ -22,6 +22,21 @@ export const DiapositiveStyled = styled.div<DiapositiveStyledProps>`
       span, svg, input, h4, h3 {
         color: ${color[700]};
       }
+      ${props.index === 0 && css`
+        .content svg:first-child {
+          color: ${color[200]} !important;
+          border: 3px solid ${color[200]};
+          pointer-events: none;
+        }
+      `}
+      ${props.index === props.indexCount - 1 && css`
+        .content svg:last-child {
+          color: ${color[200]} !important;
+          border: 3px solid ${color[200]};
+          pointer-events: none;
+        }
+      `}
+
       svg:not(.fa-play), h4 {
         border: 3px solid ${color[700]};
         ${() => ["mac", "windows"].includes(getOS()) && css`

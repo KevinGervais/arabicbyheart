@@ -66,7 +66,7 @@ export class DiapositiveClass extends React.Component<DiapositiveProps, Diaposit
     const { currentIndex } = this.state
     const item: DiapositiveItemObject | undefined = { ...this.items[currentIndex] }
     if (!selectedCategory || !diapositiveSettings || item === undefined) {
-      return <DiapositiveStyled index={0} />
+      return <DiapositiveStyled index={0} indexCount={this.items.length} />
     }
 
     const vocabularyGroup: VocabularyGroup = cloneCategory(selectedCategory).items
@@ -96,7 +96,7 @@ export class DiapositiveClass extends React.Component<DiapositiveProps, Diaposit
     }
 
     return (
-      <DiapositiveStyled index={currentIndex}>
+      <DiapositiveStyled index={currentIndex} indexCount={this.items.length}>
 
         <div className="content">
           <ArrowIcon onClick={() => {
