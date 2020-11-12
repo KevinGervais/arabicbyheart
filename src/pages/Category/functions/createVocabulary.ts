@@ -1,4 +1,4 @@
-import { generateId } from "@/functions"
+import { cloneCategory, generateId } from "@/functions"
 import { VocabularyItem, VocabularyCategory, VocabularyGroup } from "@/model"
 import { getReduxState, setReduxState } from "@/redux"
 import localforage from "localforage"
@@ -28,11 +28,11 @@ export function createVocabulary(this: CategoryClass): void {
       list: newItems,
       _id: generateId()
     }
-    const newSelectedCategory: VocabularyCategory = { ...selectedCategory as VocabularyCategory, languageList }
+    const newSelectedCategory: VocabularyCategory = cloneCategory({ ...selectedCategory, languageList } as VocabularyCategory)
     newSelectedCategory.items.push(newGroup)
     const categoryIndex = vocabularyCategoryList
       .findIndex((category: VocabularyCategory) => category._id === newSelectedCategory._id)
-    const newVocabularyCategoryList = [...vocabularyCategoryList]
+    const newVocabularyCategoryList = vocabularyCategoryList.map(cloneCategory)
     newVocabularyCategoryList[categoryIndex] = newSelectedCategory
     setReduxState({
       selectedCategory: newSelectedCategory,

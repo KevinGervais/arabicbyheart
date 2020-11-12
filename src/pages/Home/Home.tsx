@@ -6,7 +6,7 @@ import RightArrowIcon from "@/images/rightArrow"
 import SaveIcon from "@/images/save"
 import CloseIcon from "@/images/close"
 import { setReduxState } from "@/redux"
-import { generateId } from "@/functions"
+import { cloneCategory, generateId } from "@/functions"
 import localforage from "localforage"
 
 import { HomeStyled } from "./HomeStyled"
@@ -34,7 +34,7 @@ export class HomeClass extends React.Component<HomeProps, HomeState> {
       _id: generateId()
     }
 
-    const newVocabularyCategoryList: VocabularyCategory[] = [...vocabularyCategoryList]
+    const newVocabularyCategoryList: VocabularyCategory[] = vocabularyCategoryList.map(cloneCategory)
     newVocabularyCategoryList.push(newCategory)
 
     localforage.setItem("vocabularyCategoryList", newVocabularyCategoryList)

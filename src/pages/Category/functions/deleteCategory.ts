@@ -1,3 +1,4 @@
+import { cloneCategory } from "@/functions"
 import { VocabularyCategory } from "@/model"
 import { setReduxState } from "@/redux"
 import localforage from "localforage"
@@ -10,7 +11,7 @@ export function deleteCategory(this: CategoryClass): void {
   if (!selectedCategory) {
     return
   }
-  const newVocabularyCategoryList = [...vocabularyCategoryList]
+  const newVocabularyCategoryList = vocabularyCategoryList.map(cloneCategory)
     .filter((category: VocabularyCategory) => category._id !== selectedCategory._id)
   setReduxState({
     selectedCategory: undefined,

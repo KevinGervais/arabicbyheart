@@ -18,6 +18,7 @@ import { SpeechLanguages, VocabularyGroup, VocabularyItem } from "@/model"
 import localforage from "localforage"
 import { setReduxState } from "@/redux"
 import { Toggle } from "@/ui/components"
+import { cloneCategory } from "@/functions"
 
 import { Select } from "../../../ui/components/Select"
 import { CategoryInitState, CategoryProps, CategoryState } from "../model"
@@ -218,9 +219,9 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
                     itemTitleList, selectedCategory.languageList, vocabularyColumns.image
                   ).then((image: string | undefined) => {
                     vocabularyColumns.image = image
-                    const newVocabularyCategoryList = [...vocabularyCategoryList]
+                    const newVocabularyCategoryList = vocabularyCategoryList.map(cloneCategory)
                     setReduxState({
-                      selectedCategory: { ...selectedCategory },
+                      selectedCategory: cloneCategory(selectedCategory),
                       vocabularyCategoryList: newVocabularyCategoryList
                     })
                     localforage.setItem("vocabularyCategoryList", newVocabularyCategoryList)
