@@ -2,33 +2,33 @@ import { Say } from "@/languages/model"
 import { DiapositiveSettings, SpeechLanguages, VocabularyCategory, VocabularyGroup, VocabularyItem } from "@/model"
 
 export interface DiapositiveProps {
-  say: Say
-  selectedCategory?: VocabularyCategory
-  diapositiveSettings?: DiapositiveSettings
+  readonly say: Say
+  readonly selectedCategory?: VocabularyCategory
+  readonly diapositiveSettings?: DiapositiveSettings
 }
 
 export interface DiapositiveState {
-  currentIndex: number
-  timeCounter: number | false
+  readonly currentIndex: number
+  readonly timeCounter: number | false
 }
 
 export interface DiapositiveStyledProps {
-  index: number
+  readonly index: number
 }
 
 export interface DiapositiveItemProps {
-  currentVocabularyGroup: VocabularyGroup
-  currentVocabularyItem: DiapositiveItemObject
-  languageList: SpeechLanguages[]
-  isImage: boolean
-  say: Say
+  readonly currentVocabularyGroup: VocabularyGroup
+  readonly currentVocabularyItem: DiapositiveItemObject
+  readonly languageList: SpeechLanguages[]
+  readonly isImage: boolean
+  readonly say: Say
 }
 
 export interface DiapositiveItemState {
-  isAnswerShown: boolean
+  readonly isAnswerShown: boolean
 }
 
 export interface DiapositiveItemObject extends VocabularyItem {
-  image?: string
-  isImageOnly: boolean
+  readonly image?: string
+  readonly isImageOnly: boolean
 }

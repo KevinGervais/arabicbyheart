@@ -39,12 +39,10 @@ localforage
       const vocabularyCategoryList = obj as VocabularyCategory[]
       const categoryId = window.localStorage.getItem("categoryId")
       const currentCategory = vocabularyCategoryList.find((item: VocabularyCategory) => item._id === categoryId)
-      const newState: Partial<ReduxState> = {
-        vocabularyCategoryList
-      }
       if (currentCategory) {
-        newState.selectedCategory = currentCategory
+        setReduxState({ selectedCategory: currentCategory, vocabularyCategoryList })
+      } else {
+        setReduxState({ vocabularyCategoryList })
       }
-      setReduxState(newState)
     }
   })

@@ -1,5 +1,4 @@
 import { CategoryClass } from "../components/Category"
-import { CategoryState } from "../model"
 
 export function setTitle(this: CategoryClass, evt: SpeechRecognitionEvent): void {
   const { titleList, recordingIndex } = this.state
@@ -7,11 +6,9 @@ export function setTitle(this: CategoryClass, evt: SpeechRecognitionEvent): void
   const newTitleList = [...titleList]
   newTitleList[recordingIndex] = speech
   this.titleChanged = true
-  const newState: Partial<CategoryState> = {
-    titleList: newTitleList
-  }
   if (this.audioChanged) {
-    newState.recordingIndex = -1
+    this.setState({ recordingIndex: -1, titleList: newTitleList })
+  } else {
+    this.setState({ titleList: newTitleList })
   }
-  this.setState(newState as CategoryState)
 }

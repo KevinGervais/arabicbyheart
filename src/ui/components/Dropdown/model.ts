@@ -1,25 +1,25 @@
 export interface DropdownProps {
-  optionList: any[]
-  outputList?: string[]
-  default?: string
-  plural?: string
-  italic?: boolean
-  isSquare?: boolean
-  dropdownClass?: string
+  readonly optionList: any[]
+  readonly outputList?: string[]
+  readonly default?: string
+  readonly plural?: string
+  readonly italic?: boolean
+  readonly isSquare?: boolean
+  readonly dropdownClass?: string
   onChange(value: any, index: number): void
 }
 
 export interface DropdownState {
-  isSelecting: boolean
-  isStylesUpdated: boolean
-  style: any
+  readonly isSelecting: boolean
+  readonly isStylesUpdated: boolean
+  readonly style: any
 }
 
 export interface DropdownStyledProps {
-  isSquare?: boolean
+  readonly isSquare?: boolean
 }
 
 export interface DropdownItemStyledProps {
-  italic?: boolean
-  isSquare?: boolean
+  readonly italic?: boolean
+  readonly isSquare?: boolean
 }

@@ -1,7 +1,7 @@
 import { VocabularyGroup, VocabularyItem } from "@/model"
 
 import { CategoryClass } from "../components/Category"
-import { CategoryInitState, CategoryState } from "../model"
+import { CategoryInitState } from "../model"
 
 
 export function getInitialState(this: CategoryClass, isSkipOptions?: boolean): CategoryInitState {
@@ -11,7 +11,7 @@ export function getInitialState(this: CategoryClass, isSkipOptions?: boolean): C
       titleList: [],
       audioList: [],
       languageList: []
-    } as unknown as CategoryState
+    } as CategoryInitState
   }
   let state: CategoryInitState = {
     titleList: Array(selectedCategory.columnCount).fill(""),

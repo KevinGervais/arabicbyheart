@@ -2,30 +2,31 @@ import { Say } from "@/languages/model"
 import { diapositiveDelay, DiapositiveSettings, SpeechLanguages, VocabularyCategory } from "@/model"
 
 export interface CategoryProps {
-  say: Say
-  selectedCategory?: VocabularyCategory
-  vocabularyCategoryList: VocabularyCategory[]
-  diapositiveSettings?: DiapositiveSettings
+  readonly say: Say
+  readonly selectedCategory?: VocabularyCategory
+  readonly vocabularyCategoryList: VocabularyCategory[]
+  readonly diapositiveSettings?: DiapositiveSettings
 }
 
 export interface CategoryState {
-  isCreatingVocabulary: boolean
-  isBottomMenuOpened: boolean
-  recordingIndex: number
-  titleList: string[]
-  audioList: string[]
-  languageList: SpeechLanguages[]
-  isTitlesFromListActive: boolean[]
-  isMicrophone: boolean
-  isCreatingWithImage: boolean
-  isDiaporamaImage: boolean
-  isShuffle: boolean
-  delay: diapositiveDelay
-  isAskingDelete: boolean
+  readonly isCreatingVocabulary: boolean
+  readonly isBottomMenuOpened: boolean
+  readonly recordingIndex: number
+  readonly titleList: string[]
+  readonly audioList: string[]
+  readonly languageList: SpeechLanguages[]
+  readonly isTitlesFromListActive: boolean[]
+  readonly isMicrophone: boolean
+  readonly isCreatingWithImage: boolean
+  readonly isDiaporamaImage: boolean
+  readonly isShuffle: boolean
+  readonly delay: diapositiveDelay
+  readonly isAskingDelete: boolean
 }
 
+
 export interface BottomMenuItemStyledProps {
-  isActive: boolean
+  readonly isActive: boolean
 }
 
 export interface CategoryInitState {

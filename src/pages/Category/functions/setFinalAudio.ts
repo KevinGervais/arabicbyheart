@@ -1,5 +1,4 @@
 import { CategoryClass } from "../components/Category"
-import { CategoryState } from "../model"
 
 export function setFinalAudio(this: CategoryClass): void {
   const { audioList, recordingIndex } = this.state
@@ -7,11 +6,10 @@ export function setFinalAudio(this: CategoryClass): void {
   const newAudioList = [...audioList]
   newAudioList[recordingIndex] = base64
   this.audioChanged = true
-  const newState: Partial<CategoryState> = {
-    audioList: newAudioList
-  }
+
   if (this.titleChanged) {
-    newState.recordingIndex = -1
+    this.setState({ recordingIndex: -1, audioList: newAudioList })
+  } else {
+    this.setState({ audioList: newAudioList })
   }
-  this.setState(newState as CategoryState)
 }

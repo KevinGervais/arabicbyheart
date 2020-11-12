@@ -1,6 +1,6 @@
 export interface ScrollbarProps {
-  className?: string
-  suppressScrollY?: boolean
-  children: React.ReactNode
+  readonly className?: string
+  readonly suppressScrollY?: boolean
+  readonly children: React.ReactNode
   onYReachEnd?(container: HTMLElement): void
 }

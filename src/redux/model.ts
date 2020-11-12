@@ -6,14 +6,14 @@ import { Action } from "redux"
 
 
 export interface ReduxState {
-  notchPosition: NotchPosition
-  themeColor: keyof AllColors
-  selectedLanguage: Languages
-  say: Say
-  page: PageNames
-  selectedCategory?: VocabularyCategory
-  vocabularyCategoryList: VocabularyCategory[]
-  diapositiveSettings?: DiapositiveSettings
+  readonly notchPosition: NotchPosition
+  readonly themeColor: keyof AllColors
+  readonly selectedLanguage: Languages
+  readonly say: Say
+  readonly page: PageNames
+  readonly selectedCategory?: VocabularyCategory
+  readonly vocabularyCategoryList: VocabularyCategory[]
+  readonly diapositiveSettings?: DiapositiveSettings
 
 }
 

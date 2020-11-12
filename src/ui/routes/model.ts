@@ -1,6 +1,6 @@
 
 export interface RoutesProps {
-  page: PageNames
+  readonly page: PageNames
 }
 
 export type PageNames = "home" | "category" | "diapositive"

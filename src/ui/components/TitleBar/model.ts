@@ -4,16 +4,16 @@ import { AllColors } from "@/styles/model"
 import { PageNames } from "@/ui/routes/model"
 
 export interface TitleBarState {
-  isFullScreen: boolean
+  readonly isFullScreen: boolean
 }
 
 export interface TitleBarProps {
-  themeColor: keyof AllColors
-  page: PageNames
-  say: Say
-  selectedCategory?: VocabularyCategory
+  readonly themeColor: keyof AllColors
+  readonly page: PageNames
+  readonly say: Say
+  readonly selectedCategory?: VocabularyCategory
 }
 
 export interface TitleBarStyledProps {
-  page: PageNames
+  readonly page: PageNames
 }
