@@ -30,7 +30,7 @@ export class DiapositiveItem extends React.Component<DiapositiveItemProps, Diapo
 
   render(): JSX.Element {
     const { currentVocabularyGroup, currentVocabularyItem, say, isImage, languageList } = this.props
-    const index: number = currentVocabularyGroup.list.findIndex((item: VocabularyItem) => item._id = currentVocabularyItem._id)
+    const index: number = currentVocabularyGroup.list.findIndex((item: VocabularyItem) => item._id === currentVocabularyItem._id)
     const { isAnswerShown } = this.state
     return (
       <DiapositiveItemStyled>

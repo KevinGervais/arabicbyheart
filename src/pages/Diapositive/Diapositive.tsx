@@ -3,6 +3,7 @@ import { ReduxState } from "@/redux/model"
 import React from "react"
 import { connect } from "react-redux"
 import ArrowIcon from "@/images/rightArrow"
+import { cloneCategory, cloneVocabularyGroup } from "@/functions"
 
 import { DiapositiveStyled } from "./DiapositiveStyled"
 import { DiapositiveItemObject, DiapositiveProps, DiapositiveState } from "./model"
@@ -36,9 +37,10 @@ export class DiapositiveClass extends React.Component<DiapositiveProps, Diaposit
       return
     }
     this.items = selectedCategory.items.map((group: VocabularyGroup) => {
-      const filteredList = group.list
+      let filteredList = group.list
         .filter((val: VocabularyItem, index: number) => diapositiveSettings.isTitlesFromListActive[index])
       let isImageOnly: boolean = false
+      filteredList = [...filteredList]
       if (filteredList.length === 0) {
         filteredList.push(group.list[0])
         isImageOnly = true
@@ -49,7 +51,6 @@ export class DiapositiveClass extends React.Component<DiapositiveProps, Diaposit
       return diapositiveItem
     }).flat()
     if (diapositiveSettings.isShuffle) {
-      console.log("shuffling")
       this.items = this.items.sort(() => Math.random() - 0.5)
     }
   }
@@ -63,11 +64,12 @@ export class DiapositiveClass extends React.Component<DiapositiveProps, Diaposit
   render(): JSX.Element | null {
     const { selectedCategory, diapositiveSettings, say } = this.props
     const { currentIndex } = this.state
-    const item: DiapositiveItemObject | undefined = this.items[currentIndex]
+    const item: DiapositiveItemObject | undefined = { ...this.items[currentIndex] }
     if (!selectedCategory || !diapositiveSettings || item === undefined) {
       return <DiapositiveStyled index={0} />
     }
-    const vocabularyGroup: VocabularyGroup = selectedCategory.items
+
+    const vocabularyGroup: VocabularyGroup = cloneCategory(selectedCategory).items
       .find((group: VocabularyGroup) => group.list
         .find((vocItem: VocabularyItem) => vocItem._id === item._id
         )) as VocabularyGroup
@@ -92,6 +94,7 @@ export class DiapositiveClass extends React.Component<DiapositiveProps, Diaposit
         }
       }, 1000)
     }
+
     return (
       <DiapositiveStyled index={currentIndex}>
         <ArrowIcon onClick={() => {
