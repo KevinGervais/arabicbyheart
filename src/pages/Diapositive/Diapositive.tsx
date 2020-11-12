@@ -3,7 +3,7 @@ import { ReduxState } from "@/redux/model"
 import React from "react"
 import { connect } from "react-redux"
 import ArrowIcon from "@/images/rightArrow"
-import { cloneCategory, cloneVocabularyGroup } from "@/functions"
+import { cloneCategory } from "@/functions"
 
 import { DiapositiveStyled } from "./DiapositiveStyled"
 import { DiapositiveItemObject, DiapositiveProps, DiapositiveState } from "./model"

@@ -6,7 +6,9 @@ export function onAudioStop(this: CategoryClass): void {
   this.titleChanged = false
   try {
     this.titleRecorder.stop()
-    this.titleSpeech.stop()
+    if (this.titleSpeech) {
+      this.titleSpeech.stop()
+    }
   } catch (err) {
     // do nothing
   }

@@ -18,7 +18,7 @@ import { SpeechLanguages, VocabularyGroup, VocabularyItem } from "@/model"
 import localforage from "localforage"
 import { setReduxState } from "@/redux"
 import { Toggle } from "@/ui/components"
-import { cloneCategory, generateId } from "@/functions"
+import { cloneCategory, getBrowser } from "@/functions"
 import Tooltip from "react-tooltip"
 
 import { Select } from "../../../ui/components/Select"
@@ -34,7 +34,7 @@ import { DeleteButtonStyled } from "./DeleteButtonStyled"
 export const speechLanguages: SpeechLanguages[] = ["fr", "ar", "en"]
 
 export class CategoryClass extends React.Component<CategoryProps, CategoryState> {
-  titleSpeech: SpeechRecognition
+  titleSpeech?: SpeechRecognition
   titleRecorder: any
   titleReader?: FileReader
   audioChanged: boolean = false
@@ -80,11 +80,12 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
     }
 
     this.state = state
-
-    const speechReco = window.SpeechRecognition || (window as any).webkitSpeechRecognition
-    this.titleSpeech = new speechReco()
-    this.titleSpeech.continuous = false
-    this.titleSpeech.onresult = this.setTitle
+    const SpeechRecognition = window.SpeechRecognition || (window as any).webkitSpeechRecognition
+    if (SpeechRecognition) {
+      this.titleSpeech = new SpeechRecognition()
+      this.titleSpeech.continuous = false
+      this.titleSpeech.onresult = this.setTitle
+    }
 
     navigator.mediaDevices.getUserMedia({ audio: true })
       .then((stream: MediaStream) => {
@@ -169,10 +170,12 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
                   <span>{say[languageList[index]]}</span>}
                 {recordingIndex !== index && <MicroIcon data-for="record-tooltip" data-tip onClick={() => {
                   this.setState({ recordingIndex: index })
-                  this.titleSpeech.lang = languageList[index]
                   try {
                     this.titleRecorder.start()
-                    this.titleSpeech.start()
+                    if (this.titleSpeech) {
+                      this.titleSpeech.lang = languageList[index]
+                      this.titleSpeech.start()
+                    }
                   } catch (err) {
                     // do nothing
                   }

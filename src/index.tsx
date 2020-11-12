@@ -1,16 +1,15 @@
 import React from "react"
 import ReactDOM from "react-dom"
 import { Provider } from "react-redux"
-import { getReduxState, store } from "@/redux"
+import { store } from "@/redux"
 import "@/styles/reset.css"
 import "@/styles/theme"
 import "react-perfect-scrollbar/dist/css/styles.css"
 
 
 import { Routes } from "./ui/routes/Routes"
-import { getBrowser, getOS, handleNotchPositionChange } from "./functions"
+import { getOS, handleNotchPositionChange } from "./functions"
 import { phonesWithNatch } from "./functions/handleNotchPositionChange"
-import { IncompatibleBrowserStyled } from "./styles/IncompatibleBrowserStyled"
 window.localStorage.setItem("clipboard", "[]")
 
 export class AppClass extends React.Component {
