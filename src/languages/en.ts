@@ -10,7 +10,7 @@ export const en: Say = {
   addCategory: "Add category",
   categoryPlacehoder: "Enter a category",
   addVocabulary: "Add some vocabulary",
-  vocabularyPlacehoder: "Enter a word or reccord audio",
+  vocabularyPlacehoder: "Enter a description",
   vocabularyTitle: "Description",
   en: "English",
   fr: "French",
@@ -19,6 +19,18 @@ export const en: Say = {
   yes: "Yes",
   badBrowser: "This app is only available on google chrome now...",
   showAnswer: "Show answer",
-  isWithImage: "With image"
+  isWithImage: "With image",
+  wordDefinition: "Definitions count for a word",
+  save: "Save",
+  cancel: "Cancel",
+  delete: "Delete",
+  diapositiveSettings: "Diapositive settings",
+  playDiapositive: "Play diapositive",
+  language: "Questions in {language}",
+  image: "Picture questions",
+  sound: "Automatic sound",
+  shuffle: "Shuffled questions",
+  transitionDelay: "Chrono of a question",
+  record: "Record pronunciation"
 
 }

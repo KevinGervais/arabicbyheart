@@ -42,15 +42,6 @@ export class AppClass extends React.Component {
   }
 
   public render(): JSX.Element {
-    if (getBrowser() !== "Chrome") {
-      return (
-        <IncompatibleBrowserStyled>
-          <span>
-            {getReduxState().say.badBrowser}
-          </span>
-        </IncompatibleBrowserStyled>
-      )
-    }
     return (
       <Provider store={store}>
         <Routes />

@@ -8,6 +8,7 @@ import CloseIcon from "@/images/close"
 import { setReduxState } from "@/redux"
 import { cloneCategory, generateId } from "@/functions"
 import localforage from "localforage"
+import Tooltip from "react-tooltip"
 
 import { HomeStyled } from "./HomeStyled"
 import { HomeProps, HomeState } from "./model"
@@ -58,6 +59,7 @@ export class HomeClass extends React.Component<HomeProps, HomeState> {
               onChange={(evt: React.ChangeEvent<HTMLInputElement>) => this.setState({ newCategoryTitle: evt.target.value })}
             />
             <input
+              data-tip={say.wordDefinition}
               value={newCategoryVocabularyCount}
               type="number"
               min="1"
@@ -70,8 +72,10 @@ export class HomeClass extends React.Component<HomeProps, HomeState> {
                 })
               )}
             />
-            <SaveIcon onClick={this.createVocabularyCategory} />
-            <CloseIcon onClick={() => this.setState({ newCategoryTitle: "", isCreatingCategory: false })} />
+            <Tooltip effect="solid" place="bottom" />
+
+            <SaveIcon data-tip={say.save} onClick={this.createVocabularyCategory} />
+            <CloseIcon data-tip={say.cancel} onClick={() => this.setState({ newCategoryTitle: "", isCreatingCategory: false })} />
           </div>
         )}
         <div className="category-list">

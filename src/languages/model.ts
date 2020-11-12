@@ -26,5 +26,17 @@ export type SayKeywords =
   | "badBrowser"
   | "showAnswer"
   | "isWithImage"
+  | "wordDefinition"
+  | "save"
+  | "cancel"
+  | "delete"
+  | "diapositiveSettings"
+  | "playDiapositive"
+  | "language"
+  | "image"
+  | "sound"
+  | "shuffle"
+  | "transitionDelay"
+  | "record"
 
 

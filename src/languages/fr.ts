@@ -9,7 +9,7 @@ export const fr: Say = {
   diapositive: "Diapositive",
   addCategory: "Ajouter une Catégorie",
   categoryPlacehoder: "Entrer une catégorie",
-  vocabularyPlacehoder: "Entrer un mot ou enregister l'audio",
+  vocabularyPlacehoder: "Entrer une description",
   addVocabulary: "Ajouter du vocabulaire",
   vocabularyTitle: "Description",
   en: "Anglais",
@@ -19,6 +19,18 @@ export const fr: Say = {
   yes: "Oui",
   badBrowser: "Cette application est uniquement disponible sur google chrome pour l'instant...",
   showAnswer: "Afficher la réponse",
-  isWithImage: "Avec image"
+  isWithImage: "Avec image",
+  wordDefinition: "Nombre de définitions pour un mot",
+  save: "Sauvegarder",
+  cancel: "Annuler",
+  delete: "Supprimer",
+  diapositiveSettings: "Réglages de la diapositive",
+  playDiapositive: "Lancer la diapositive",
+  language: "Questions en {language}",
+  image: "Questions imagées",
+  sound: "Son automatique",
+  shuffle: "Questions aléatoires",
+  transitionDelay: "Chrono d'une question",
+  record: "Enregistrer la prononciation"
 
 }

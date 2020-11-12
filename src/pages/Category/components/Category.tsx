@@ -18,7 +18,8 @@ import { SpeechLanguages, VocabularyGroup, VocabularyItem } from "@/model"
 import localforage from "localforage"
 import { setReduxState } from "@/redux"
 import { Toggle } from "@/ui/components"
-import { cloneCategory } from "@/functions"
+import { cloneCategory, generateId } from "@/functions"
+import Tooltip from "react-tooltip"
 
 import { Select } from "../../../ui/components/Select"
 import { CategoryInitState, CategoryProps, CategoryState } from "../model"
@@ -108,7 +109,6 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
     }
   }
 
-
   render(): JSX.Element | null {
     const { selectedCategory, say, vocabularyCategoryList } = this.props
     const {
@@ -167,7 +167,7 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
                 />
                 {selectedCategory.items.length > 0 &&
                   <span>{say[languageList[index]]}</span>}
-                {recordingIndex !== index && <MicroIcon onClick={() => {
+                {recordingIndex !== index && <MicroIcon data-for="record-tooltip" data-tip onClick={() => {
                   this.setState({ recordingIndex: index })
                   this.titleSpeech.lang = languageList[index]
                   try {
@@ -177,6 +177,8 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
                     // do nothing
                   }
                 }} />}
+                <Tooltip id="record-tooltip" effect="solid" place="right" getContent={() => say.record} />
+
                 {recordingIndex === index && <StopIcon onClick={this.onAudioStop} />}
                 {selectedCategory.items.length === 0 && <Select
                   optionList={speechLanguages}
@@ -195,16 +197,19 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
                 label={say.isWithImage}
                 onChange={() => this.setState({ isCreatingWithImage: !isCreatingWithImage })}
               />
-              <div className="button" onClick={this.createVocabulary}>
+              <div data-for={"save-tooltip"} data-tip className="button" onClick={this.createVocabulary}>
                 <SaveIcon />
               </div>
-              <div className="button" onClick={() => this.setState({
+              <div data-for={"cancel-tooltip"} data-tip={say.cancel} className="button" onClick={() => this.setState({
                 ...this.getInitialState(true) as CategoryState,
                 isCreatingVocabulary: false,
                 recordingIndex: -1,
               })}>
                 <CloseIcon />
               </div>
+              <Tooltip id="save-tooltip" effect="solid" place="bottom" getContent={() => say.save} />
+              <Tooltip id="cancel-tooltip" effect="solid" place="bottom" getContent={() => say.cancel} />
+
             </div>
           </div>
         )
@@ -242,7 +247,7 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
                     }} />}
                   </div>
                 ))}
-                <DeleteIcon onClick={() => this.deleteItem(index)} />
+                <DeleteIcon data-tip={say.delete} onClick={() => this.deleteItem(index)} />
               </div>
             </VocabularyItemStyled>
           ))}</div>
@@ -261,9 +266,11 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
                 const lang = languageList[index]
                 const langOccurences = languageList.filter((language: SpeechLanguages) => language === lang).length
                 const langIndex = languageList.slice(0, index + 1).filter((language: SpeechLanguages) => language === lang).length
+                const dataTip = say.language.replace("{language}", `${say[lang]} ${langOccurences > 1 ? `(${langIndex})` : ""}`)
                 return (
                   <BottomMenuItemStyled
                     key={index}
+                    data-tip={dataTip}
                     isActive={isTitlesFromListActive[index]}
                     onClick={() => {
                       const newIsTitlesFromListActive = [...isTitlesFromListActive]
@@ -277,12 +284,14 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
               })}
               <BottomMenuItemStyled
                 isActive={isDiaporamaImage}
+                data-tip={say.image}
                 onClick={() => this.setState({ isDiaporamaImage: !isDiaporamaImage })}
               >
                 <ImageIcon />
               </BottomMenuItemStyled>
               <BottomMenuItemStyled
                 isActive={isMicrophone}
+                data-tip={say.sound}
                 onClick={() => this.setState({ isMicrophone: !isMicrophone })}
               >
                 {isMicrophone && <MicroIcon />}
@@ -290,12 +299,14 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
               </BottomMenuItemStyled>
               <BottomMenuItemStyled
                 isActive={isShuffle}
+                data-tip={say.shuffle}
                 onClick={() => this.setState({ isShuffle: !isShuffle })}
               >
                 <ShuffleIcon />
               </BottomMenuItemStyled>
               <BottomMenuItemStyled
                 isActive={true}
+                data-tip={say.transitionDelay}
                 onClick={() => this.setState({ delay: functions.incrementDelay(delay) })}
               >
                 {delay !== false && `${delay} s`}
@@ -305,6 +316,7 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
           )}
           <div
             className="right-content"
+
             onClick={() => {
               if (!isBottomMenuOpened) {
                 this.setState({ isBottomMenuOpened: true })
@@ -313,8 +325,8 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
               }
             }}
           >
-            {!isBottomMenuOpened && <DiapoIcon />}
-            {isBottomMenuOpened && <PlayIcon />}
+            {!isBottomMenuOpened && <DiapoIcon data-tip={say.diapositiveSettings} />}
+            {isBottomMenuOpened && <PlayIcon data-tip={say.playDiapositive} />}
           </div>
         </BottomMenuStyled>}
         <DeleteButtonStyled onClick={(evt: React.MouseEvent<HTMLDivElement>) => evt.stopPropagation()} >
@@ -328,6 +340,7 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
             </div>
           )}
         </DeleteButtonStyled>
+        <Tooltip effect="solid" place="left" />
       </CategoryStyled>
     )
   }

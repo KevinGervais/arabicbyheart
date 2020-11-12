@@ -30,15 +30,4 @@ export const BottomMenuStyled = styled.div`
       height: 25px;
     }
   }
-  .left-content {
-    & > div {
-      ${center};
-      ${clickable};
-      width: 50px;
-      height: 50px;
-      border-radius: 25px;
-      border: 1px solid ${() => window.theme.secondary300};
-      margin: 5px;
-    }
-  }
 `
