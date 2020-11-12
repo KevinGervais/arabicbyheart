@@ -9,7 +9,7 @@ const colorList = Object.keys(colors).sort(Math.random)
 
 export const DiapositiveStyled = styled.div<DiapositiveStyledProps>`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   width: 100%;
   height: 100%;
@@ -49,6 +49,22 @@ export const DiapositiveStyled = styled.div<DiapositiveStyledProps>`
   }}
   .content {
     ${center};
+      & > svg {
+      ${clickable};
+      width: 30px;
+      height: 30px;
+      padding: 10px;
+      border-radius: 29px;
+      margin: 0 10vw;
+      transition: 0.3s all ease-in-out;
+      &:first-child {
+        left: 30vw;
+        transform: rotate(180deg);
+      }
+      &:last-child {
+        right: 30vw;
+      }
+    }
   }
   h3 {
     position: fixed;
@@ -59,18 +75,7 @@ export const DiapositiveStyled = styled.div<DiapositiveStyledProps>`
     top: 100px;
     left: 0;
   }
-  & > svg {
-    ${clickable};
-    width: 30px;
-    height: 30px;
-    padding: 10px;
-    border-radius: 29px;
-    margin: 50px;
-    transition: 0.3s all ease-in-out;
-    &:first-child {
-      transform: rotate(180deg);
-    }
-  }
+
   input {
     position: fixed;
     width: 100vw;

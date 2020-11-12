@@ -97,14 +97,14 @@ export class DiapositiveClass extends React.Component<DiapositiveProps, Diaposit
 
     return (
       <DiapositiveStyled index={currentIndex}>
-        <ArrowIcon onClick={() => {
-          hasChanged = true
-          if (currentIndex !== 0) {
-            this.setState({ currentIndex: currentIndex - 1 })
-          }
-        }} />
 
         <div className="content">
+          <ArrowIcon onClick={() => {
+            hasChanged = true
+            if (currentIndex !== 0) {
+              this.setState({ currentIndex: currentIndex - 1 })
+            }
+          }} />
           <h3>{`${currentIndex + 1}/${this.items.length}`}</h3>
           <DiapositiveItem
             isImage={diapositiveSettings.isImage}
@@ -113,6 +113,12 @@ export class DiapositiveClass extends React.Component<DiapositiveProps, Diaposit
             languageList={selectedCategory.languageList}
             say={say}
           />
+          <ArrowIcon onClick={() => {
+            hasChanged = true
+            if (currentIndex !== this.items.length - 1) {
+              this.setState({ currentIndex: currentIndex + 1 })
+            }
+          }} />
         </div>
         {diapositiveSettings.delay !== false && <input ref={(ref: HTMLInputElement) => {
           this.timeRef = ref
@@ -120,12 +126,6 @@ export class DiapositiveClass extends React.Component<DiapositiveProps, Diaposit
             this.timeRef.value = String(diapositiveSettings.delay as number)
           }
         }} />}
-        <ArrowIcon onClick={() => {
-          hasChanged = true
-          if (currentIndex !== this.items.length - 1) {
-            this.setState({ currentIndex: currentIndex + 1 })
-          }
-        }} />
       </DiapositiveStyled>
     )
   }

@@ -40,6 +40,7 @@ export const DiapositiveItemStyled = styled.div<{}>`
     h4 {
       ${clickable};
       ${center};
+      flex-shrink: 0;
       margin-top: 30px;
       transition: 0.3s all ease-in-out;
       height: 30px;
