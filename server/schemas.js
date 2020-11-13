@@ -5,6 +5,14 @@ module.exports = {
       type: String,
       min: 1,
       max: 100,
+      optional: true
+    },
+  }),
+  id: new SimpleSchema({
+    _id: {
+      type: String,
+      min: 9,
+      max: 9
     },
   }),
   category: new SimpleSchema({

@@ -8,6 +8,7 @@
     "lint": "tslint --project ./tsconfig.json"
   },
   "dependencies": {
+    "@types/express": "^4.17.9",
     "@types/google-images": "^2.1.0",
     "bowser": "^2.11.0",
     "cors": "^2.8.5",
