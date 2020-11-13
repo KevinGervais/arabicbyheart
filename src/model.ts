@@ -29,6 +29,7 @@ export interface VocabularyCategory {
   columnCount: number
   languageList: SpeechLanguages[]
   items: VocabularyGroup[]
+  isPublic: boolean
   _id: string
 }
 
@@ -55,3 +56,5 @@ export interface DiapositiveSettings {
   delay: diapositiveDelay
   isImage: boolean
 }
+
+export type RequestPaths = "category" | "vocabulary" | "vocabularyDeleted"
