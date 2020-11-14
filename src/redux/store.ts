@@ -1,9 +1,6 @@
-import { cloneCategory, pullVocabulary } from "@/functions"
-import { VocabularyCategory } from "@/model"
-import localforage from "localforage"
+import { pullVocabulary } from "@/functions"
 import { createStore, Store, Action } from "redux"
 
-import { setReduxState } from "."
 import { initState } from "./initState"
 import { ReduxState, SetAction } from "./model"
 

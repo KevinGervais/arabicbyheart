@@ -15,10 +15,7 @@ import ImageIcon from "@/images/image"
 import NoMicroIcon from "@/images/noMicro"
 import ShuffleIcon from "@/images/shuffle"
 import { SpeechLanguages, VocabularyGroup, VocabularyItem } from "@/model"
-import localforage from "localforage"
-import { setReduxState } from "@/redux"
 import { Toggle } from "@/ui/components"
-import { cloneCategory } from "@/functions"
 import Tooltip from "react-tooltip"
 
 import { Select } from "../../../ui/components/Select"
@@ -125,7 +122,6 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
       isAskingDelete,
       isDiaporamaImage,
       isCreatingWithImage,
-      audioList
     } = this.state
     if (!selectedCategory) {
       return null
