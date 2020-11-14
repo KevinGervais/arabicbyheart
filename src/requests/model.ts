@@ -9,8 +9,9 @@ export interface AddCategoryRequest {
 }
 
 export interface AddVocabularyRequest {
-  image: string,
+  image?: string,
   _id: string,
   categoryId: string,
-  list: VocabularyItem
+  list: VocabularyItem[]
+  languageList?: SpeechLanguages[]
 }

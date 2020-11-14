@@ -1,11 +1,5 @@
 const path = require('path')
-const {
-  vocabularyGroup,
-  vocabularyItem,
-  category,
-  pull,
-  id
-} = require('./schemas')
+const schemas = require('./schemas')
 const dbQueries = require('./dbQueries')
 module.exports = function handleRequests(app, db) {
 
@@ -26,8 +20,13 @@ module.exports = function handleRequests(app, db) {
         languageList,
         _id,
       }
-      category.validate([query])
-      await dbQueries.insertOne(db, 'category', { ...query, lastModif: date })
+      schemas.category.validate([query])
+      const foundCategory = await dbQueries.findOne(db, 'category', { _id })
+      if (foundCategory) {
+        await dbQueries.updateOne(db, 'category', { _id }, { ...query, lastModif: date })
+      } else {
+        await dbQueries.insertOne(db, 'category', { ...query, lastModif: date })
+      }
       res.send("category added")
     } catch (error) {
       res.status(400).send({
@@ -35,13 +34,15 @@ module.exports = function handleRequests(app, db) {
       })
     }
   })
+
   app.post('/api/vocabulary', async (req, res) => {
     try {
       const {
         image,
         _id,
         categoryId,
-        list
+        list,
+        languageList
       } = req.body
       const date = new Date()
       const groupQuery = {
@@ -49,18 +50,22 @@ module.exports = function handleRequests(app, db) {
         categoryId,
         _id,
       }
-      vocabularyGroup.validate([groupQuery])
-      const finalList = list.map((item) => ({ ...item, groupId: _id }))
-      vocabularyItem.validate(finalList)
-      const foundGroup = await dbQueries.findOne(db, 'vocabularyGroup', { groupId: _id })
+      schemas.vocabularyGroup.validate([groupQuery])
+      if (languageList) {
+        schemas.languageList.validate([{ languageList }])
+        await dbQueries.updateOne(db, 'category', { _id: categoryId }, { $set: { languageList, lastModif: date } })
+      }
+      const finalList = list.map((item) => ({ ...item, groupId: _id, categoryId }))
+      schemas.vocabularyItem.validate(finalList)
+      const foundGroup = await dbQueries.findOne(db, 'vocabularyGroup', { _id: _id }, { _id: 1 })
       if (foundGroup) {
-        await dbQueries.updateOne(db, 'vocabularyGroup', { _id }, { ...groupQuery, lastModif: date })
+        await dbQueries.updateOne(db, 'vocabularyGroup', { _id }, { $set: { ...groupQuery, lastModif: date } })
         await Promise.all(finalList.map((item) => {
-          return dbQueries.updateOne(db, 'vocabularyItem', { _id: item._id }, item)
+          return dbQueries.updateOne(db, 'vocabularyItem', { _id: item._id }, { $set: { ...item } })
         }))
       } else {
         await dbQueries.insertOne(db, 'vocabularyGroup', { ...groupQuery, lastModif: date })
-        await dbQueries.insertMany(db, 'vocabularyItem', list)
+        await dbQueries.insertMany(db, 'vocabularyItem', finalList)
       }
 
       res.send(foundGroup ? "vocabulary updated" : "vocabulary added")
@@ -76,12 +81,10 @@ module.exports = function handleRequests(app, db) {
       const {
         groupId,
       } = req.body
-      const query = {
-        groupId
-      }
-      id.validate([query])
-      await dbQueries.removeOne(db, 'vocabularyGroup', { _id: query.groupId })
-      await dbQueries.insertOne(db, 'deletedVocabularyGroup', { _id: groupId })
+      const deletedDate = new Date()
+      schemas._id.validate([{ _id: groupId }])
+      await dbQueries.removeOne(db, 'vocabularyGroup', { _id: groupId })
+      await dbQueries.insertOne(db, 'deletedItem', { groupId, deletedDate })
       await dbQueries.removeMany(db, 'vocabularyItem', { groupId })
       res.send("vocabulary deleted")
     } catch (error) {
@@ -90,12 +93,32 @@ module.exports = function handleRequests(app, db) {
       })
     }
   })
+
+  app.delete('/api/category', async (req, res) => {
+    try {
+      const {
+        categoryId,
+      } = req.body
+      const deletedDate = new Date()
+      schemas._id.validate([{ _id: categoryId }])
+      await dbQueries.removeOne(db, 'category', { _id: categoryId })
+      await dbQueries.insertOne(db, 'deletedItem', { categoryId, deletedDate })
+      await dbQueries.removeMany(db, 'vocabularyGroup', { categoryId })
+      await dbQueries.removeMany(db, 'vocabularyItem', { categoryId })
+      res.send("category deleted")
+    } catch (error) {
+      res.status(400).send({
+        message: error.toString()
+      })
+    }
+  })
+
   app.get('/api/vocabulary', async (req, res) => {
     try {
       const {
         date,
       } = req.query
-      pull.validate([date])
+      schemas.pull.validate([date])
       const publicCategories = await dbQueries.find(db, 'category', { public: true })
       const categoryIds = publicCategories.map((category) => category._id)
       let vocabularyGroups = []
@@ -119,7 +142,7 @@ module.exports = function handleRequests(app, db) {
       const {
         date,
       } = req.query
-      pull.validate([date])
+      schemas.pull.validate([date])
       const deletedIds = await dbQueries.find(db, 'deletedVocabularyGroup', {})
       res.send({ data: deletedIds })
     } catch (error) {

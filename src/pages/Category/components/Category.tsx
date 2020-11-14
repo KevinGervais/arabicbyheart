@@ -222,20 +222,10 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
           {selectedCategory.items.map((vocabularyColumns: VocabularyGroup, index: number) => (
             <VocabularyItemStyled key={vocabularyColumns._id}>
               {vocabularyColumns.image && (
-                <div className="img" onClick={() => {
-                  const itemTitleList = vocabularyColumns.list.map((item: VocabularyItem) => item.title)
-                  functions.getImage(
-                    itemTitleList, selectedCategory.languageList, vocabularyColumns.image
-                  ).then((image: string | undefined) => {
-                    vocabularyColumns.image = image
-                    const newVocabularyCategoryList = vocabularyCategoryList.map(cloneCategory)
-                    setReduxState({
-                      selectedCategory: cloneCategory(selectedCategory),
-                      vocabularyCategoryList: newVocabularyCategoryList
-                    })
-                    localforage.setItem("vocabularyCategoryList", newVocabularyCategoryList)
-                  })
-                }}>
+                <div
+                  className="img"
+                  onClick={() => functions.updateGroupImage(selectedCategory, vocabularyColumns, vocabularyCategoryList)}
+                >
                   <img src={vocabularyColumns.image} alt={vocabularyColumns.list[0].title} />
                   <SyncIcon />
                 </div>

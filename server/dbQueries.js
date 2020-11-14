@@ -1,5 +1,5 @@
 module.exports = {
-  insertOne (db, collection, query, options) {
+  insertOne(db, collection, query, options) {
     return new Promise((resolve, reject) => {
       db.collection(collection).insertOne(query, options, (err) => {
         if (err) reject(new Error(err))
@@ -8,7 +8,7 @@ module.exports = {
     })
   },
 
-  insertMany (db, collection, array) {
+  insertMany(db, collection, array) {
     return new Promise((resolve, reject) => {
       db.collection(collection).insertMany(array, (err) => {
         if (err) reject(new Error(err))
@@ -16,7 +16,7 @@ module.exports = {
       })
     })
   },
-  removeOne (db, collection, query) {
+  removeOne(db, collection, query) {
     return new Promise((resolve, reject) => {
       db.collection(collection).deleteOne(query, (err) => {
         if (err) reject(new Error(err))
@@ -25,7 +25,7 @@ module.exports = {
     })
   },
 
-  removeMany (db, collection, query) {
+  removeMany(db, collection, query) {
     return new Promise((resolve, reject) => {
       db.collection(collection).deleteMany(query, (err) => {
         if (err) reject(new Error(err))
@@ -34,16 +34,16 @@ module.exports = {
     })
   },
 
-  findOne (db, collection, query) {
+  findOne(db, collection, query, projection) {
     return new Promise((resolve, reject) => {
-      db.collection(collection).findOne(query, (err, result) => {
+      db.collection(collection).findOne(query, projection, (err, result) => {
         if (err) reject(new Error(err))
         else resolve(result)
       })
     })
   },
 
-  find (db, collection, query, options) {
+  find(db, collection, query, options) {
     return new Promise((resolve, reject) => {
       db.collection(collection).find(query, options).toArray((err, result) => {
         if (err) reject(new Error(err))
@@ -51,7 +51,7 @@ module.exports = {
       })
     })
   },
-  findArticles (db, query) {
+  findArticles(db, query) {
     return new Promise((resolve, reject) => {
       const $project = {
         _id: 1,
@@ -71,7 +71,7 @@ module.exports = {
       })
     })
   },
-  findArrayOfElement (db, collection, query, element) {
+  findArrayOfElement(db, collection, query, element) {
     return new Promise((resolve, reject) => {
       db.collection(collection).aggregate([
         { $match: query },
@@ -82,7 +82,7 @@ module.exports = {
       })
     })
   },
-  findOneElement (db, collection, query, element) {
+  findOneElement(db, collection, query, element) {
     return new Promise((resolve, reject) => {
       db.collection(collection).aggregate([
         { $match: query },
@@ -93,7 +93,7 @@ module.exports = {
       })
     })
   },
-  findElements (db, collection, query, elements) {
+  findElements(db, collection, query, elements) {
     const map = elements.reduce((map, str) => ({ ...map, [str]: 1 }), {})
     return new Promise((resolve, reject) => {
       db.collection(collection).aggregate([
@@ -105,7 +105,7 @@ module.exports = {
       })
     })
   },
-  async findNew (db, collection, query, limit) {
+  async findNew(db, collection, query, limit) {
     const options = {}
     return new Promise((resolve, reject) => {
       db.collection(collection).find(query, options)
@@ -116,7 +116,7 @@ module.exports = {
     })
   },
 
-  updateOne (db, collection, query, data) {
+  updateOne(db, collection, query, data) {
     return new Promise((resolve, reject) => {
       db.collection(collection).updateOne(query, data, (err, result) => {
         if (err) reject(new Error(err))
@@ -125,7 +125,7 @@ module.exports = {
     })
   },
 
-  updateMany (db, collection, query, data) {
+  updateMany(db, collection, query, data) {
     return new Promise((resolve, reject) => {
       db.collection(collection).updateMany(query, data, (err, result) => {
         if (err) reject(new Error(err))
@@ -133,7 +133,7 @@ module.exports = {
       })
     })
   },
-  getFileList (db, query, isContent) {
+  getFileList(db, query, isContent) {
     return new Promise((resolve, reject) => {
       const $project = {
         _id: 1,
@@ -157,7 +157,7 @@ module.exports = {
       })
     })
   },
-  getFile (db, query, isContent) {
+  getFile(db, query, isContent) {
     return new Promise((resolve, reject) => {
       const $project = {
         _id: 1,
@@ -181,7 +181,7 @@ module.exports = {
       })
     })
   },
-  getGroupList (db, query) {
+  getGroupList(db, query) {
     return new Promise((resolve, reject) => {
       db.collection('groups').aggregate([
         { $match: query },
@@ -199,7 +199,7 @@ module.exports = {
       })
     })
   },
-  getPostLog (db, query) {
+  getPostLog(db, query) {
     return new Promise((resolve, reject) => {
       db.collection('posts').aggregate([
         { $match: query },

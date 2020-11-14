@@ -1,9 +1,9 @@
 import { getHost } from "./getHost"
 import { AddVocabularyRequest } from "./model"
 
-export function deleteVocabulary(groupId: string): Promise<Response> {
-  return fetch(`${getHost()}/vocabulary`, {
-    body: JSON.stringify({ groupId }),
+export function deleteCategory(categoryId: string): Promise<Response> {
+  return fetch(`${getHost()}/category`, {
+    body: JSON.stringify({ categoryId }),
     method: "delete",
     headers: {
       "content-type": "application/json"

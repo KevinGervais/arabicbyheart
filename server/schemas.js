@@ -8,12 +8,15 @@ module.exports = {
       optional: true
     },
   }),
-  id: new SimpleSchema({
+  _id: new SimpleSchema({
     _id: {
       type: String,
       min: 9,
       max: 9
     },
+  }),
+  languageList: new SimpleSchema({
+    languageList: ["fr", "en", "ar"],
   }),
   category: new SimpleSchema({
     title: {
@@ -65,6 +68,16 @@ module.exports = {
       optional: true
     },
     _id: {
+      type: String,
+      min: 9,
+      max: 9
+    },
+    categoryId: {
+      type: String,
+      min: 9,
+      max: 9
+    },
+    groupId: {
       type: String,
       min: 9,
       max: 9

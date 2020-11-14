@@ -9,6 +9,7 @@ import { setReduxState } from "@/redux"
 import { cloneCategory, generateId } from "@/functions"
 import localforage from "localforage"
 import Tooltip from "react-tooltip"
+import { allRequests } from "@/requests"
 
 import { HomeStyled } from "./HomeStyled"
 import { HomeProps, HomeState } from "./model"
@@ -32,14 +33,22 @@ export class HomeClass extends React.Component<HomeProps, HomeState> {
       title: newCategoryTitle,
       items: [],
       languageList: Array(columnCount).fill("fr", 0, 1).fill("ar", 1),
+      isPublic: false,
       _id: generateId()
     }
+    allRequests.addOrUpdateCategory({
+      columnCount: newCategory.columnCount,
+      title: newCategory.title,
+      languageList: newCategory.languageList,
+      _id: newCategory._id,
+      isPublic: newCategory.isPublic
+    }).then(() => {
+      const newVocabularyCategoryList: VocabularyCategory[] = vocabularyCategoryList.map(cloneCategory)
+      newVocabularyCategoryList.push(newCategory)
 
-    const newVocabularyCategoryList: VocabularyCategory[] = vocabularyCategoryList.map(cloneCategory)
-    newVocabularyCategoryList.push(newCategory)
-
-    localforage.setItem("vocabularyCategoryList", newVocabularyCategoryList)
-    setReduxState({ vocabularyCategoryList: newVocabularyCategoryList })
+      localforage.setItem("vocabularyCategoryList", newVocabularyCategoryList)
+      setReduxState({ vocabularyCategoryList: newVocabularyCategoryList })
+    })
   }
   render(): JSX.Element {
     const { vocabularyCategoryList, say } = this.props
