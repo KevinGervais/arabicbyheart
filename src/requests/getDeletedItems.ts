@@ -1,7 +1,8 @@
 import { getHost } from "./getHost"
+import { GetDeletedItemsRequestResult } from "./model"
 
-export function getDeletedVocabularyGroups(): Promise<string[]> {
-  return new Promise((resolve: (data: string[]) => void) => {
+export function getDeletedItems(): Promise<GetDeletedItemsRequestResult[]> {
+  return new Promise((resolve: (data: GetDeletedItemsRequestResult[]) => void) => {
     const date = window.localStorage.getItem("latestVocabularyDeleteDate") || undefined
     const newDate = new Date().toISOString()
     fetch(`${getHost()}/vocabularyDeleted`, {
@@ -12,7 +13,7 @@ export function getDeletedVocabularyGroups(): Promise<string[]> {
       },
     }).then((result: Response) => {
       window.localStorage.setItem("latestVocabularyDeleteDate", newDate)
-      result.json().then((result1: { data: string[] }) => {
+      result.json().then((result1: { data: GetDeletedItemsRequestResult[] }) => {
         resolve(result1.data)
       })
     }).catch(() => {

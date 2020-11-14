@@ -1,5 +1,5 @@
 import { getHost } from "./getHost"
-import { AddVocabularyRequest } from "./model"
+import { AddVocabularyRequestResult } from "./model"
 
 export function deleteCategory(categoryId: string): Promise<Response> {
   return fetch(`${getHost()}/category`, {

@@ -2,7 +2,7 @@ import { addOrUpdateCategory } from "./addOrUpdateCategory"
 import { addOrUpdateVocabulary } from "./addOrUpdateVocabulary"
 import { deleteVocabulary } from "./deleteVocabulary"
 import { deleteCategory } from "./deleteCategory"
-import { getDeletedVocabularyGroups } from "./getDeletedVocabularyGroups"
+import { getDeletedItems } from "./getDeletedItems"
 import { getHost } from "./getHost"
 import { getVocabulary } from "./getVocabulary"
 
@@ -11,7 +11,7 @@ export const allRequests = {
   addOrUpdateVocabulary,
   deleteVocabulary,
   deleteCategory,
-  getDeletedVocabularyGroups,
+  getDeletedItems,
   getHost,
   getVocabulary,
 }

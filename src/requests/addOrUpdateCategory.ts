@@ -1,7 +1,7 @@
 import { getHost } from "./getHost"
-import { AddCategoryRequest } from "./model"
+import { AddCategoryRequestResult } from "./model"
 
-export function addOrUpdateCategory(newCategory: AddCategoryRequest): Promise<Response> {
+export function addOrUpdateCategory(newCategory: AddCategoryRequestResult): Promise<Response> {
   return fetch(`${getHost()}/category`, {
     body: JSON.stringify(newCategory),
     method: "post",

@@ -33,7 +33,7 @@ export class HomeClass extends React.Component<HomeProps, HomeState> {
       title: newCategoryTitle,
       items: [],
       languageList: Array(columnCount).fill("fr", 0, 1).fill("ar", 1),
-      isPublic: false,
+      isPublic: true,
       _id: generateId()
     }
     allRequests.addOrUpdateCategory({
@@ -48,6 +48,7 @@ export class HomeClass extends React.Component<HomeProps, HomeState> {
 
       localforage.setItem("vocabularyCategoryList", newVocabularyCategoryList)
       setReduxState({ vocabularyCategoryList: newVocabularyCategoryList })
+      this.setState({ newCategoryTitle: "" })
     })
   }
   render(): JSX.Element {

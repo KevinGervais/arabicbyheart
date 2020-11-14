@@ -1,9 +1,8 @@
-import { VocabularyItem } from "@/model"
-
 import { getHost } from "./getHost"
+import { GetVocabularyRequestResult } from "./model"
 
-export function getVocabulary(): Promise<VocabularyItem[]> {
-  return new Promise((resolve: (data: VocabularyItem[]) => void) => {
+export function getVocabulary(): Promise<GetVocabularyRequestResult[]> {
+  return new Promise((resolve: (data: GetVocabularyRequestResult[]) => void) => {
     const date = window.localStorage.getItem("latestVocabularyModifDate") || undefined
     const newDate = new Date().toISOString()
     fetch(`${getHost()}/vocabulary`, {
@@ -14,7 +13,7 @@ export function getVocabulary(): Promise<VocabularyItem[]> {
       },
     }).then((result: Response) => {
       window.localStorage.setItem("latestVocabularyModifDate", newDate)
-      result.json().then((result1: { data: VocabularyItem[] }) => {
+      result.json().then((result1: { data: GetVocabularyRequestResult[] }) => {
         resolve(result1.data)
       })
     }).catch(() => {

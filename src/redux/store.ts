@@ -1,4 +1,4 @@
-import { cloneCategory } from "@/functions"
+import { cloneCategory, pullVocabulary } from "@/functions"
 import { VocabularyCategory } from "@/model"
 import localforage from "localforage"
 import { createStore, Store, Action } from "redux"
@@ -33,17 +33,5 @@ export const store: Store = createStore(
     return newState
   }
 )
-localforage
-  .getItem("vocabularyCategoryList")
-  .then((obj: unknown): void => {
-    if (obj) {
-      const vocabularyCategoryList = obj as VocabularyCategory[]
-      const categoryId = window.localStorage.getItem("categoryId")
-      const currentCategory = vocabularyCategoryList.find((item: VocabularyCategory) => item._id === categoryId)
-      if (currentCategory) {
-        setReduxState({ selectedCategory: cloneCategory(currentCategory), vocabularyCategoryList })
-      } else {
-        setReduxState({ vocabularyCategoryList })
-      }
-    }
-  })
+
+pullVocabulary()

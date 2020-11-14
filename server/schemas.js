@@ -5,7 +5,6 @@ module.exports = {
       type: String,
       min: 1,
       max: 100,
-      optional: true
     },
   }),
   _id: new SimpleSchema({

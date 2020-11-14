@@ -12,7 +12,7 @@ export function deleteItem(this: CategoryClass, index: number): void {
   const newSelectedCategory: VocabularyCategory = cloneCategory(selectedCategory as VocabularyCategory)
   const groupId = newSelectedCategory.items[index]._id
 
-  allRequests.deleteVocabulary(groupId).then(() => {
+  allRequests.deleteVocabulary(groupId, newSelectedCategory._id).then(() => {
     newSelectedCategory.items.splice(index, 1)
     const categoryIndex = vocabularyCategoryList
       .findIndex((category: VocabularyCategory) => category._id === newSelectedCategory._id)
