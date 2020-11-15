@@ -4,7 +4,7 @@ import "moment/locale/fr"
 import { Say } from "./model"
 
 export const en: Say = {
-  home: "Vocabulary by hearth",
+  home: "Arabic by hearth",
   category: "No name category",
   diapositive: "Diapositive",
   addCategory: "Add category",
