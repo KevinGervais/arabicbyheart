@@ -51,26 +51,6 @@ module.exports = {
       })
     })
   },
-  findArticles(db, query) {
-    return new Promise((resolve, reject) => {
-      const $project = {
-        _id: 1,
-        imageList: 1,
-        count: 1,
-        fr: 1,
-        en: 1
-      }
-      if (query.type === 'pocket') $project.category = 1
-      db.collection('articles').aggregate([
-        { $match: query },
-        { $sort: { order: 1 } },
-        { $project }
-      ]).toArray((err, result) => {
-        if (err) reject(new Error(err))
-        else resolve(result)
-      })
-    })
-  },
   findArrayOfElement(db, collection, query, element) {
     return new Promise((resolve, reject) => {
       db.collection(collection).aggregate([

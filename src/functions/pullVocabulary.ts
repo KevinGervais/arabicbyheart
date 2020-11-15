@@ -74,12 +74,13 @@ function fetchCategories(
 function setVocabularyState(vocabularyCategoryList: VocabularyCategory[], isStorageUpdate?: boolean): void {
   const categoryId = window.localStorage.getItem("categoryId")
   const currentCategory = vocabularyCategoryList.find((item: VocabularyCategory) => item._id === categoryId)
+  const newVocabularyCategoryList = vocabularyCategoryList.map(cloneCategory)
   if (currentCategory) {
-    setReduxState({ selectedCategory: cloneCategory(currentCategory), vocabularyCategoryList })
+    setReduxState({ selectedCategory: cloneCategory(currentCategory), vocabularyCategoryList: newVocabularyCategoryList })
   } else {
-    setReduxState({ vocabularyCategoryList })
+    setReduxState({ vocabularyCategoryList: newVocabularyCategoryList })
   }
   if (isStorageUpdate) {
-    localforage.setItem("vocabularyCategoryList", vocabularyCategoryList)
+    localforage.setItem("vocabularyCategoryList", newVocabularyCategoryList)
   }
 }

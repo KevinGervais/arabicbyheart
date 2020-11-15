@@ -88,7 +88,7 @@ module.exports = function handleRequests(app, db) {
       schemas._id.validate([{ _id: groupId }, { _id: categoryId }])
       await dbQueries.removeOne(db, 'vocabularyGroup', { _id: groupId })
       await dbQueries.removeMany(db, 'vocabularyItem', { groupId })
-      await dbQueries.updateOne(db, 'category', { _id: categoryId }, { $set: { lastModif: date } })
+      await dbQueries.updateOne(db, 'category', { _id: categoryId }, { $set: { lastModif: deletedDate } })
       await dbQueries.insertOne(db, 'deletedItem', { groupId, categoryId, deletedDate })
       res.send("vocabulary deleted")
     } catch (error) {
@@ -122,19 +122,21 @@ module.exports = function handleRequests(app, db) {
       const {
         date,
       } = req.query
-      let vocabularyGroups = []
       let vocabularyCategories = []
+      let vocabularyGroups = []
       let categoryIds = []
       if (date) {
         schemas.pull.validate([{ date }])
-        vocabularyCategories = await dbQueries.find(db, 'category', { public: true, lastModif: { gte: date } })
+        vocabularyCategories = await dbQueries.find(db, 'category', { isPublic: true, lastModif: { gte: date } })
         categoryIds = vocabularyCategories.map((category) => category._id)
-        vocabularyGroups = await dbQueries.find(db, 'vocabularyGroup', { lastModif: { gte: date }, categoryId: { $in: categoryIds } }, { lastModif: 0 })
+        vocabularyGroups = await dbQueries.find(db, 'vocabularyGroup', { lastModif: { gte: date }, categoryId: { $in: categoryIds } })
       } else {
-        vocabularyCategories = await dbQueries.find(db, 'category', { public: true })
+        vocabularyCategories = await dbQueries.find(db, 'category', { isPublic: true })
         categoryIds = vocabularyCategories.map((category) => category._id)
-        vocabularyGroups = await dbQueries.find(db, 'vocabularyGroup', { categoryId: { $in: categoryIds } }, { lastModif: 0 })
+        vocabularyGroups = await dbQueries.find(db, 'vocabularyGroup', { categoryId: { $in: categoryIds } })
       }
+      vocabularyCategories = vocabularyCategories.map((item) => ({ ...item, lastModif: undefined }))
+      vocabularyGroups = vocabularyGroups.map((item) => ({ ...item, lastModif: undefined, categoryId: undefined }))
       const vocabularyGroupIds = vocabularyGroups.map((group) => group._id)
       const vocabularyItems = await dbQueries.find(
         db,
@@ -142,12 +144,13 @@ module.exports = function handleRequests(app, db) {
         { groupId: { $in: vocabularyGroupIds } },
       )
 
+      const groupIdPushed = []
       vocabularyItems.forEach((vocItem) => {
-        const groupIndex = vocabularyGroups.findIndex((groupItem) => groupItem._id === vocItem.groupId)
         const categoryIndex = vocabularyCategories.findIndex((catItem) => catItem._id === vocItem.categoryId)
+        const groupIndex = vocabularyGroups.findIndex((groupItem) => groupItem._id === vocItem.groupId)
         const vocabularyItem = {
           _id: vocItem._id,
-          image: vocItem.image,
+          title: vocItem.title,
           audio: vocItem.audio
         }
         if (vocabularyGroups[groupIndex].list) {
@@ -157,10 +160,13 @@ module.exports = function handleRequests(app, db) {
         }
 
         if (vocabularyCategories[categoryIndex].items) {
-          vocabularyCategories[categoryIndex].items.push(vocabularyGroups[groupIndex])
+          if (!groupIdPushed.includes(vocItem.groupId)) {
+            vocabularyCategories[categoryIndex].items.push(vocabularyGroups[groupIndex])
+          }
         } else {
           vocabularyCategories[categoryIndex].items = [vocabularyGroups[groupIndex]]
         }
+        groupIdPushed.push(vocItem.groupId)
       })
 
       res.send({ data: vocabularyCategories })
@@ -179,9 +185,9 @@ module.exports = function handleRequests(app, db) {
       let deletedIds = []
       if (date) {
         schemas.pull.validate([{ date }])
-        deletedIds = await dbQueries.find(db, 'deletedItem', { deletedDate: { gte: date } }, { _id: 0 })
+        deletedIds = await dbQueries.find(db, 'deletedItem', { deletedDate: { gte: date } })
       } else {
-        deletedIds = await dbQueries.find(db, 'deletedItem', { _id: 0 })
+        deletedIds = await dbQueries.find(db, 'deletedItem', {})
       }
       res.send({ data: deletedIds })
     } catch (error) {
