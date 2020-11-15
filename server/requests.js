@@ -127,9 +127,9 @@ module.exports = function handleRequests(app, db) {
       let categoryIds = []
       if (date) {
         schemas.pull.validate([{ date }])
-        vocabularyCategories = await dbQueries.find(db, 'category', { isPublic: true, lastModif: { gte: date } })
+        vocabularyCategories = await dbQueries.find(db, 'category', { isPublic: true, lastModif: { $gte: new Date(date) } })
         categoryIds = vocabularyCategories.map((category) => category._id)
-        vocabularyGroups = await dbQueries.find(db, 'vocabularyGroup', { lastModif: { gte: date }, categoryId: { $in: categoryIds } })
+        vocabularyGroups = await dbQueries.find(db, 'vocabularyGroup', { lastModif: { $gte: new Date(date) }, categoryId: { $in: categoryIds } })
       } else {
         vocabularyCategories = await dbQueries.find(db, 'category', { isPublic: true })
         categoryIds = vocabularyCategories.map((category) => category._id)
@@ -185,7 +185,7 @@ module.exports = function handleRequests(app, db) {
       let deletedIds = []
       if (date) {
         schemas.pull.validate([{ date }])
-        deletedIds = await dbQueries.find(db, 'deletedItem', { deletedDate: { gte: date } })
+        deletedIds = await dbQueries.find(db, 'deletedItem', { deletedDate: { $gte: new Date(date) } })
       } else {
         deletedIds = await dbQueries.find(db, 'deletedItem', {})
       }

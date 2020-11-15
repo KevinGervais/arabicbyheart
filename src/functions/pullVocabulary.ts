@@ -58,7 +58,7 @@ function fetchCategories(
           .map((oldGroupItem: VocabularyGroup): VocabularyGroup => {
             const foundGroupIndex = updatedCategoryItem.items
               .findIndex((newGroupItem: VocabularyGroup) => newGroupItem._id === oldGroupItem._id)
-            if (foundGroupIndex) {
+            if (foundGroupIndex !== -1) {
               return updatedCategoryItem.items.splice(foundGroupIndex, 1)[0]
             } else {
               return oldGroupItem
