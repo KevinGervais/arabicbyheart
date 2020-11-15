@@ -4,7 +4,7 @@ import { deleteVocabulary } from "./deleteVocabulary"
 import { deleteCategory } from "./deleteCategory"
 import { getDeletedItems } from "./getDeletedItems"
 import { getHost } from "./getHost"
-import { getVocabulary } from "./getVocabulary"
+import { getCategories } from "./getCategories"
 
 export const allRequests = {
   addOrUpdateCategory,
@@ -13,5 +13,5 @@ export const allRequests = {
   deleteCategory,
   getDeletedItems,
   getHost,
-  getVocabulary,
+  getCategories,
 }

@@ -1,58 +1,74 @@
 import { VocabularyCategory, VocabularyGroup } from "@/model"
 import { setReduxState } from "@/redux"
 import { allRequests } from "@/requests"
-import { GetDeletedItemsRequestResult, GetVocabularyRequestResult } from "@/requests/model"
+import { GetDeletedItemsRequestResult } from "@/requests/model"
 import localforage from "localforage"
 
 import { cloneCategory } from "."
 
 export function pullVocabulary(): void {
-  localforage
-    .getItem("vocabularyCategoryList")
-    .then((obj: unknown): void => {
-      if (obj) {
-        const vocabularyCategoryList = obj as VocabularyCategory[]
-        setVocabularyState(vocabularyCategoryList)
-        allRequests.getVocabulary().then((vocabulary: GetVocabularyRequestResult[]) => {
-          vocabulary.forEach((item: GetVocabularyRequestResult) => {
-            const foundCategory = vocabularyCategoryList.find((categoryItem: VocabularyCategory) => categoryItem._id === item.categoryId)
-            if (foundCategory) {
-              const foundGroupIndex = foundCategory.items.findIndex((currentGroup: VocabularyGroup) => currentGroup._id === item._id)
-              const newVocabularyGroup: VocabularyGroup = {
-                _id: item._id,
-                image: item.image,
-                list: item.list,
-              }
-              if (foundGroupIndex === -1) {
-                foundCategory.items.push(newVocabularyGroup)
-              } else {
-                foundCategory.items[foundGroupIndex] = newVocabularyGroup
-              }
-            }
-          })
-          setVocabularyState(vocabularyCategoryList, true)
+  console.log("out")
+  localforage.getItem("vocabularyCategoryList").then((obj: unknown): void => {
+    console.log("int")
+    const vocabularyCategoryList = (obj || []) as VocabularyCategory[]
+    setVocabularyState(vocabularyCategoryList)
+    fetchCategories(vocabularyCategoryList, (newVocabularyCategoryList: VocabularyCategory[]) => {
+      setVocabularyState(newVocabularyCategoryList, true)
+      fetchDeletedItems(newVocabularyCategoryList, (newNewVocabularyCategoryList: VocabularyCategory[]) => {
+        setVocabularyState(newNewVocabularyCategoryList, true)
+      })
+    })
+  })
+}
 
-          allRequests.getDeletedItems().then((deletedItems: GetDeletedItemsRequestResult[]) => {
-            deletedItems.forEach((item: GetDeletedItemsRequestResult) => {
-              const foundCategoryIndex = vocabularyCategoryList.findIndex((categoryItem: VocabularyCategory) => categoryItem._id === item.categoryId)
-              if (item.groupId) {
-                if (foundCategoryIndex !== -1) {
-                  const foundGroupIndex = vocabularyCategoryList[foundCategoryIndex]
-                    .items.findIndex((currentGroup: VocabularyGroup) => currentGroup._id === item.groupId)
-                  if (foundGroupIndex !== -1) {
-                    vocabularyCategoryList[foundCategoryIndex].items.splice(foundGroupIndex, 1)
-                  }
-                }
-              } else if (foundCategoryIndex !== -1) {
-                vocabularyCategoryList.splice(foundCategoryIndex, 1)
-              }
-            })
-            setVocabularyState(vocabularyCategoryList, true)
-          })
-        })
-
+function fetchDeletedItems(
+  vocabularyCategoryList: VocabularyCategory[],
+  callback: (vocabularyCategoryList: VocabularyCategory[]) => void
+): void {
+  allRequests.getDeletedItems().then((deletedItems: GetDeletedItemsRequestResult[]) => {
+    deletedItems.forEach((item: GetDeletedItemsRequestResult) => {
+      const foundCategoryIndex = vocabularyCategoryList.findIndex((categoryItem: VocabularyCategory) => categoryItem._id === item.categoryId)
+      if (item.groupId) {
+        if (foundCategoryIndex !== -1) {
+          const foundGroupIndex = vocabularyCategoryList[foundCategoryIndex]
+            .items.findIndex((currentGroup: VocabularyGroup) => currentGroup._id === item.groupId)
+          if (foundGroupIndex !== -1) {
+            vocabularyCategoryList[foundCategoryIndex].items.splice(foundGroupIndex, 1)
+          }
+        }
+      } else if (foundCategoryIndex !== -1) {
+        vocabularyCategoryList.splice(foundCategoryIndex, 1)
       }
     })
+    callback(vocabularyCategoryList)
+  })
+}
+
+function fetchCategories(
+  vocabularyCategoryList: VocabularyCategory[],
+  callback: (vocabularyCategoryList: VocabularyCategory[]
+  ) => void): void {
+  allRequests.getCategories().then((updatedCategoryList: VocabularyCategory[]) => {
+    updatedCategoryList.forEach((updatedCategoryItem: VocabularyCategory) => {
+      const foundCategoryIndex = vocabularyCategoryList.findIndex((categoryItem: VocabularyCategory) => categoryItem._id === updatedCategoryItem._id)
+      if (foundCategoryIndex === -1) {
+        vocabularyCategoryList.push(updatedCategoryItem)
+      } else {
+        vocabularyCategoryList[foundCategoryIndex].items = vocabularyCategoryList[foundCategoryIndex].items
+          .map((oldGroupItem: VocabularyGroup): VocabularyGroup => {
+            const foundGroupIndex = updatedCategoryItem.items
+              .findIndex((newGroupItem: VocabularyGroup) => newGroupItem._id === oldGroupItem._id)
+            if (foundGroupIndex) {
+              return updatedCategoryItem.items.splice(foundGroupIndex, 1)[0]
+            } else {
+              return oldGroupItem
+            }
+          })
+        vocabularyCategoryList[foundCategoryIndex].items.push(...updatedCategoryItem.items)
+      }
+    })
+    callback(vocabularyCategoryList)
+  })
 }
 
 function setVocabularyState(vocabularyCategoryList: VocabularyCategory[], isStorageUpdate?: boolean): void {

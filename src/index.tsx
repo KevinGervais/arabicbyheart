@@ -41,7 +41,6 @@ export class AppClass extends React.Component {
   }
 
   public render(): JSX.Element {
-    console.log(generateId().length)
     return (
       <Provider store={store}>
         <Routes />

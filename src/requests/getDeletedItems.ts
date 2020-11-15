@@ -1,12 +1,12 @@
 import { getHost } from "./getHost"
+import { jsonToUrlString } from "./jsonToUrlString"
 import { GetDeletedItemsRequestResult } from "./model"
 
 export function getDeletedItems(): Promise<GetDeletedItemsRequestResult[]> {
   return new Promise((resolve: (data: GetDeletedItemsRequestResult[]) => void) => {
     const date = window.localStorage.getItem("latestVocabularyDeleteDate") || undefined
     const newDate = new Date().toISOString()
-    fetch(`${getHost()}/vocabularyDeleted`, {
-      body: JSON.stringify({ date }),
+    fetch(`${getHost()}/deleted?${date ? jsonToUrlString({ date }) : ""}`, {
       method: "get",
       headers: {
         "content-type": "application/json"
