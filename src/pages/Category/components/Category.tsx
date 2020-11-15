@@ -32,7 +32,7 @@ export const speechLanguages: SpeechLanguages[] = ["fr", "ar", "en"]
 
 export class CategoryClass extends React.Component<CategoryProps, CategoryState> {
   titleSpeech?: SpeechRecognition
-  titleRecorder: any
+  titleRecorder?: any
   titleReader?: FileReader
   audioChanged: boolean = false
   titleChanged: boolean = false
@@ -46,6 +46,7 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
   onAudioStop: () => void
   saveDiapositiveSettings: () => void
   getInitialState: (isSkipOptions?: boolean | undefined) => CategoryInitState
+  activateAudio: () => void
 
   constructor(props: CategoryProps) {
     super(props)
@@ -59,6 +60,7 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
     this.deleteCategory = functions.deleteCategory.bind(this)
     this.onAudioStop = functions.onAudioStop.bind(this)
     this.saveDiapositiveSettings = functions.saveDiapositiveSettings.bind(this)
+    this.activateAudio = functions.activateAudio.bind(this)
     let state: CategoryState = {
       isMicrophone: true,
       isShuffle: true,
@@ -77,18 +79,7 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
     }
 
     this.state = state
-    const SpeechRecognition = window.SpeechRecognition || (window as any).webkitSpeechRecognition
-    if (SpeechRecognition) {
-      this.titleSpeech = new SpeechRecognition()
-      this.titleSpeech.continuous = false
-      this.titleSpeech.onresult = this.setTitle
-    }
 
-    navigator.mediaDevices.getUserMedia({ audio: true })
-      .then((stream: MediaStream) => {
-        this.titleRecorder = new (window as any).MediaRecorder(stream)
-        this.titleRecorder.addEventListener("dataavailable", this.setAudio)
-      })
   }
 
   componentDidUpdate(oldProps: CategoryProps, oldState: CategoryState): void {
@@ -135,7 +126,10 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
           this.setState({ isAskingDelete: false })
         }
       }}>
-        {!isCreatingVocabulary && <div className="add-button" onClick={() => this.setState({ isCreatingVocabulary: true })}>
+        {!isCreatingVocabulary && <div className="add-button" onClick={() => {
+          this.activateAudio()
+          this.setState({ isCreatingVocabulary: true })
+        }}>
           {say.addVocabulary}
           <PlusIcon />
         </div>}
