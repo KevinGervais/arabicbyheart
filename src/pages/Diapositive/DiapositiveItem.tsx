@@ -1,6 +1,7 @@
 import { VocabularyItem } from "@/model"
 import React from "react"
 import PlayIcon from "@/images/play"
+import { cloneVocabularyGroup } from "@/functions"
 
 import { DiapositiveItemProps, DiapositiveItemState } from "./model"
 import { DiapositiveItemStyled } from "./DiapositiveItemStyled"
@@ -47,7 +48,7 @@ export class DiapositiveItem extends React.Component<DiapositiveItemProps, Diapo
         {isAnswerShown && isImage && currentVocabularyGroup.image && (
           <img src={currentVocabularyGroup.image} alt={currentVocabularyItem && currentVocabularyItem.title} />
         )}
-        {isAnswerShown && currentVocabularyGroup.list.sort((itemA: VocabularyItem, itemB: VocabularyItem) => {
+        {isAnswerShown && cloneVocabularyGroup(currentVocabularyGroup).list.sort((itemA: VocabularyItem, itemB: VocabularyItem) => {
           if (!currentVocabularyItem) {
             return 0
           }
