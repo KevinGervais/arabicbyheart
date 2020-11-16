@@ -109,6 +109,7 @@ export class DiapositiveClass extends React.Component<DiapositiveProps, Diaposit
           }} />
           <h3>{`${currentIndex + 1}/${this.items.length}`}</h3>
           <DiapositiveItem
+            isHarakat={diapositiveSettings.isHarakat}
             isImage={diapositiveSettings.isImage}
             currentVocabularyGroup={vocabularyGroup}
             currentVocabularyItem={item}

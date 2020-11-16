@@ -38,5 +38,6 @@ export type SayKeywords =
   | "shuffle"
   | "transitionDelay"
   | "record"
+  | "harakat"
 
 

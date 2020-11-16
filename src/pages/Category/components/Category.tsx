@@ -66,6 +66,7 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
       isShuffle: true,
       isDiaporamaImage: true,
       isCreatingWithImage: true,
+      isHarakat: true,
       delay: 5,
     } as any
 
@@ -113,6 +114,7 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
       isAskingDelete,
       isDiaporamaImage,
       isCreatingWithImage,
+      isHarakat
     } = this.state
     if (!selectedCategory) {
       return null
@@ -278,6 +280,13 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
                 onClick={() => this.setState({ isDiaporamaImage: !isDiaporamaImage })}
               >
                 <ImageIcon />
+              </BottomMenuItemStyled>
+              <BottomMenuItemStyled
+                isActive={isHarakat}
+                data-tip={say.harakat}
+                onClick={() => this.setState({ isHarakat: !isHarakat })}
+              >
+                {isHarakat ? "حَرَكَات" : "حركات"}
               </BottomMenuItemStyled>
               <BottomMenuItemStyled
                 isActive={isMicrophone}

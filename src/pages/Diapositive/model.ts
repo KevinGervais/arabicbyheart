@@ -22,6 +22,7 @@ export interface DiapositiveItemProps {
   readonly currentVocabularyItem: DiapositiveItemObject
   readonly languageList: SpeechLanguages[]
   readonly isImage: boolean
+  readonly isHarakat: boolean
   readonly say: Say
 }
 

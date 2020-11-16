@@ -16,6 +16,7 @@ export interface CategoryState {
   readonly audioList: string[]
   readonly languageList: SpeechLanguages[]
   readonly isTitlesFromListActive: boolean[]
+  readonly isHarakat: boolean
   readonly isMicrophone: boolean
   readonly isCreatingWithImage: boolean
   readonly isDiaporamaImage: boolean

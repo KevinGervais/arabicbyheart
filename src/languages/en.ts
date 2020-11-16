@@ -31,6 +31,7 @@ export const en: Say = {
   sound: "Automatic sound",
   shuffle: "Shuffled questions",
   transitionDelay: "Chrono of a question",
-  record: "Record pronunciation"
+  record: "Record pronunciation",
+  harakat: "Question with harakat"
 
 }

@@ -55,6 +55,7 @@ export interface DiapositiveSettings {
   isShuffle: boolean
   delay: diapositiveDelay
   isImage: boolean
+  isHarakat: boolean
 }
 
 export type RequestPaths = "category" | "vocabulary" | "vocabularyDeleted"

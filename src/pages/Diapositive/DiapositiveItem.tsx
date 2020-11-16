@@ -30,7 +30,7 @@ export class DiapositiveItem extends React.Component<DiapositiveItemProps, Diapo
   }
 
   render(): JSX.Element {
-    const { currentVocabularyGroup, currentVocabularyItem, say, isImage, languageList } = this.props
+    const { currentVocabularyGroup, currentVocabularyItem, say, isImage, languageList, isHarakat } = this.props
     const index: number = currentVocabularyGroup.list.findIndex((item: VocabularyItem) => item._id === currentVocabularyItem._id)
     const { isAnswerShown } = this.state
     return (
@@ -39,7 +39,7 @@ export class DiapositiveItem extends React.Component<DiapositiveItemProps, Diapo
           <>
             {isImage && currentVocabularyGroup.image && <img src={currentVocabularyGroup.image} alt={currentVocabularyItem && currentVocabularyItem.title} />}
             {currentVocabularyItem && !currentVocabularyItem.isImageOnly && <span>
-              {currentVocabularyItem.title}
+              {isHarakat ? currentVocabularyItem.title : removeHarakat(currentVocabularyItem.title)}
               {currentVocabularyItem.audio !== "" && <PlayIcon onClick={() => new Audio(currentVocabularyItem.audio).play()} />}
             </span>}
             <h4 onClick={() => this.setState({ isAnswerShown: true })}>{say.showAnswer}</h4>
@@ -75,3 +75,15 @@ export class DiapositiveItem extends React.Component<DiapositiveItemProps, Diapo
     )
   }
 }
+
+const removeHarakat = (str: string): string => (
+  str
+    .split("َ").join("")
+    .split("ُ").join("")
+    .split("ِ").join("")
+    .split("ََ").join("")
+    .split("ُُ").join("")
+    .split("ِِ").join("")
+    .split("ْ").join("")
+    .split("ّ").join("")
+)

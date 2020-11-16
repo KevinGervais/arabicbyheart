@@ -10,7 +10,8 @@ export function saveDiapositiveSettings(this: CategoryClass): void {
       isMicrophone,
       isShuffle,
       delay,
-      isDiaporamaImage
+      isDiaporamaImage,
+      isHarakat
     } = this.state
 
     const diapositiveSettings: DiapositiveSettings = {
@@ -18,6 +19,7 @@ export function saveDiapositiveSettings(this: CategoryClass): void {
       isMicrophone,
       isShuffle,
       delay,
+      isHarakat,
       isImage: isDiaporamaImage
     }
     window.localStorage.setItem("diapositiveSettings", JSON.stringify(diapositiveSettings))

@@ -9,7 +9,9 @@ export function goToDiapositive(this: CategoryClass): void {
     isMicrophone,
     isShuffle,
     delay,
-    isDiaporamaImage
+    isDiaporamaImage,
+    isHarakat
+
   } = this.state
 
   const diapositiveSettings: DiapositiveSettings = {
@@ -17,7 +19,8 @@ export function goToDiapositive(this: CategoryClass): void {
     isMicrophone,
     isShuffle,
     delay,
-    isImage: isDiaporamaImage
+    isImage: isDiaporamaImage,
+    isHarakat
   }
   setReduxState({ diapositiveSettings, page: "diapositive" })
   window.localStorage.setItem("diapositiveSettings", JSON.stringify(diapositiveSettings))

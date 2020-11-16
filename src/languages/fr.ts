@@ -31,6 +31,6 @@ export const fr: Say = {
   sound: "Son automatique",
   shuffle: "Questions aléatoires",
   transitionDelay: "Chrono d'une question",
-  record: "Enregistrer la prononciation"
-
+  record: "Enregistrer la prononciation",
+  harakat: "Question avec harakat",
 }
