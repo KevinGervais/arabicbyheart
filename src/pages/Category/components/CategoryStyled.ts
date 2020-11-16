@@ -3,11 +3,21 @@ import { center, clickable } from "@/styles/mixins"
 import styled, { css } from "styled-components"
 
 export const CategoryStyled = styled.div<{}>`
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
   height: calc(100% - 20px);
+  .add-button-wrapper {
+    ${center};
+    position: absolute;
+    background: hsla(0, 0%, 100%, 0.1);
+    width: 100%;
+    padding: 20px 0;
+    backdrop-filter: blur(2px);
+    border-bottom: 2px solid ${() => window.theme.primary200};
+  }
   .add-button {
     display: flex;
     align-items: center;
@@ -15,7 +25,6 @@ export const CategoryStyled = styled.div<{}>`
     ${clickable};
     height: 40px;
     padding: 0 20px;
-    margin: 20px 0;
     border-radius: 20px;
     background: ${() => window.theme.primary500};
     color: white;
@@ -36,6 +45,17 @@ export const CategoryStyled = styled.div<{}>`
       color: white;
     }
   }
+  .create-vocabulary-wrapper {
+    ${center};
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    width: 100%;
+    height: 100%;
+    background: hsla(0, 0%, 100%, 0.1);
+    backdrop-filter: blur(2px);
+  }
   .create-vocabulary {
     display: flex;
     flex-direction: column;
@@ -43,7 +63,7 @@ export const CategoryStyled = styled.div<{}>`
     padding: 20px;
     border-radius: 20px;
     margin: 20px 0;
-    width: 100%;
+    width: calc(100vw - 60px);
     max-width: 600px;
     box-shadow: 0 0 5px hsla(0, 0%, 0%, 0.3);
     background: white;
@@ -57,6 +77,22 @@ export const CategoryStyled = styled.div<{}>`
         display: flex;
         align-items: center;
         overflow: hidden;
+        height: 40px;
+        @media screen and (max-width: 800px) {
+          margin-top: 20px;
+          border-top: none;
+          flex-wrap: wrap;
+          height: initial;
+          h4 {
+            display: flex;
+            width: 100%;
+            align-items: center;
+          }
+          input, .select, span, h4 {
+            height: 40px;
+            width: 100%;
+          }
+        }
       }
       &:last-child {
         justify-content: flex-end;
@@ -64,7 +100,7 @@ export const CategoryStyled = styled.div<{}>`
       }
       input {
         flex: 1;
-        height: 40px;
+        height: 100%;
         padding: 0 20px;
         background: ${() => window.theme.grey100};
         transition: 0.3s all ease-in-out;
@@ -139,6 +175,7 @@ export const CategoryStyled = styled.div<{}>`
     overflow: scroll;
     flex-wrap: wrap;
     width: 100%;
+    padding-top: 80px;
     padding-bottom: 100px;
   }
 `

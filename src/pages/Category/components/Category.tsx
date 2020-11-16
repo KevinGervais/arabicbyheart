@@ -126,84 +126,89 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
           this.setState({ isAskingDelete: false })
         }
       }}>
-        {!isCreatingVocabulary && <div className="add-button" onClick={() => {
-          this.activateAudio()
-          this.setState({ isCreatingVocabulary: true })
-        }}>
-          {say.addVocabulary}
-          <PlusIcon />
-        </div>}
+        <div className="add-button-wrapper">
+          <div className="add-button" onClick={() => {
+            this.activateAudio()
+            this.setState({ isCreatingVocabulary: true })
+          }}>
+            {say.addVocabulary}
+            <PlusIcon />
+          </div>
+        </div>
         {isCreatingVocabulary && (
-          <div className="create-vocabulary">
-            {Array(selectedCategory.columnCount).fill(0).map((_: number, index: number) => (
-              <div key={index}>
-                <h4>{`${say.vocabularyTitle} ${index + 1}:`}</h4>
-                <input
-                  placeholder={say.vocabularyPlacehoder}
-                  value={titleList[index]}
-                  onKeyDown={(evt: React.KeyboardEvent<HTMLInputElement>) => {
-                    if (evt.key.length === 1 && languageList[index] === "ar") {
-                      evt.preventDefault()
-                      const newTitleList = [...titleList]
-                      const key = evt.altKey && evt.key === " " ? "ُ" : functions.latinKeyToArabic(evt.key)
-                      newTitleList[index] = newTitleList[index] + key
-                      this.setState({ titleList: newTitleList })
+          <div className="create-vocabulary-wrapper">
+            <div className="create-vocabulary">
+              {Array(selectedCategory.columnCount).fill(0).map((_: number, index: number) => (
+                <div key={index}>
+                  <h4>{`${say.vocabularyTitle} ${index + 1}:`}</h4>
+                  {recordingIndex !== index && <MicroIcon data-for="record-tooltip" data-tip onClick={() => {
+                    this.setState({ recordingIndex: index })
+                    try {
+                      this.titleRecorder.start()
+                      if (this.titleSpeech) {
+                        this.titleSpeech.lang = languageList[index]
+                        this.titleSpeech.start()
+                      }
+                    } catch (err) {
+                      // do nothing
                     }
-                  }}
-                  onChange={(evt: React.ChangeEvent<HTMLInputElement>) => {
-                    const newTitleList = [...titleList]
-                    newTitleList[index] = evt.target.value
-                    this.setState({ titleList: newTitleList })
-                  }}
-
-                />
-                {selectedCategory.items.length > 0 &&
-                  <span>{say[languageList[index]]}</span>}
-                {recordingIndex !== index && <MicroIcon data-for="record-tooltip" data-tip onClick={() => {
-                  this.setState({ recordingIndex: index })
-                  try {
-                    this.titleRecorder.start()
-                    if (this.titleSpeech) {
-                      this.titleSpeech.lang = languageList[index]
-                      this.titleSpeech.start()
-                    }
-                  } catch (err) {
-                    // do nothing
-                  }
-                }} />}
-                <Tooltip id="record-tooltip" effect="solid" place="right" getContent={() => say.record} />
-
-                {recordingIndex === index && <StopIcon onClick={this.onAudioStop} />}
-                {selectedCategory.items.length === 0 && <Select
-                  optionList={speechLanguages}
-                  outputList={speechLanguages.map((lang: SpeechLanguages) => say[lang])}
-                  value={say[languageList[index]]}
-                  onChange={(newVal: string) => {
-                    const newLanguageList = [...languageList]
-                    newLanguageList[index] = newVal as SpeechLanguages
-                    this.setState({ languageList: newLanguageList })
                   }} />}
-              </div>
-            ))}
-            <div>
-              <Toggle
-                active={isCreatingWithImage}
-                label={say.isWithImage}
-                onChange={() => this.setState({ isCreatingWithImage: !isCreatingWithImage })}
-              />
-              <div data-for={"save-tooltip"} data-tip className="button" onClick={this.createVocabulary}>
-                <SaveIcon />
-              </div>
-              <div data-for={"cancel-tooltip"} data-tip={say.cancel} className="button" onClick={() => this.setState({
-                ...this.getInitialState(true) as CategoryState,
-                isCreatingVocabulary: false,
-                recordingIndex: -1,
-              })}>
-                <CloseIcon />
-              </div>
-              <Tooltip id="save-tooltip" effect="solid" place="bottom" getContent={() => say.save} />
-              <Tooltip id="cancel-tooltip" effect="solid" place="bottom" getContent={() => say.cancel} />
+                  <Tooltip id="record-tooltip" effect="solid" place="right" getContent={() => say.record} />
 
+                  {recordingIndex === index && <StopIcon onClick={this.onAudioStop} />}
+                  <input
+                    placeholder={say.vocabularyPlacehoder}
+                    value={titleList[index]}
+                    onKeyDown={(evt: React.KeyboardEvent<HTMLInputElement>) => {
+                      if (evt.key.length === 1 && languageList[index] === "ar") {
+                        evt.preventDefault()
+                        const newTitleList = [...titleList]
+                        const key = evt.altKey && evt.key === " " ? "ُ" : functions.latinKeyToArabic(evt.key)
+                        newTitleList[index] = newTitleList[index] + key
+                        this.setState({ titleList: newTitleList })
+                      }
+                    }}
+                    onChange={(evt: React.ChangeEvent<HTMLInputElement>) => {
+                      const newTitleList = [...titleList]
+                      newTitleList[index] = evt.target.value
+                      this.setState({ titleList: newTitleList })
+                    }}
+
+                  />
+                  {selectedCategory.items.length > 0 &&
+                    <span>{say[languageList[index]]}</span>}
+
+                  {selectedCategory.items.length === 0 && <Select
+                    optionList={speechLanguages}
+                    outputList={speechLanguages.map((lang: SpeechLanguages) => say[lang])}
+                    value={say[languageList[index]]}
+                    onChange={(newVal: string) => {
+                      const newLanguageList = [...languageList]
+                      newLanguageList[index] = newVal as SpeechLanguages
+                      this.setState({ languageList: newLanguageList })
+                    }} />}
+                </div>
+              ))}
+              <div>
+                <Toggle
+                  active={isCreatingWithImage}
+                  label={say.isWithImage}
+                  onChange={() => this.setState({ isCreatingWithImage: !isCreatingWithImage })}
+                />
+                <div data-for={"save-tooltip"} data-tip className="button" onClick={this.createVocabulary}>
+                  <SaveIcon />
+                </div>
+                <div data-for={"cancel-tooltip"} data-tip={say.cancel} className="button" onClick={() => this.setState({
+                  ...this.getInitialState(true) as CategoryState,
+                  isCreatingVocabulary: false,
+                  recordingIndex: -1,
+                })}>
+                  <CloseIcon />
+                </div>
+                <Tooltip id="save-tooltip" effect="solid" place="bottom" getContent={() => say.save} />
+                <Tooltip id="cancel-tooltip" effect="solid" place="bottom" getContent={() => say.cancel} />
+
+              </div>
             </div>
           </div>
         )

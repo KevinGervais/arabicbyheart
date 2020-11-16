@@ -9,7 +9,12 @@ export function activateAudio(this: CategoryClass): void {
       this.titleSpeech.onresult = this.setTitle
     }
   }
-  if (!this.titleRecorder && (window as any).MediaRecorder) {
+  if (
+    !this.titleRecorder
+    && (window as any).MediaRecorder
+    && navigator.mediaDevices
+    && navigator.mediaDevices.getUserMedia
+  ) {
     navigator.mediaDevices.getUserMedia({ audio: true })
       .then((stream: MediaStream) => {
         this.titleRecorder = new (window as any).MediaRecorder(stream)

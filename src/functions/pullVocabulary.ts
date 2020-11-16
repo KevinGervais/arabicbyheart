@@ -7,9 +7,7 @@ import localforage from "localforage"
 import { cloneCategory } from "."
 
 export function pullVocabulary(): void {
-  console.log("out")
   localforage.getItem("vocabularyCategoryList").then((obj: unknown): void => {
-    console.log("int")
     const vocabularyCategoryList = (obj || []) as VocabularyCategory[]
     setVocabularyState(vocabularyCategoryList)
     fetchCategories(vocabularyCategoryList, (newVocabularyCategoryList: VocabularyCategory[]) => {

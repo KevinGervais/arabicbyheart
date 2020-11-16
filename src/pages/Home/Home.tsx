@@ -104,7 +104,7 @@ export class HomeClass extends React.Component<HomeProps, HomeState> {
                     const langIndex = category.languageList.slice(0, index + 1).filter((language: SpeechLanguages) => language === lang).length
                     return langIndex < 2
                   })
-                  .map((item: VocabularyItem, index: number) => say[category.languageList[index]]).join(" - ")}</span>
+                  .map((item: VocabularyItem, index: number) => category.languageList[index]).join(" - ")}</span>
               )}
               <RightArrowIcon />
             </VocabularyCategoryStyled>
