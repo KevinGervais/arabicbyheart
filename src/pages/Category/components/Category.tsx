@@ -157,6 +157,7 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
 
                   {recordingIndex === index && <StopIcon onClick={this.onAudioStop} />}
                   <input
+                    className={languageList[index] === "ar" ? "arabic-input" : ""}
                     placeholder={say.vocabularyPlacehoder}
                     value={titleList[index]}
                     onKeyDown={(evt: React.KeyboardEvent<HTMLInputElement>) => {

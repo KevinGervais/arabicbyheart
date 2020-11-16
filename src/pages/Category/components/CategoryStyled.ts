@@ -107,6 +107,9 @@ export const CategoryStyled = styled.div<{}>`
         &::placeholder {
           color: ${() => window.theme.grey400};
         }
+        &.arabic-input {
+          direction:RTL;
+        }
       }
       h4 {
         display: flex;
