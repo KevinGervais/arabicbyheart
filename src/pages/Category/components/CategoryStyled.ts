@@ -78,7 +78,7 @@ export const CategoryStyled = styled.div<{}>`
         align-items: center;
         overflow: hidden;
         height: 40px;
-        @media screen and (max-width: 800px) {
+        @media screen and (max-width: 600px) {
           margin-top: 20px;
           border-top: none;
           flex-wrap: wrap;
