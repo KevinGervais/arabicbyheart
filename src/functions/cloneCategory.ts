@@ -1,10 +1,9 @@
 import { VocabularyCategory } from "@/model"
 
-import { cloneVocabularyGroup } from "./cloneVocabularyGroup"
+import { cloneVocabularyItem } from "./cloneVocabularyItem"
 
 export function cloneCategory(category: VocabularyCategory): VocabularyCategory {
   const newCategory = { ...category }
-  newCategory.languageList = [...newCategory.languageList]
-  newCategory.items.map(cloneVocabularyGroup)
+  newCategory.items.map(cloneVocabularyItem)
   return newCategory
 }

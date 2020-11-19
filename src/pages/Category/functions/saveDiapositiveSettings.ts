@@ -6,7 +6,8 @@ export function saveDiapositiveSettings(this: CategoryClass): void {
   window.clearTimeout(timeoutId)
   timeoutId = window.setTimeout(() => {
     const {
-      isTitlesFromListActive,
+      isSelectedTitleActive,
+      isArabicTitleActive,
       isMicrophone,
       isShuffle,
       delay,
@@ -15,7 +16,8 @@ export function saveDiapositiveSettings(this: CategoryClass): void {
     } = this.state
 
     const diapositiveSettings: DiapositiveSettings = {
-      isTitlesFromListActive,
+      isSelectedTitleActive,
+      isArabicTitleActive,
       isMicrophone,
       isShuffle,
       delay,

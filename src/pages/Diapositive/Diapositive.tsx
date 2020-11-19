@@ -1,9 +1,8 @@
-import { VocabularyGroup, VocabularyItem } from "@/model"
+import { VocabularyItem } from "@/model"
 import { ReduxState } from "@/redux/model"
 import React from "react"
 import { connect } from "react-redux"
 import ArrowIcon from "@/images/rightArrow"
-import { cloneCategory } from "@/functions"
 
 import { DiapositiveStyled } from "./DiapositiveStyled"
 import { DiapositiveItemObject, DiapositiveProps, DiapositiveState } from "./model"
@@ -31,24 +30,41 @@ export class DiapositiveClass extends React.Component<DiapositiveProps, Diaposit
   }
 
   setItems(props: DiapositiveProps): void {
-    const { selectedCategory, diapositiveSettings } = props
+    const { selectedCategory, diapositiveSettings, selectedLanguage } = props
     if (!selectedCategory || !diapositiveSettings) {
       this.items = []
       return
     }
-    this.items = selectedCategory.items.map((group: VocabularyGroup) => {
-      let filteredList = group.list
-        .filter((val: VocabularyItem, index: number) => diapositiveSettings.isTitlesFromListActive[index])
-      let isImageOnly: boolean = false
-      filteredList = [...filteredList]
-      if (filteredList.length === 0) {
-        filteredList.push(group.list[0])
-        isImageOnly = true
+    this.items = selectedCategory.items.map((vocabularyItem: VocabularyItem) => {
+      const diapositiveItems: DiapositiveItemObject[] = []
+      if (diapositiveSettings.isSelectedTitleActive) {
+        diapositiveItems.push({
+          currentLanguageItem: vocabularyItem.languageItems[selectedLanguage],
+          image: vocabularyItem.image,
+          isImageOnly: false,
+          language: selectedLanguage,
+          languageItems: vocabularyItem.languageItems
+        })
       }
-      const diapositiveItem = filteredList.map((vocabularyItem: VocabularyItem): DiapositiveItemObject => (
-        { ...vocabularyItem, image: group.image, isImageOnly }
-      ))
-      return diapositiveItem
+      if (diapositiveSettings.isArabicTitleActive) {
+        diapositiveItems.push({
+          currentLanguageItem: vocabularyItem.languageItems.ar,
+          image: vocabularyItem.image,
+          isImageOnly: false,
+          language: "ar",
+          languageItems: vocabularyItem.languageItems
+        })
+      }
+      if (diapositiveItems.length === 0) {
+        diapositiveItems.push({
+          currentLanguageItem: vocabularyItem.languageItems.ar,
+          image: vocabularyItem.image,
+          isImageOnly: true,
+          language: "ar",
+          languageItems: vocabularyItem.languageItems
+        })
+      }
+      return diapositiveItems
     }).flat()
     if (diapositiveSettings.isShuffle) {
       this.items = this.items.sort(() => Math.random() - 0.5)
@@ -64,20 +80,15 @@ export class DiapositiveClass extends React.Component<DiapositiveProps, Diaposit
     }
   }
   render(): JSX.Element | null {
-    const { selectedCategory, diapositiveSettings, say } = this.props
+    const { selectedCategory, diapositiveSettings, say, selectedLanguage } = this.props
     const { currentIndex } = this.state
     const item: DiapositiveItemObject | undefined = { ...this.items[currentIndex] }
     if (!selectedCategory || !diapositiveSettings || item === undefined) {
       return <DiapositiveStyled index={0} indexCount={this.items.length} />
     }
 
-    const vocabularyGroup: VocabularyGroup = cloneCategory(selectedCategory).items
-      .find((group: VocabularyGroup) => group.list
-        .find((vocItem: VocabularyItem) => vocItem._id === item._id
-        )) as VocabularyGroup
-
-    if (diapositiveSettings.isMicrophone && item.audio !== "") {
-      const audio = new Audio(item.audio)
+    if (diapositiveSettings.isMicrophone && item.currentLanguageItem.audio !== "") {
+      const audio = new Audio(item.currentLanguageItem.audio)
       audio.play()
     }
     let hasChanged: boolean = false
@@ -111,9 +122,8 @@ export class DiapositiveClass extends React.Component<DiapositiveProps, Diaposit
           <DiapositiveItem
             isHarakat={diapositiveSettings.isHarakat}
             isImage={diapositiveSettings.isImage}
-            currentVocabularyGroup={vocabularyGroup}
-            currentVocabularyItem={item}
-            languageList={selectedCategory.languageList}
+            currentDiapositiveItem={item}
+            selectedLanguage={selectedLanguage}
             say={say}
           />
           <ArrowIcon onClick={() => {
@@ -138,5 +148,6 @@ export const Diapositive = connect((state: ReduxState): DiapositiveProps => ({
   say: state.say,
   selectedCategory: state.selectedCategory,
   diapositiveSettings: state.diapositiveSettings,
+  selectedLanguage: state.selectedLanguage
 
 }))(DiapositiveClass)

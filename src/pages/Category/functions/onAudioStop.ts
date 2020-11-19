@@ -1,7 +1,7 @@
 import { CategoryClass } from "../components/Category"
 
 export function onAudioStop(this: CategoryClass): void {
-  const { recordingIndex } = this.state
+  const { recordingLanguage } = this.state
   this.audioChanged = false
   this.titleChanged = false
   try {
@@ -13,8 +13,8 @@ export function onAudioStop(this: CategoryClass): void {
     // do nothing
   }
   window.setTimeout(() => {
-    if (recordingIndex !== -1) {
-      this.setState({ recordingIndex: -1 })
+    if (recordingLanguage !== undefined) {
+      this.setState({ recordingLanguage: undefined })
     }
   }, 500)
 }

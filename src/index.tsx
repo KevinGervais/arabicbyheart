@@ -10,6 +10,7 @@ import "react-perfect-scrollbar/dist/css/styles.css"
 import { Routes } from "./ui/routes/Routes"
 import { getOS, handleNotchPositionChange } from "./functions"
 import { phonesWithNatch } from "./functions/handleNotchPositionChange"
+
 window.localStorage.setItem("clipboard", "[]")
 
 export class AppClass extends React.Component {

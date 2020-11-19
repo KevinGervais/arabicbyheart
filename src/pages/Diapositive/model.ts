@@ -1,10 +1,11 @@
-import { Say } from "@/languages/model"
-import { DiapositiveSettings, SpeechLanguages, VocabularyCategory, VocabularyGroup, VocabularyItem } from "@/model"
+import { Languages, Say } from "@/languages/model"
+import { DiapositiveSettings, SpeechLanguages, VocabularyCategory, VocabularyItem, LanguageItem, LanguageItems } from "@/model"
 
 export interface DiapositiveProps {
   readonly say: Say
   readonly selectedCategory?: VocabularyCategory
   readonly diapositiveSettings?: DiapositiveSettings
+  readonly selectedLanguage: Languages
 }
 
 export interface DiapositiveState {
@@ -18,9 +19,8 @@ export interface DiapositiveStyledProps {
 }
 
 export interface DiapositiveItemProps {
-  readonly currentVocabularyGroup: VocabularyGroup
-  readonly currentVocabularyItem: DiapositiveItemObject
-  readonly languageList: SpeechLanguages[]
+  readonly currentDiapositiveItem: DiapositiveItemObject
+  readonly selectedLanguage: Languages
   readonly isImage: boolean
   readonly isHarakat: boolean
   readonly say: Say
@@ -30,7 +30,10 @@ export interface DiapositiveItemState {
   readonly isAnswerShown: boolean
 }
 
-export interface DiapositiveItemObject extends VocabularyItem {
+export interface DiapositiveItemObject {
   readonly image?: string
   readonly isImageOnly: boolean
+  readonly language: SpeechLanguages
+  readonly currentLanguageItem: LanguageItem
+  readonly languageItems: LanguageItems
 }

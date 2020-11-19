@@ -26,20 +26,20 @@ export type NotchPosition = "left" | "right" | "top" | "bottom" | undefined
 
 export interface VocabularyCategory {
   title: string
-  columnCount: number
-  languageList: SpeechLanguages[]
-  items: VocabularyGroup[]
+  items: VocabularyItem[]
   isPublic: boolean
   _id: string
 }
 
-export interface VocabularyGroup {
-  _id: string
-  list: VocabularyItem[]
-  image?: string
-}
-
 export interface VocabularyItem {
+  _id: string
+  image?: string
+  languageItems: LanguageItems
+}
+export type LanguageItems = {
+  [key in SpeechLanguages]: LanguageItem
+}
+export interface LanguageItem {
   _id: string
   title: string
   audio?: string
@@ -50,7 +50,8 @@ export type diapositiveDelay = 2 | 3 | 5 | 10 | 15 | false
 export type SpeechLanguages = "fr" | "en" | "ar"
 
 export interface DiapositiveSettings {
-  isTitlesFromListActive: boolean[]
+  isSelectedTitleActive: boolean
+  isArabicTitleActive: boolean
   isMicrophone: boolean
   isShuffle: boolean
   delay: diapositiveDelay

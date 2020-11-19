@@ -1,4 +1,4 @@
-import { Say } from "@/languages/model"
+import { Languages, Say } from "@/languages/model"
 import { diapositiveDelay, DiapositiveSettings, SpeechLanguages, VocabularyCategory } from "@/model"
 
 export interface CategoryProps {
@@ -6,16 +6,19 @@ export interface CategoryProps {
   readonly selectedCategory?: VocabularyCategory
   readonly vocabularyCategoryList: VocabularyCategory[]
   readonly diapositiveSettings?: DiapositiveSettings
+  readonly selectedLanguage: Languages
 }
 
 export interface CategoryState {
   readonly isCreatingVocabulary: boolean
   readonly isBottomMenuOpened: boolean
-  readonly recordingIndex: number
-  readonly titleList: string[]
-  readonly audioList: string[]
-  readonly languageList: SpeechLanguages[]
-  readonly isTitlesFromListActive: boolean[]
+  readonly recordingLanguage: SpeechLanguages | undefined
+  readonly selectedTitle: string
+  readonly arabicTitle: string
+  readonly selectedAudio: string
+  readonly arabicAudio: string
+  readonly isSelectedTitleActive: boolean
+  readonly isArabicTitleActive: boolean
   readonly isHarakat: boolean
   readonly isMicrophone: boolean
   readonly isCreatingWithImage: boolean
@@ -31,10 +34,16 @@ export interface BottomMenuItemStyledProps {
 }
 
 export interface CategoryInitState {
-  titleList: string[]
-  audioList: string[]
-  languageList?: SpeechLanguages[]
-  isTitlesFromListActive?: boolean[]
+  selectedTitle: string
+  selectedAudio: string
+  arabicTitle: string
+  arabicAudio: string
+  isSelectedTitleActive: boolean
+  isArabicTitleActive: boolean
   isCreatingWithImage?: boolean
   isDiaporamaImage?: boolean
+}
+
+export interface CreatedLanguageItemProps {
+  isArabic?: boolean
 }

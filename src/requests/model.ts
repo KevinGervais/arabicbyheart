@@ -1,28 +1,25 @@
-import { SpeechLanguages, VocabularyItem } from "@/model"
+import { LanguageItem, LanguageItems } from "@/model"
 
 export interface AddCategoryRequestResult {
   title: string
-  columnCount: number
-  languageList: SpeechLanguages[]
   isPublic: boolean
   _id: string
 }
 
 export interface AddVocabularyRequestResult {
   image?: string,
-  _id: string,
   categoryId: string,
-  list: VocabularyItem[]
-  languageList?: SpeechLanguages[]
+  languageItems: LanguageItems
+  _id: string,
 }
 
 export interface GetVocabularyRequestResult {
-  _id: string
-  list: VocabularyItem[]
   image?: string
   categoryId: string,
+  languageItems: LanguageItems
+  _id: string
 }
 export interface GetDeletedItemsRequestResult {
   categoryId?: string,
-  groupId?: string
+  vocabularyItemId?: string
 }

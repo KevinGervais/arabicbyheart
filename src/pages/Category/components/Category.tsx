@@ -5,7 +5,6 @@ import PlusIcon from "@/images/plus"
 import SaveIcon from "@/images/save"
 import CloseIcon from "@/images/close"
 import MicroIcon from "@/images/micro"
-import StopIcon from "@/images/stop"
 import PlayIcon from "@/images/play"
 import DeleteIcon from "@/images/delete"
 import DiapoIcon from "@/images/diapo"
@@ -14,12 +13,11 @@ import InfinityIcon from "@/images/infinity"
 import ImageIcon from "@/images/image"
 import NoMicroIcon from "@/images/noMicro"
 import ShuffleIcon from "@/images/shuffle"
-import { SpeechLanguages, VocabularyGroup, VocabularyItem } from "@/model"
+import { SpeechLanguages, VocabularyItem } from "@/model"
 import { Toggle } from "@/ui/components"
 import Tooltip from "react-tooltip"
 
-import { Select } from "../../../ui/components/Select"
-import { CategoryInitState, CategoryProps, CategoryState } from "../model"
+import { CategoryInitState, CategoryProps, CategoryState, CreatedLanguageItemProps } from "../model"
 import * as functions from "../functions"
 
 import { CategoryStyled } from "./CategoryStyled"
@@ -27,6 +25,7 @@ import { VocabularyItemStyled } from "./VocabularyItemStyled"
 import { BottomMenuStyled } from "./BottomMenuStyled"
 import { BottomMenuItemStyled } from "./BottomMenuItemStyled"
 import { DeleteButtonStyled } from "./DeleteButtonStyled"
+import { CreatedLanguageItem } from "./CreatedLanguageItem"
 
 export const speechLanguages: SpeechLanguages[] = ["fr", "ar", "en"]
 
@@ -47,6 +46,7 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
   saveDiapositiveSettings: () => void
   getInitialState: (isSkipOptions?: boolean | undefined) => CategoryInitState
   activateAudio: () => void
+  CreatedLanguageItem: (props: CreatedLanguageItemProps) => JSX.Element
 
   constructor(props: CategoryProps) {
     super(props)
@@ -61,6 +61,7 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
     this.onAudioStop = functions.onAudioStop.bind(this)
     this.saveDiapositiveSettings = functions.saveDiapositiveSettings.bind(this)
     this.activateAudio = functions.activateAudio.bind(this)
+    this.CreatedLanguageItem = CreatedLanguageItem.bind(this)
     let state: CategoryState = {
       isMicrophone: true,
       isShuffle: true,
@@ -75,7 +76,7 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
       ...this.getInitialState(),
       isCreatingVocabulary: false,
       isBottomMenuOpened: false,
-      recordingIndex: -1,
+      recordingLanguage: undefined,
       isAskingDelete: false
     }
 
@@ -85,14 +86,14 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
 
   componentDidUpdate(oldProps: CategoryProps, oldState: CategoryState): void {
     const { selectedCategory } = this.props
-    const { recordingIndex } = this.state
+    const { recordingLanguage } = this.state
     if (!oldProps.selectedCategory && selectedCategory) {
-      this.setState(this.getInitialState() as CategoryState)
+      this.setState(this.getInitialState() as unknown as CategoryState)
     }
 
-    if (recordingIndex !== oldState.recordingIndex && recordingIndex !== -1) {
+    if (recordingLanguage !== oldState.recordingLanguage && recordingLanguage !== undefined) {
       window.setTimeout(() => {
-        if (this.state.recordingIndex !== -1) {
+        if (this.state.recordingLanguage !== undefined) {
           this.onAudioStop()
         }
       }, 10000)
@@ -100,21 +101,19 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
   }
 
   render(): JSX.Element | null {
-    const { selectedCategory, say, vocabularyCategoryList } = this.props
+    const { selectedCategory, say, vocabularyCategoryList, selectedLanguage } = this.props
     const {
       isCreatingVocabulary,
       isBottomMenuOpened,
-      titleList,
-      languageList,
-      recordingIndex,
-      isTitlesFromListActive,
+      isArabicTitleActive,
+      isSelectedTitleActive,
       isMicrophone,
       isShuffle,
       delay,
       isAskingDelete,
       isDiaporamaImage,
       isCreatingWithImage,
-      isHarakat
+      isHarakat,
     } = this.state
     if (!selectedCategory) {
       return null
@@ -140,58 +139,8 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
         {isCreatingVocabulary && (
           <div className="create-vocabulary-wrapper">
             <div className="create-vocabulary">
-              {Array(selectedCategory.columnCount).fill(0).map((_: number, index: number) => (
-                <div key={index}>
-                  <h4>{`${say.vocabularyTitle} ${index + 1}:`}</h4>
-                  {recordingIndex !== index && <MicroIcon data-for="record-tooltip" data-tip onClick={() => {
-                    this.setState({ recordingIndex: index })
-                    try {
-                      this.titleRecorder.start()
-                      if (this.titleSpeech) {
-                        this.titleSpeech.lang = languageList[index]
-                        this.titleSpeech.start()
-                      }
-                    } catch (err) {
-                      // do nothing
-                    }
-                  }} />}
-                  <Tooltip id="record-tooltip" effect="solid" place="right" getContent={() => say.record} />
-
-                  {recordingIndex === index && <StopIcon onClick={this.onAudioStop} />}
-                  <input
-                    className={languageList[index] === "ar" ? "arabic-input" : ""}
-                    placeholder={say.vocabularyPlacehoder}
-                    value={titleList[index]}
-                    onKeyDown={(evt: React.KeyboardEvent<HTMLInputElement>) => {
-                      if (evt.key.length === 1 && languageList[index] === "ar") {
-                        evt.preventDefault()
-                        const newTitleList = [...titleList]
-                        const key = evt.altKey && evt.key === " " ? "ُ" : functions.latinKeyToArabic(evt.key)
-                        newTitleList[index] = newTitleList[index] + key
-                        this.setState({ titleList: newTitleList })
-                      }
-                    }}
-                    onChange={(evt: React.ChangeEvent<HTMLInputElement>) => {
-                      const newTitleList = [...titleList]
-                      newTitleList[index] = evt.target.value
-                      this.setState({ titleList: newTitleList })
-                    }}
-
-                  />
-                  {selectedCategory.items.length > 0 &&
-                    <span>{say[languageList[index]]}</span>}
-
-                  {selectedCategory.items.length === 0 && <Select
-                    optionList={speechLanguages}
-                    outputList={speechLanguages.map((lang: SpeechLanguages) => say[lang])}
-                    value={say[languageList[index]]}
-                    onChange={(newVal: string) => {
-                      const newLanguageList = [...languageList]
-                      newLanguageList[index] = newVal as SpeechLanguages
-                      this.setState({ languageList: newLanguageList })
-                    }} />}
-                </div>
-              ))}
+              <this.CreatedLanguageItem />
+              <this.CreatedLanguageItem isArabic />
               <div>
                 <Toggle
                   active={isCreatingWithImage}
@@ -204,7 +153,7 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
                 <div data-for={"cancel-tooltip"} data-tip={say.cancel} className="button" onClick={() => this.setState({
                   ...this.getInitialState(true) as CategoryState,
                   isCreatingVocabulary: false,
-                  recordingIndex: -1,
+                  recordingLanguage: undefined,
                 })}>
                   <CloseIcon />
                 </div>
@@ -217,28 +166,34 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
         )
         }
         <div className="content">
-          {selectedCategory.items.map((vocabularyColumns: VocabularyGroup, index: number) => (
-            <VocabularyItemStyled key={vocabularyColumns._id}>
-              {vocabularyColumns.image && (
+          {selectedCategory.items.map((vocabularyItem: VocabularyItem, index: number) => (
+            <VocabularyItemStyled key={vocabularyItem._id}>
+              {vocabularyItem.image && (
                 <div
                   className="img"
-                  onClick={() => functions.updateGroupImage(selectedCategory, vocabularyColumns, vocabularyCategoryList)}
+                  onClick={() => functions.updateGroupImage(selectedCategory, vocabularyItem, vocabularyCategoryList)}
                 >
-                  <img src={vocabularyColumns.image} alt={vocabularyColumns.list[0].title} />
+                  <img src={vocabularyItem.image} alt={vocabularyItem.languageItems.fr.title} />
                   <SyncIcon />
                 </div>
               )}
               <div className="vertical-container">
-                {vocabularyColumns.list.map((item: VocabularyItem, columnIndex: number) => (
-                  <div key={item._id} className="item">
-                    <span>{languageList[columnIndex]}</span>
-                    <h4>{item.title}</h4>
-                    {item.audio !== "" && <PlayIcon onClick={() => {
-                      const audio = new Audio(item.audio)
-                      audio.play()
-                    }} />}
-                  </div>
-                ))}
+                <div className="item">
+                  <span>{selectedLanguage}</span>
+                  <h4>{vocabularyItem.languageItems[selectedLanguage].title}</h4>
+                  {vocabularyItem.languageItems[selectedLanguage].audio !== "" && <PlayIcon onClick={() => {
+                    const audio = new Audio(vocabularyItem.languageItems[selectedLanguage].audio)
+                    audio.play()
+                  }} />}
+                </div>
+                <div className="item">
+                  <span>ar</span>
+                  <h4>{vocabularyItem.languageItems.ar.title}</h4>
+                  {vocabularyItem.languageItems.ar.audio !== "" && <PlayIcon onClick={() => {
+                    const audio = new Audio(vocabularyItem.languageItems.ar.audio)
+                    audio.play()
+                  }} />}
+                </div>
                 <DeleteIcon data-tip={say.delete} onClick={() => this.deleteItem(index)} />
               </div>
             </VocabularyItemStyled>
@@ -254,26 +209,20 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
               }}
               className="left-content"
             >
-              {Array(selectedCategory.columnCount).fill(0).map((_: number, index: number) => {
-                const lang = languageList[index]
-                const langOccurences = languageList.filter((language: SpeechLanguages) => language === lang).length
-                const langIndex = languageList.slice(0, index + 1).filter((language: SpeechLanguages) => language === lang).length
-                const dataTip = say.language.replace("{language}", `${say[lang]} ${langOccurences > 1 ? `(${langIndex})` : ""}`)
-                return (
-                  <BottomMenuItemStyled
-                    key={index}
-                    data-tip={dataTip}
-                    isActive={isTitlesFromListActive[index]}
-                    onClick={() => {
-                      const newIsTitlesFromListActive = [...isTitlesFromListActive]
-                      newIsTitlesFromListActive[index] = !newIsTitlesFromListActive[index]
-                      this.setState({ isTitlesFromListActive: newIsTitlesFromListActive })
-                    }}
-                  >
-                    {`${lang} ${langOccurences > 1 ? langIndex : ""}`}
-                  </BottomMenuItemStyled>
-                )
-              })}
+              <BottomMenuItemStyled
+                data-tip={say.language.replace("{language}", selectedLanguage)}
+                isActive={isSelectedTitleActive}
+                onClick={() => this.setState({ isSelectedTitleActive: !isSelectedTitleActive })}
+              >
+                {selectedLanguage}
+              </BottomMenuItemStyled>
+              <BottomMenuItemStyled
+                data-tip={say.language.replace("{language}", "ar")}
+                isActive={isArabicTitleActive}
+                onClick={() => this.setState({ isArabicTitleActive: !isArabicTitleActive })}
+              >
+                {selectedLanguage}
+              </BottomMenuItemStyled>
               <BottomMenuItemStyled
                 isActive={isDiaporamaImage}
                 data-tip={say.image}
@@ -349,6 +298,7 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
 export const Category = connect((state: ReduxState): CategoryProps => ({
   say: state.say,
   selectedCategory: state.selectedCategory,
+  selectedLanguage: state.selectedLanguage,
   vocabularyCategoryList: state.vocabularyCategoryList,
   diapositiveSettings: state.diapositiveSettings
 }))(CategoryClass)

@@ -10,9 +10,9 @@ export function deleteItem(this: CategoryClass, index: number): void {
   const { selectedCategory } = this.props
   const { vocabularyCategoryList } = getReduxState()
   const newSelectedCategory: VocabularyCategory = cloneCategory(selectedCategory as VocabularyCategory)
-  const groupId = newSelectedCategory.items[index]._id
+  const vocabularyItemId = newSelectedCategory.items[index]._id
 
-  allRequests.deleteVocabulary(groupId, newSelectedCategory._id).then(() => {
+  allRequests.deleteVocabulary(vocabularyItemId, newSelectedCategory._id).then(() => {
     newSelectedCategory.items.splice(index, 1)
     const categoryIndex = vocabularyCategoryList
       .findIndex((category: VocabularyCategory) => category._id === newSelectedCategory._id)

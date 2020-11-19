@@ -1,14 +1,18 @@
 import { CategoryClass } from "../components/Category"
 
 export function setTitle(this: CategoryClass, evt: SpeechRecognitionEvent): void {
-  const { titleList, recordingIndex } = this.state
+  const { recordingLanguage } = this.state
   const speech = evt.results[0][0].transcript
-  const newTitleList = [...titleList]
-  newTitleList[recordingIndex] = speech
   this.titleChanged = true
-  if (this.audioChanged) {
-    this.setState({ recordingIndex: -1, titleList: newTitleList })
+  const state: any = {}
+  if (recordingLanguage === "ar") {
+    state.arabicTitle = speech
   } else {
-    this.setState({ titleList: newTitleList })
+    state.selectedTitle = speech
+  }
+  if (this.audioChanged) {
+    this.setState({ recordingIndex: undefined, ...state })
+  } else {
+    this.setState(state)
   }
 }

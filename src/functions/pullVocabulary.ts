@@ -1,4 +1,4 @@
-import { VocabularyCategory, VocabularyGroup } from "@/model"
+import { VocabularyCategory, VocabularyItem } from "@/model"
 import { setReduxState } from "@/redux"
 import { allRequests } from "@/requests"
 import { GetDeletedItemsRequestResult } from "@/requests/model"
@@ -26,10 +26,10 @@ function fetchDeletedItems(
   allRequests.getDeletedItems().then((deletedItems: GetDeletedItemsRequestResult[]) => {
     deletedItems.forEach((item: GetDeletedItemsRequestResult) => {
       const foundCategoryIndex = vocabularyCategoryList.findIndex((categoryItem: VocabularyCategory) => categoryItem._id === item.categoryId)
-      if (item.groupId) {
+      if (item.vocabularyItemId) {
         if (foundCategoryIndex !== -1) {
           const foundGroupIndex = vocabularyCategoryList[foundCategoryIndex]
-            .items.findIndex((currentGroup: VocabularyGroup) => currentGroup._id === item.groupId)
+            .items.findIndex((currentGroup: VocabularyItem) => currentGroup._id === item.vocabularyItemId)
           if (foundGroupIndex !== -1) {
             vocabularyCategoryList[foundCategoryIndex].items.splice(foundGroupIndex, 1)
           }
@@ -53,9 +53,9 @@ function fetchCategories(
         vocabularyCategoryList.push(updatedCategoryItem)
       } else {
         vocabularyCategoryList[foundCategoryIndex].items = vocabularyCategoryList[foundCategoryIndex].items
-          .map((oldGroupItem: VocabularyGroup): VocabularyGroup => {
+          .map((oldGroupItem: VocabularyItem): VocabularyItem => {
             const foundGroupIndex = updatedCategoryItem.items
-              .findIndex((newGroupItem: VocabularyGroup) => newGroupItem._id === oldGroupItem._id)
+              .findIndex((newGroupItem: VocabularyItem) => newGroupItem._id === oldGroupItem._id)
             if (foundGroupIndex !== -1) {
               return updatedCategoryItem.items.splice(foundGroupIndex, 1)[0]
             } else {

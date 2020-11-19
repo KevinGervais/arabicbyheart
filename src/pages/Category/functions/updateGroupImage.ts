@@ -1,26 +1,27 @@
-import { VocabularyCategory, VocabularyGroup, VocabularyItem } from "@/model"
+import { VocabularyCategory, VocabularyItem } from "@/model"
 import { cloneCategory } from "@/functions"
-import { setReduxState } from "@/redux"
+import { getReduxState, setReduxState } from "@/redux"
 import localforage from "localforage"
 import { allRequests } from "@/requests"
 
 import { getImage } from "."
 
-export function updateGroupImage(
+export function updateVocabularyItemImage(
   selectedCategory: VocabularyCategory,
-  group: VocabularyGroup,
+  vocabularyItem: VocabularyItem,
   vocabularyCategoryList: VocabularyCategory[]
 ): void {
-  const itemTitleList = group.list.map((item: VocabularyItem) => item.title)
+  const { selectedLanguage } = getReduxState()
   getImage(
-    itemTitleList, selectedCategory.languageList, group.image
+    vocabularyItem.languageItems[selectedLanguage].title,
+    vocabularyItem.image
   ).then((image: string | undefined) => {
-    group.image = image
+    vocabularyItem.image = image
     allRequests.addOrUpdateVocabulary({
-      image: group.image,
-      _id: group._id,
+      image: vocabularyItem.image,
+      _id: vocabularyItem._id,
       categoryId: selectedCategory._id,
-      list: group.list,
+      languageItems: vocabularyItem.languageItems,
     }).then(() => {
       const newVocabularyCategoryList = vocabularyCategoryList.map(cloneCategory)
       setReduxState({

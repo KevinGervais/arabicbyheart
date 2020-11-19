@@ -5,7 +5,8 @@ import { CategoryClass } from "../components/Category"
 
 export function goToDiapositive(this: CategoryClass): void {
   const {
-    isTitlesFromListActive,
+    isSelectedTitleActive,
+    isArabicTitleActive,
     isMicrophone,
     isShuffle,
     delay,
@@ -15,7 +16,8 @@ export function goToDiapositive(this: CategoryClass): void {
   } = this.state
 
   const diapositiveSettings: DiapositiveSettings = {
-    isTitlesFromListActive,
+    isSelectedTitleActive,
+    isArabicTitleActive,
     isMicrophone,
     isShuffle,
     delay,
