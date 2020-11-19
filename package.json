@@ -2,7 +2,7 @@
   "name": "vocabulary-by-hearth",
   "private": true,
   "scripts": {
-    "start": "babel ./server/src --out-dir ./server/build --extensions '.ts,.tsx'; nodemon --exec 'node server/build/index.js'",
+    "start": "babel ./server --out-dir ./serverBuild --extensions '.ts,.tsx'; nodemon --exec 'node serverBuild/index.js'",
     "start-dev": "PORT=4000 react-app-rewired start",
     "build": "react-app-rewired build",
     "lint": "tslint --project ./tsconfig.json"
