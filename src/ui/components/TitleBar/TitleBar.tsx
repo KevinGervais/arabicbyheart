@@ -29,11 +29,11 @@ class TitleBarClass extends React.Component<TitleBarProps, TitleBarState> {
   }
 
   public render(): JSX.Element | null {
-    const { page, say, selectedCategory } = this.props
+    const { page, say, selectedCategory, selectedLanguage } = this.props
     return (
       <TitleBarStyled page={page}>
         {page !== "home" && <div onClick={() => setReduxState({ page: page === "diapositive" ? "category" : "home" })}><RightArrowIcon /></div>}
-        <h1>{page === "category" ? ((selectedCategory ? selectedCategory.title : " ") || say[page]) : say[page]}</h1>
+        <h1>{page === "category" ? ((selectedCategory ? selectedCategory.title[selectedLanguage] : " ") || say[page]) : say[page]}</h1>
       </TitleBarStyled>
     )
   }
@@ -43,5 +43,6 @@ export const TitleBar = connect((state: ReduxState): TitleBarProps => ({
   themeColor: state.themeColor,
   page: state.page,
   say: state.say,
-  selectedCategory: state.selectedCategory
+  selectedCategory: state.selectedCategory,
+  selectedLanguage: state.selectedLanguage
 }))(TitleBarClass)

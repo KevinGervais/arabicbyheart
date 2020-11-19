@@ -1,3 +1,4 @@
+import { Languages } from "./languages/model"
 import { Theme } from "./styles/model"
 
 declare global {
@@ -25,7 +26,7 @@ declare global {
 export type NotchPosition = "left" | "right" | "top" | "bottom" | undefined
 
 export interface VocabularyCategory {
-  title: string
+  title: CategoryTitle
   items: VocabularyItem[]
   isPublic: boolean
   _id: string
@@ -36,6 +37,10 @@ export interface VocabularyItem {
   image?: string
   languageItems: LanguageItems
 }
+export type CategoryTitle = {
+  [key in Languages]: string
+}
+
 export type LanguageItems = {
   [key in SpeechLanguages]: LanguageItem
 }

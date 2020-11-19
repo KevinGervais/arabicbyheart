@@ -1,7 +1,7 @@
-import { LanguageItem, LanguageItems } from "@/model"
+import { CategoryTitle, LanguageItems } from "@/model"
 
 export interface AddCategoryRequestResult {
-  title: string
+  title: CategoryTitle
   isPublic: boolean
   _id: string
 }

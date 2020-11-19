@@ -1,8 +1,9 @@
-import { Say } from "@/languages/model"
+import { Languages, Say } from "@/languages/model"
 import { VocabularyCategory } from "@/model"
 
 export interface HomeProps {
   readonly vocabularyCategoryList: VocabularyCategory[]
+  readonly selectedLanguage: Languages
   readonly say: Say
 }
 

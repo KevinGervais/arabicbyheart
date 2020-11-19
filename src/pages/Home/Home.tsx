@@ -1,4 +1,4 @@
-import { VocabularyCategory } from "@/model"
+import { CategoryTitle, VocabularyCategory } from "@/model"
 import { ReduxState } from "@/redux/model"
 import React from "react"
 import { connect } from "react-redux"
@@ -10,10 +10,13 @@ import { cloneCategory, generateId } from "@/functions"
 import localforage from "localforage"
 import Tooltip from "react-tooltip"
 import { allRequests } from "@/requests"
+import { ALL_UI_LANGUAGES } from "@/constants"
+import { Languages } from "@/languages/model"
 
 import { HomeStyled } from "./HomeStyled"
 import { HomeProps, HomeState } from "./model"
 import { VocabularyCategoryStyled } from "./VocabularyCategoryStyled"
+
 export class HomeClass extends React.Component<HomeProps, HomeState> {
   constructor(props: any) {
     super(props)
@@ -24,11 +27,14 @@ export class HomeClass extends React.Component<HomeProps, HomeState> {
     }
   }
   createVocabularyCategory = (): void => {
-    const { vocabularyCategoryList } = this.props
+    const { vocabularyCategoryList, selectedLanguage } = this.props
     const { newCategoryTitle } = this.state
-
+    const title: any = {}
+    ALL_UI_LANGUAGES.forEach((lang: Languages) => (
+      lang === selectedLanguage ? title[lang] = newCategoryTitle : ""
+    ))
     const newCategory: VocabularyCategory = {
-      title: newCategoryTitle,
+      title: title as CategoryTitle,
       items: [],
       isPublic: true,
       _id: generateId()
@@ -104,5 +110,6 @@ export class HomeClass extends React.Component<HomeProps, HomeState> {
 
 export const Home = connect((state: ReduxState): HomeProps => ({
   say: state.say,
-  vocabularyCategoryList: state.vocabularyCategoryList
+  vocabularyCategoryList: state.vocabularyCategoryList,
+  selectedLanguage: state.selectedLanguage
 }))(HomeClass)
