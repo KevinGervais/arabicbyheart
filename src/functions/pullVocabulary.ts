@@ -1,7 +1,7 @@
 import { VocabularyCategory, VocabularyItem } from "@/model"
 import { setReduxState } from "@/redux"
 import { allRequests } from "@/requests"
-import { GetDeletedItemsRequestResult } from "@/requests/model"
+import { GetDeletedItemsQuery } from "@/requests/model"
 import localforage from "localforage"
 
 import { cloneCategory } from "."
@@ -23,8 +23,8 @@ function fetchDeletedItems(
   vocabularyCategoryList: VocabularyCategory[],
   callback: (vocabularyCategoryList: VocabularyCategory[]) => void
 ): void {
-  allRequests.getDeletedItems().then((deletedItems: GetDeletedItemsRequestResult[]) => {
-    deletedItems.forEach((item: GetDeletedItemsRequestResult) => {
+  allRequests.getDeletedItems().then((deletedItems: GetDeletedItemsQuery[]) => {
+    deletedItems.forEach((item: GetDeletedItemsQuery) => {
       const foundCategoryIndex = vocabularyCategoryList.findIndex((categoryItem: VocabularyCategory) => categoryItem._id === item.categoryId)
       if (item.vocabularyItemId) {
         if (foundCategoryIndex !== -1) {

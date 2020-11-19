@@ -1,7 +1,7 @@
 import { getHost } from "./getHost"
-import { AddVocabularyRequestResult } from "./model"
+import { AddVocabularyQuery } from "./model"
 
-export function addOrUpdateVocabulary(newVocabulary: AddVocabularyRequestResult): Promise<Response> {
+export function addOrUpdateVocabulary(newVocabulary: AddVocabularyQuery): Promise<Response> {
   return fetch(`${getHost()}/vocabulary`, {
     body: JSON.stringify(newVocabulary),
     method: "post",

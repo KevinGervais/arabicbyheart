@@ -1,5 +1,7 @@
+// tslint:disable-next-line:no-var-requires
 const SimpleSchema = require('simpl-schema')
-module.exports = {
+
+export const schemas = {
   pull: new SimpleSchema({
     date: {
       type: String,
@@ -7,6 +9,7 @@ module.exports = {
       max: 100,
     },
   }),
+
   _id: new SimpleSchema({
     _id: {
       type: String,
@@ -14,29 +17,22 @@ module.exports = {
       max: 9
     },
   }),
-  languageList: new SimpleSchema({
-    languageList: ["fr", "en", "ar"],
-  }),
+
   category: new SimpleSchema({
     title: {
       type: String,
       min: 1,
       max: 100,
     },
-    columnCount: {
-      type: Number,
-      min: 1,
-      max: 5
-    },
     isPublic: Boolean,
-    languageList: ["fr", "en", "ar"],
     _id: {
       type: String,
       min: 9,
       max: 9
     },
   }),
-  vocabularyGroup: new SimpleSchema({
+
+  vocabulary: new SimpleSchema({
     image: {
       type: String,
       min: 1,
@@ -54,10 +50,11 @@ module.exports = {
       max: 9
     },
   }),
-  vocabularyItem: new SimpleSchema({
+
+  translation: new SimpleSchema({
     title: {
       type: String,
-      min: 1,
+      min: 0,
       max: 100,
     },
     audio: {
@@ -67,16 +64,6 @@ module.exports = {
       optional: true
     },
     _id: {
-      type: String,
-      min: 9,
-      max: 9
-    },
-    categoryId: {
-      type: String,
-      min: 9,
-      max: 9
-    },
-    groupId: {
       type: String,
       min: 9,
       max: 9

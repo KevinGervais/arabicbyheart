@@ -1,25 +1,25 @@
 import { CategoryTitle, LanguageItems } from "@/model"
 
-export interface AddCategoryRequestResult {
+export interface AddCategoryQuery {
   title: CategoryTitle
   isPublic: boolean
   _id: string
 }
 
-export interface AddVocabularyRequestResult {
+export interface AddVocabularyQuery {
   image?: string,
   categoryId: string,
   languageItems: LanguageItems
   _id: string,
 }
 
-export interface GetVocabularyRequestResult {
+export interface GetVocabularyQuery {
   image?: string
   categoryId: string,
   languageItems: LanguageItems
   _id: string
 }
-export interface GetDeletedItemsRequestResult {
+export interface GetDeletedItemsQuery {
   categoryId?: string,
   vocabularyItemId?: string
 }

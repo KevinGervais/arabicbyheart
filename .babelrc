@@ -1,0 +1,18 @@
+{
+  "presets": [
+    "@babel/preset-typescript"
+  ],
+  "plugins": [
+    "@babel/plugin-transform-typescript",
+    [
+      "@babel/plugin-transform-modules-commonjs",
+      {
+        "strict": false,
+        "noInterop": false,
+        "lazy": false,
+        "loose": false,
+        "allowTopLevelThis": true
+      }
+    ]
+  ]
+}

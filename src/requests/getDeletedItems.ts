@@ -1,9 +1,9 @@
 import { getHost } from "./getHost"
 import { jsonToUrlString } from "./jsonToUrlString"
-import { GetDeletedItemsRequestResult } from "./model"
+import { GetDeletedItemsQuery } from "./model"
 
-export function getDeletedItems(): Promise<GetDeletedItemsRequestResult[]> {
-  return new Promise((resolve: (data: GetDeletedItemsRequestResult[]) => void) => {
+export function getDeletedItems(): Promise<GetDeletedItemsQuery[]> {
+  return new Promise((resolve: (data: GetDeletedItemsQuery[]) => void) => {
     const date = window.localStorage.getItem("latestVocabularyDeleteDate") || undefined
     const newDate = new Date().toISOString()
     fetch(`${getHost()}/deleted?${date ? jsonToUrlString({ date }) : ""}`, {
@@ -13,7 +13,7 @@ export function getDeletedItems(): Promise<GetDeletedItemsRequestResult[]> {
       },
     }).then((result: Response) => {
       window.localStorage.setItem("latestVocabularyDeleteDate", newDate)
-      result.json().then((result1: { data: GetDeletedItemsRequestResult[] }) => {
+      result.json().then((result1: { data: GetDeletedItemsQuery[] }) => {
         resolve(result1.data)
       })
     }).catch(() => {
