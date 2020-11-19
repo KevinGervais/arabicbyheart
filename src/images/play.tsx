@@ -14,3 +14,4 @@ const Icon = (props: SVGAttributes<{}>): JSX.Element => (
 )
 
 export default Icon
+

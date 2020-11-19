@@ -11,6 +11,7 @@ export class DiapositiveClass extends React.Component<DiapositiveProps, Diaposit
   items: DiapositiveItemObject[] = []
   timeRef: HTMLInputElement | undefined
   lastInterval: number = -1
+  timeoutId: number = -1
   constructor(props: DiapositiveProps) {
     super(props)
     const { selectedCategory, diapositiveSettings } = props
@@ -39,7 +40,7 @@ export class DiapositiveClass extends React.Component<DiapositiveProps, Diaposit
       const diapositiveItems: DiapositiveItemObject[] = []
       if (diapositiveSettings.isSelectedTitleActive) {
         diapositiveItems.push({
-          currentLanguageItem: vocabularyItem.languageItems[selectedLanguage],
+          currentLanguageItem: { ...vocabularyItem.languageItems[selectedLanguage] },
           image: vocabularyItem.image,
           isImageOnly: false,
           language: selectedLanguage,
@@ -48,7 +49,7 @@ export class DiapositiveClass extends React.Component<DiapositiveProps, Diaposit
       }
       if (diapositiveSettings.isArabicTitleActive) {
         diapositiveItems.push({
-          currentLanguageItem: vocabularyItem.languageItems.ar,
+          currentLanguageItem: { ...vocabularyItem.languageItems.ar },
           image: vocabularyItem.image,
           isImageOnly: false,
           language: "ar",
@@ -57,7 +58,7 @@ export class DiapositiveClass extends React.Component<DiapositiveProps, Diaposit
       }
       if (diapositiveItems.length === 0) {
         diapositiveItems.push({
-          currentLanguageItem: vocabularyItem.languageItems.ar,
+          currentLanguageItem: { ...vocabularyItem.languageItems.ar },
           image: vocabularyItem.image,
           isImageOnly: true,
           language: "ar",
@@ -82,7 +83,7 @@ export class DiapositiveClass extends React.Component<DiapositiveProps, Diaposit
   render(): JSX.Element | null {
     const { selectedCategory, diapositiveSettings, say, selectedLanguage } = this.props
     const { currentIndex } = this.state
-    const item: DiapositiveItemObject | undefined = { ...this.items[currentIndex] }
+    const item: DiapositiveItemObject | undefined = this.items[currentIndex]
     if (!selectedCategory || !diapositiveSettings || item === undefined) {
       return <DiapositiveStyled index={0} indexCount={this.items.length} />
     }
@@ -93,7 +94,8 @@ export class DiapositiveClass extends React.Component<DiapositiveProps, Diaposit
     }
     let hasChanged: boolean = false
     if (diapositiveSettings.delay !== false && currentIndex !== this.items.length - 1) {
-      window.setTimeout(() => {
+      window.clearTimeout(this.timeoutId)
+      this.timeoutId = window.setTimeout(() => {
         if (!hasChanged) {
           this.setState({ currentIndex: currentIndex + 1 })
         }

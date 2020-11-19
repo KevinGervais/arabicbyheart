@@ -23,14 +23,14 @@ export const DiapositiveStyled = styled.div<DiapositiveStyledProps>`
         color: ${color[700]};
       }
       ${props.index === 0 && css`
-        .content svg:first-child {
+        .content > svg:first-child {
           color: ${color[200]} !important;
           border: 3px solid ${color[200]};
           pointer-events: none;
         }
       `}
       ${props.index === props.indexCount - 1 && css`
-        .content svg:last-child {
+        .content > svg:last-child {
           color: ${color[200]} !important;
           border: 3px solid ${color[200]};
           pointer-events: none;
@@ -58,6 +58,7 @@ export const DiapositiveStyled = styled.div<DiapositiveStyledProps>`
         }
       }
       h4 {
+        width: max-content;
         border: 2px solid ${color[700]};
       }
     `
@@ -66,6 +67,7 @@ export const DiapositiveStyled = styled.div<DiapositiveStyledProps>`
     ${center};
       & > svg {
       ${clickable};
+      flex-shrink: 0;
       width: 30px;
       height: 30px;
       padding: 10px;
@@ -100,5 +102,22 @@ export const DiapositiveStyled = styled.div<DiapositiveStyledProps>`
     background: transparent;
     pointer-events: none;
     font-size: 30px;
+  }
+  .fa-play {
+    width: 30px !important;
+  }
+  @media screen and (max-width: 700px) {
+    .content > svg {
+      position: fixed;
+      bottom: 50px;
+      margin: 0;
+      &:first-child {
+        left: auto;
+        right: calc(50vw + 50px) !important;
+      }
+      &:last-child {
+        right: auto;
+        left: calc(50vw + 50px)  !important;
+      }
   }
 `

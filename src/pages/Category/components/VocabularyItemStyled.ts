@@ -22,7 +22,7 @@ export const VocabularyItemStyled = styled.div`
     align-self: flex-end;
     padding-top: 10px;
     padding-right: 10px;
-    width: 15px;
+    width: 20px;
     color: ${() => window.theme.primary500};
     ${() => ["mac", "windows"].includes(getOS()) && css`
       &:hover {
@@ -78,9 +78,9 @@ export const VocabularyItemStyled = styled.div`
     border-bottom: 1px solid ${() => window.theme.primary100};
     svg {
     ${clickable};
-    width: 20px;
-    height: 20px;
-    padding: 10px 20px;
+    width: 30px;
+    height: 30px;
+    padding: 5px 20px;
     background: ${() => window.theme.primary500};
     color: white;
     ${() => ["mac", "windows"].includes(getOS()) && css`

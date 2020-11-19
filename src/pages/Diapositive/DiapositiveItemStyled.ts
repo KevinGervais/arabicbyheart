@@ -10,6 +10,7 @@ export const DiapositiveItemStyled = styled.div<{}>`
     span:not(:last-child) {
       font-size: 50px;
       font-weight: bold;
+      height: 100px;
     }
     span {
       ${center};

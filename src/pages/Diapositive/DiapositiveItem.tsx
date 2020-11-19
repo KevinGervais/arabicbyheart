@@ -1,5 +1,5 @@
 import React from "react"
-import PlayIcon from "@/images/play"
+import ListenIcon from "@/images/listen"
 
 import { DiapositiveItemProps, DiapositiveItemState } from "./model"
 import { DiapositiveItemStyled } from "./DiapositiveItemStyled"
@@ -45,7 +45,7 @@ export class DiapositiveItem extends React.Component<DiapositiveItemProps, Diapo
               <span>
                 {isHarakat ? currentDiapositiveItem.currentLanguageItem.title : removeHarakat(currentDiapositiveItem.currentLanguageItem.title)}
                 {currentDiapositiveItem.currentLanguageItem.audio !== "" && (
-                  <PlayIcon onClick={() => new Audio(currentDiapositiveItem.currentLanguageItem.audio).play()} />
+                  <ListenIcon onClick={() => new Audio(currentDiapositiveItem.currentLanguageItem.audio).play()} />
                 )}
               </span>)}
             <h4 onClick={() => this.setState({ isAnswerShown: true })}>{say.showAnswer}</h4>
@@ -59,13 +59,13 @@ export class DiapositiveItem extends React.Component<DiapositiveItemProps, Diapo
             <span>
               {currentDiapositiveItem.currentLanguageItem.title}
               {currentDiapositiveItem.currentLanguageItem.audio !== "" && (
-                <PlayIcon onClick={() => new Audio(currentDiapositiveItem.currentLanguageItem.audio).play()} />
+                <ListenIcon onClick={() => new Audio(currentDiapositiveItem.currentLanguageItem.audio).play()} />
               )}
             </span>
             <span>
               {currentDiapositiveItem.languageItems[notCurrentLanguage].title}
               {currentDiapositiveItem.languageItems[notCurrentLanguage].audio !== "" && (
-                <PlayIcon onClick={() => new Audio(currentDiapositiveItem.languageItems[notCurrentLanguage].audio).play()} />
+                <ListenIcon onClick={() => new Audio(currentDiapositiveItem.languageItems[notCurrentLanguage].audio).play()} />
               )}
             </span>
           </>
@@ -90,4 +90,6 @@ const removeHarakat = (str: string): string => (
     .split("ِِ").join("")
     .split("ْ").join("")
     .split("ّ").join("")
+    .split("أ").join("ا")
+    .split("إ").join("ا")
 )

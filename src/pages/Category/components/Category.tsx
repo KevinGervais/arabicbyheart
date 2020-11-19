@@ -6,6 +6,7 @@ import SaveIcon from "@/images/save"
 import CloseIcon from "@/images/close"
 import MicroIcon from "@/images/micro"
 import PlayIcon from "@/images/play"
+import ListenIcon from "@/images/listen"
 import DeleteIcon from "@/images/delete"
 import DiapoIcon from "@/images/diapo"
 import SyncIcon from "@/images/sync"
@@ -181,7 +182,7 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
                 <div className="item">
                   <span>{selectedLanguage}</span>
                   <h4>{vocabularyItem.languageItems[selectedLanguage].title}</h4>
-                  {vocabularyItem.languageItems[selectedLanguage].audio !== "" && <PlayIcon onClick={() => {
+                  {vocabularyItem.languageItems[selectedLanguage].audio !== "" && <ListenIcon onClick={() => {
                     const audio = new Audio(vocabularyItem.languageItems[selectedLanguage].audio)
                     audio.play()
                   }} />}
@@ -189,7 +190,7 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
                 <div className="item">
                   <span>ar</span>
                   <h4>{vocabularyItem.languageItems.ar.title}</h4>
-                  {vocabularyItem.languageItems.ar.audio !== "" && <PlayIcon onClick={() => {
+                  {vocabularyItem.languageItems.ar.audio !== "" && <ListenIcon onClick={() => {
                     const audio = new Audio(vocabularyItem.languageItems.ar.audio)
                     audio.play()
                   }} />}
@@ -221,7 +222,7 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
                 isActive={isArabicTitleActive}
                 onClick={() => this.setState({ isArabicTitleActive: !isArabicTitleActive })}
               >
-                {selectedLanguage}
+                ar
               </BottomMenuItemStyled>
               <BottomMenuItemStyled
                 isActive={isDiaporamaImage}
