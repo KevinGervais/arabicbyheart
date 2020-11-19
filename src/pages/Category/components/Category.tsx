@@ -171,7 +171,7 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
               {vocabularyItem.image && (
                 <div
                   className="img"
-                  onClick={() => functions.updateGroupImage(selectedCategory, vocabularyItem, vocabularyCategoryList)}
+                  onClick={() => functions.updateVocabularyImage(selectedCategory, vocabularyItem, vocabularyCategoryList)}
                 >
                   <img src={vocabularyItem.image} alt={vocabularyItem.languageItems.fr.title} />
                   <SyncIcon />

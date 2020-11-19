@@ -9,6 +9,5 @@ export interface HomeProps {
 
 export interface HomeState {
   readonly newCategoryTitle: string
-  readonly newCategoryVocabularyCount: string
   readonly isCreatingCategory: boolean
 }

@@ -116,6 +116,7 @@ export const CategoryStyled = styled.div<{}>`
         align-items: flex-end;
         flex-shrink: 0;
         padding: 0 20px;
+        width: 100px;
       }
       span {
         ${center}

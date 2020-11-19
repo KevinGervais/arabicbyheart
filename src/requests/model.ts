@@ -21,5 +21,5 @@ export interface GetVocabularyQuery {
 }
 export interface GetDeletedItemsQuery {
   categoryId?: string,
-  vocabularyItemId?: string
+  vocabularyId?: string
 }

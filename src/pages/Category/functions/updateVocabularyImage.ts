@@ -6,7 +6,7 @@ import { allRequests } from "@/requests"
 
 import { getImage } from "."
 
-export function updateVocabularyItemImage(
+export function updateVocabularyImage(
   selectedCategory: VocabularyCategory,
   vocabularyItem: VocabularyItem,
   vocabularyCategoryList: VocabularyCategory[]

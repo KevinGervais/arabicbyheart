@@ -19,11 +19,6 @@ export const schemas = {
   }),
 
   category: new SimpleSchema({
-    title: {
-      type: String,
-      min: 1,
-      max: 100,
-    },
     isPublic: Boolean,
     _id: {
       type: String,
@@ -31,7 +26,13 @@ export const schemas = {
       max: 9
     },
   }),
-
+  categoryTitle: new SimpleSchema({
+    title: {
+      type: String,
+      min: 1,
+      max: 100,
+    }
+  }),
   vocabulary: new SimpleSchema({
     image: {
       type: String,

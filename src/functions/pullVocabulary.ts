@@ -26,12 +26,12 @@ function fetchDeletedItems(
   allRequests.getDeletedItems().then((deletedItems: GetDeletedItemsQuery[]) => {
     deletedItems.forEach((item: GetDeletedItemsQuery) => {
       const foundCategoryIndex = vocabularyCategoryList.findIndex((categoryItem: VocabularyCategory) => categoryItem._id === item.categoryId)
-      if (item.vocabularyItemId) {
+      if (item.vocabularyId) {
         if (foundCategoryIndex !== -1) {
-          const foundGroupIndex = vocabularyCategoryList[foundCategoryIndex]
-            .items.findIndex((currentGroup: VocabularyItem) => currentGroup._id === item.vocabularyItemId)
-          if (foundGroupIndex !== -1) {
-            vocabularyCategoryList[foundCategoryIndex].items.splice(foundGroupIndex, 1)
+          const foundVocabularyIndex = vocabularyCategoryList[foundCategoryIndex]
+            .items.findIndex((currentVocabulary: VocabularyItem) => currentVocabulary._id === item.vocabularyId)
+          if (foundVocabularyIndex !== -1) {
+            vocabularyCategoryList[foundCategoryIndex].items.splice(foundVocabularyIndex, 1)
           }
         }
       } else if (foundCategoryIndex !== -1) {
@@ -53,13 +53,13 @@ function fetchCategories(
         vocabularyCategoryList.push(updatedCategoryItem)
       } else {
         vocabularyCategoryList[foundCategoryIndex].items = vocabularyCategoryList[foundCategoryIndex].items
-          .map((oldGroupItem: VocabularyItem): VocabularyItem => {
-            const foundGroupIndex = updatedCategoryItem.items
-              .findIndex((newGroupItem: VocabularyItem) => newGroupItem._id === oldGroupItem._id)
-            if (foundGroupIndex !== -1) {
-              return updatedCategoryItem.items.splice(foundGroupIndex, 1)[0]
+          .map((oldVocabularyItem: VocabularyItem): VocabularyItem => {
+            const foundVocabularyIndex = updatedCategoryItem.items
+              .findIndex((newVocabularyItem: VocabularyItem) => newVocabularyItem._id === oldVocabularyItem._id)
+            if (foundVocabularyIndex !== -1) {
+              return updatedCategoryItem.items.splice(foundVocabularyIndex, 1)[0]
             } else {
-              return oldGroupItem
+              return oldVocabularyItem
             }
           })
         vocabularyCategoryList[foundCategoryIndex].items.push(...updatedCategoryItem.items)
