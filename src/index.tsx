@@ -12,7 +12,6 @@ import { getOS, handleNotchPositionChange } from "./functions"
 import { phonesWithNatch } from "./functions/handleNotchPositionChange"
 
 window.localStorage.setItem("clipboard", "[]")
-
 export class AppClass extends React.Component {
   constructor(props: {}) {
     super(props)

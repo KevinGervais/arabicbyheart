@@ -19,6 +19,8 @@ export const TitleBarStyled = styled.div<TitleBarStyledProps>`
     padding: 10px 0;
     font-size: 24px;
     color: white;
+    width: max-content;
+    flex-shrink: 0;
   }
   svg {
     ${clickable};
