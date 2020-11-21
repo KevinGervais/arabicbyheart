@@ -1,5 +1,6 @@
 import React from "react"
 import ListenIcon from "@/images/listen"
+import { playAudio } from "@/functions/playAudio"
 
 import { DiapositiveItemProps, DiapositiveItemState } from "./model"
 import { DiapositiveItemStyled } from "./DiapositiveItemStyled"
@@ -44,8 +45,8 @@ export class DiapositiveItem extends React.Component<DiapositiveItemProps, Diapo
             {!currentDiapositiveItem.isImageOnly && (
               <span>
                 {isHarakat ? currentDiapositiveItem.currentLanguageItem.title : removeHarakat(currentDiapositiveItem.currentLanguageItem.title)}
-                {currentDiapositiveItem.currentLanguageItem.audio !== "" && (
-                  <ListenIcon onClick={() => new Audio(currentDiapositiveItem.currentLanguageItem.audio).play()} />
+                {currentDiapositiveItem.currentLanguageItem.audio && (
+                  <ListenIcon onClick={() => playAudio(currentDiapositiveItem.currentLanguageItem.audio as string)} />
                 )}
               </span>)}
             <h4 onClick={() => this.setState({ isAnswerShown: true })}>{say.showAnswer}</h4>
@@ -59,13 +60,13 @@ export class DiapositiveItem extends React.Component<DiapositiveItemProps, Diapo
             <span>
               {currentDiapositiveItem.currentLanguageItem.title}
               {currentDiapositiveItem.currentLanguageItem.audio !== "" && (
-                <ListenIcon onClick={() => new Audio(currentDiapositiveItem.currentLanguageItem.audio).play()} />
+                <ListenIcon onClick={() => playAudio(currentDiapositiveItem.currentLanguageItem.audio as string)} />
               )}
             </span>
             <span>
               {currentDiapositiveItem.languageItems[notCurrentLanguage].title}
               {currentDiapositiveItem.languageItems[notCurrentLanguage].audio !== "" && (
-                <ListenIcon onClick={() => new Audio(currentDiapositiveItem.languageItems[notCurrentLanguage].audio).play()} />
+                <ListenIcon onClick={() => playAudio(currentDiapositiveItem.languageItems[notCurrentLanguage].audio as string)} />
               )}
             </span>
           </>

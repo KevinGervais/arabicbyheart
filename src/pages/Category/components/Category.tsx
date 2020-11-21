@@ -6,10 +6,8 @@ import SaveIcon from "@/images/save"
 import CloseIcon from "@/images/close"
 import MicroIcon from "@/images/micro"
 import PlayIcon from "@/images/play"
-import ListenIcon from "@/images/listen"
-import DeleteIcon from "@/images/delete"
 import DiapoIcon from "@/images/diapo"
-import SyncIcon from "@/images/sync"
+import DeleteIcon from "@/images/delete"
 import InfinityIcon from "@/images/infinity"
 import ImageIcon from "@/images/image"
 import NoMicroIcon from "@/images/noMicro"
@@ -18,15 +16,15 @@ import { SpeechLanguages, VocabularyItem } from "@/model"
 import { Toggle } from "@/ui/components"
 import Tooltip from "react-tooltip"
 
-import { CategoryInitState, CategoryProps, CategoryState, CreatedLanguageItemProps } from "../model"
+import { CategoryInitState, CategoryProps, CategoryState, CreatedLanguageItemProps, VocabularyItemProps } from "../model"
 import * as functions from "../functions"
 
 import { CategoryStyled } from "./CategoryStyled"
-import { VocabularyItemStyled } from "./VocabularyItemStyled"
 import { BottomMenuStyled } from "./BottomMenuStyled"
 import { BottomMenuItemStyled } from "./BottomMenuItemStyled"
 import { DeleteButtonStyled } from "./DeleteButtonStyled"
 import { CreatedLanguageItem } from "./CreatedLanguageItem"
+import { VocabularyItemComponent } from "./VocabularyItemComponent"
 
 export const speechLanguages: SpeechLanguages[] = ["fr", "ar", "en"]
 
@@ -48,6 +46,8 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
   getInitialState: (isSkipOptions?: boolean | undefined) => CategoryInitState
   activateAudio: () => void
   CreatedLanguageItem: (props: CreatedLanguageItemProps) => JSX.Element
+  VocabularyItemComponent: (props: VocabularyItemProps) => JSX.Element
+  editVocabulary: (vocabularyItem: VocabularyItem, index: number) => void
 
   constructor(props: CategoryProps) {
     super(props)
@@ -62,7 +62,9 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
     this.onAudioStop = functions.onAudioStop.bind(this)
     this.saveDiapositiveSettings = functions.saveDiapositiveSettings.bind(this)
     this.activateAudio = functions.activateAudio.bind(this)
+    this.editVocabulary = functions.editVocabulary.bind(this)
     this.CreatedLanguageItem = CreatedLanguageItem.bind(this)
+    this.VocabularyItemComponent = VocabularyItemComponent.bind(this)
     let state: CategoryState = {
       isMicrophone: true,
       isShuffle: true,
@@ -70,6 +72,7 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
       isCreatingWithImage: true,
       isHarakat: true,
       delay: 5,
+      editingVocabularyIndex: -1
     } as any
 
     state = {
@@ -87,11 +90,19 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
 
   componentDidUpdate(oldProps: CategoryProps, oldState: CategoryState): void {
     const { selectedCategory } = this.props
-    const { recordingLanguage } = this.state
+    const { recordingLanguage, isCreatingVocabulary, editingVocabularyIndex } = this.state
     if (!oldProps.selectedCategory && selectedCategory) {
       this.setState(this.getInitialState() as unknown as CategoryState)
     }
-
+    if (
+      (isCreatingVocabulary && !oldState.isCreatingVocabulary)
+      || (editingVocabularyIndex !== -1 && oldState.editingVocabularyIndex === -1)
+    ) {
+      const input: HTMLInputElement | null = document.querySelector(".selected-language-input") as HTMLInputElement | null
+      if (input) {
+        input.focus()
+      }
+    }
     if (recordingLanguage !== oldState.recordingLanguage && recordingLanguage !== undefined) {
       window.setTimeout(() => {
         if (this.state.recordingLanguage !== undefined) {
@@ -102,7 +113,7 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
   }
 
   render(): JSX.Element | null {
-    const { selectedCategory, say, vocabularyCategoryList, selectedLanguage } = this.props
+    const { selectedCategory, say, selectedLanguage } = this.props
     const {
       isCreatingVocabulary,
       isBottomMenuOpened,
@@ -131,7 +142,12 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
         <div className="add-button-wrapper">
           <div className="add-button" onClick={() => {
             this.activateAudio()
-            this.setState({ isCreatingVocabulary: true })
+            this.setState({
+              ...this.getInitialState(true) as CategoryState,
+              isCreatingVocabulary: true,
+              recordingLanguage: undefined,
+              editingVocabularyIndex: -1
+            })
           }}>
             {say.addVocabulary}
             <PlusIcon />
@@ -142,7 +158,7 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
             <div className="create-vocabulary">
               <this.CreatedLanguageItem />
               <this.CreatedLanguageItem isArabic />
-              <div>
+              <div className="buttons">
                 <Toggle
                   active={isCreatingWithImage}
                   label={say.isWithImage}
@@ -168,36 +184,7 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
         }
         <div className="content">
           {selectedCategory.items.map((vocabularyItem: VocabularyItem, index: number) => (
-            <VocabularyItemStyled key={vocabularyItem._id}>
-              {vocabularyItem.image && (
-                <div
-                  className="img"
-                  onClick={() => functions.updateVocabularyImage(selectedCategory, vocabularyItem, vocabularyCategoryList)}
-                >
-                  <img src={vocabularyItem.image} alt={vocabularyItem.languageItems.fr.title} />
-                  <SyncIcon />
-                </div>
-              )}
-              <div className="vertical-container">
-                <div className="item">
-                  <span>{selectedLanguage}</span>
-                  <h4>{vocabularyItem.languageItems[selectedLanguage].title}</h4>
-                  {vocabularyItem.languageItems[selectedLanguage].audio !== "" && <ListenIcon onClick={() => {
-                    const audio = new Audio(vocabularyItem.languageItems[selectedLanguage].audio)
-                    audio.play()
-                  }} />}
-                </div>
-                <div className="item">
-                  <span>ar</span>
-                  <h4>{vocabularyItem.languageItems.ar.title}</h4>
-                  {vocabularyItem.languageItems.ar.audio !== "" && <ListenIcon onClick={() => {
-                    const audio = new Audio(vocabularyItem.languageItems.ar.audio)
-                    audio.play()
-                  }} />}
-                </div>
-                <DeleteIcon data-tip={say.delete} onClick={() => this.deleteItem(index)} />
-              </div>
-            </VocabularyItemStyled>
+            <this.VocabularyItemComponent key={vocabularyItem._id} vocabularyItem={vocabularyItem} index={index} />
           ))}</div>
 
         {selectedCategory.items.length > 0 && <BottomMenuStyled>

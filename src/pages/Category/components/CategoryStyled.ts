@@ -63,103 +63,23 @@ export const CategoryStyled = styled.div<{}>`
     padding: 20px;
     border-radius: 20px;
     margin: 20px 0;
-    width: calc(100vw - 60px);
-    max-width: 600px;
+    width: calc(100vw - 20px);
+    max-width: 500px;
     box-shadow: 0 0 5px hsla(0, 0%, 0%, 0.3);
     background: white;
-    & > div {
+    .buttons {
       display: flex;
       width: 100%;
-      &:not(:first-child) {
-        border-top: 1px solid ${() => window.theme.primary100};
-      }
-      &:not(:last-child) {
-        display: flex;
-        align-items: center;
-        overflow: hidden;
-        height: 40px;
-        @media screen and (max-width: 600px) {
-          margin-top: 20px;
-          border-top: none;
-          flex-wrap: wrap;
-          height: initial;
-          h4 {
-            display: flex;
-            width: 100%;
-            align-items: center;
-          }
-          input, .select, span, h4 {
-            height: 40px;
-            width: 100%;
-          }
-        }
-      }
-      &:last-child {
-        justify-content: flex-end;
-        padding-top: 10px;
-      }
-      input {
-        flex: 1;
-        height: 100%;
-        padding: 0 20px;
-        background: ${() => window.theme.grey100};
-        transition: 0.3s all ease-in-out;
-        &::placeholder {
-          color: ${() => window.theme.grey400};
-        }
-        &.arabic-input {
-          direction:RTL;
-        }
-      }
-      h4 {
-        display: flex;
-        align-items: flex-end;
-        flex-shrink: 0;
-        padding: 0 20px;
-        width: 100px;
-      }
-      span {
-        ${center}
-        height: 100%;
-        background: ${() => window.theme.grey200};
-        width: 100px;
-        flex-shrink: 0;
-      }
-      .select {
-        background: ${() => window.theme.primary600};
-        color: white;
-        width: 100px;
-        height: 100%;
-      }
-      .button {
-        ${center}
-        ${clickable}
-        height: 30px;
-        padding: 0 20px;
-        border-radius: 20px;
-        color: white;
-        background: ${() => window.theme.primary500};
-        &:not(:last-child) {
-          margin-right: 10px;
-        }
-        svg {
-          color: white;
-          height: 20px;
-        }
-        ${() => ["mac", "windows"].includes(getOS()) && css`
-          &:hover {
-            background: ${() => window.theme.primary600};
-          }
-        `}
-        &:active {
-          background: ${() => window.theme.primary700};
-        }
-      }
-      & > svg {
+      justify-content: flex-end;
+      padding-top: 10px;
+
+      svg {
           ${clickable};
           width: 30px;
           height: 20px;
-          padding: 10px 20px;
+          padding: 5px 10px;
+          margin-left: 10px;
+          border-radius: 15px;
           background: ${() => window.theme.primary500};
           color: white;
           ${() => ["mac", "windows"].includes(getOS()) && css`

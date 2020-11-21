@@ -18,6 +18,7 @@ export const ToggleStyled = styled.div<ToggleStyledProps>`
     `}
     .square {
         ${center}
+        flex-shrink: 0;
         height: 26px;
         width: 26px;
         color: transparent;

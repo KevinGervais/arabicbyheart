@@ -7,6 +7,7 @@ import * as functions from "../functions"
 import { CreatedLanguageItemProps } from "../model"
 
 import { CategoryClass } from "./Category"
+import { CreatedLanguageItemStyled } from "./CreatedLanguageItemStyled"
 
 export function CreatedLanguageItem(this: CategoryClass, props: CreatedLanguageItemProps): JSX.Element {
   const { isArabic } = props
@@ -20,25 +21,11 @@ export function CreatedLanguageItem(this: CategoryClass, props: CreatedLanguageI
   const language = isArabic ? "ar" : selectedLanguage
   const isRecording = isArabic ? recordingLanguage === "ar" : recordingLanguage === selectedLanguage
   return (
-    <div>
-      <h4>{isArabic ? say.ar : say[selectedLanguage]}</h4>
-      {!isRecording && <MicroIcon data-for="record-tooltip" data-tip onClick={() => {
-        this.setState({ recordingLanguage: language })
-        try {
-          this.titleRecorder.start()
-          if (this.titleSpeech) {
-            this.titleSpeech.lang = language
-            this.titleSpeech.start()
-          }
-        } catch (err) {
-          // do nothing
-        }
-      }} />}
-      <Tooltip id="record-tooltip" effect="solid" place="right" getContent={() => say.record} />
+    <CreatedLanguageItemStyled>
 
-      {isRecording && <StopIcon onClick={this.onAudioStop} />}
+      <h4>{isArabic ? "ar" : selectedLanguage}</h4>
       <input
-        className={language === "ar" ? "arabic-input" : ""}
+        className={language === "ar" ? "arabic-input" : "selected-language-input"}
         placeholder={say.vocabularyPlacehoder}
         value={title}
         onKeyDown={(evt: React.KeyboardEvent<HTMLInputElement>) => {
@@ -63,6 +50,21 @@ export function CreatedLanguageItem(this: CategoryClass, props: CreatedLanguageI
         }}
 
       />
-    </div>
+      {!isRecording && <MicroIcon data-for="record-tooltip" data-tip onClick={() => {
+        this.setState({ recordingLanguage: language })
+        try {
+          this.titleRecorder.start()
+          if (this.titleSpeech) {
+            this.titleSpeech.lang = language
+            this.titleSpeech.start()
+          }
+        } catch (err) {
+          // do nothing
+        }
+      }} />}
+      <Tooltip id="record-tooltip" effect="solid" place="right" getContent={() => say.record} />
+
+      {isRecording && <StopIcon onClick={this.onAudioStop} />}
+    </CreatedLanguageItemStyled>
   )
 }

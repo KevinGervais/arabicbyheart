@@ -1,5 +1,5 @@
 import { Languages, Say } from "@/languages/model"
-import { diapositiveDelay, DiapositiveSettings, SpeechLanguages, VocabularyCategory } from "@/model"
+import { diapositiveDelay, DiapositiveSettings, SpeechLanguages, VocabularyCategory, VocabularyItem } from "@/model"
 
 export interface CategoryProps {
   readonly say: Say
@@ -13,6 +13,7 @@ export interface CategoryState {
   readonly isCreatingVocabulary: boolean
   readonly isBottomMenuOpened: boolean
   readonly recordingLanguage: SpeechLanguages | undefined
+  readonly editingVocabularyIndex: number
   readonly selectedTitle: string
   readonly arabicTitle: string
   readonly selectedAudio: string
@@ -46,4 +47,9 @@ export interface CategoryInitState {
 
 export interface CreatedLanguageItemProps {
   isArabic?: boolean
+  index?: number
+}
+export interface VocabularyItemProps {
+  vocabularyItem: VocabularyItem
+  index: number
 }

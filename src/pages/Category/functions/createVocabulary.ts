@@ -65,7 +65,8 @@ export function createVocabulary(this: CategoryClass): void {
         vocabularyCategoryList: newVocabularyCategoryList
       })
       localforage.setItem("vocabularyCategoryList", newVocabularyCategoryList)
-      this.setState(this.getInitialState(true) as unknown as CategoryState)
+
+      this.setState({ ...this.getInitialState(true) as unknown as CategoryState, editingVocabularyIndex: -1, })
     })
   }
   if (isCreatingWithImage) {

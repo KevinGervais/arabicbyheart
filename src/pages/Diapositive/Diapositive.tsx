@@ -3,6 +3,7 @@ import { ReduxState } from "@/redux/model"
 import React from "react"
 import { connect } from "react-redux"
 import ArrowIcon from "@/images/rightArrow"
+import { playAudio } from "@/functions/playAudio"
 
 import { DiapositiveStyled } from "./DiapositiveStyled"
 import { DiapositiveItemObject, DiapositiveProps, DiapositiveState } from "./model"
@@ -88,9 +89,8 @@ export class DiapositiveClass extends React.Component<DiapositiveProps, Diaposit
       return <DiapositiveStyled index={0} indexCount={this.items.length} />
     }
 
-    if (diapositiveSettings.isMicrophone && item.currentLanguageItem.audio !== "") {
-      const audio = new Audio(item.currentLanguageItem.audio)
-      audio.play()
+    if (diapositiveSettings.isMicrophone && item.currentLanguageItem.audio) {
+      playAudio(item.currentLanguageItem.audio)
     }
     let hasChanged: boolean = false
     if (diapositiveSettings.delay !== false && currentIndex !== this.items.length - 1) {
