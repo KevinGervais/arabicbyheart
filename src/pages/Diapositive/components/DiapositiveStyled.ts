@@ -4,7 +4,7 @@ import { center, clickable } from "@/styles/mixins"
 import { AllColors } from "@/styles/model"
 import styled, { css } from "styled-components"
 
-import { DiapositiveStyledProps } from "./model"
+import { DiapositiveStyledProps } from "../model"
 const colorList = Object.keys(colors).sort(() => Math.random() - 0.5)
 
 export const DiapositiveStyled = styled.div<DiapositiveStyledProps>`

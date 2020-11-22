@@ -2,7 +2,7 @@ import React from "react"
 import ListenIcon from "@/images/listen"
 import { playAudio } from "@/functions/playAudio"
 
-import { DiapositiveItemProps, DiapositiveItemState } from "./model"
+import { DiapositiveItemProps, DiapositiveItemState } from "../model"
 import { DiapositiveItemStyled } from "./DiapositiveItemStyled"
 
 export class DiapositiveItem extends React.Component<DiapositiveItemProps, DiapositiveItemState>{

@@ -1,5 +1,5 @@
 import { Languages, Say } from "@/languages/model"
-import { DiapositiveSettings, NotchPosition, VocabularyCategory } from "@/model"
+import { DiapositiveSettings, NotchPosition, SelectedCategory, VocabularyCategory } from "@/model"
 import { AllColors } from "@/styles/model"
 import { PageNames } from "@/ui/routes/model"
 import { Action } from "redux"
@@ -11,7 +11,7 @@ export interface ReduxState {
   readonly selectedLanguage: Languages
   readonly say: Say
   readonly page: PageNames
-  readonly selectedCategory?: VocabularyCategory
+  readonly selectedCategory?: SelectedCategory
   readonly vocabularyCategoryList: VocabularyCategory[]
   readonly diapositiveSettings?: DiapositiveSettings
 

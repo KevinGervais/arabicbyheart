@@ -1,14 +1,12 @@
 import { cloneCategory } from "@/functions"
 import { VocabularyCategory } from "@/model"
-import { setReduxState } from "@/redux"
+import { getReduxState, setReduxState } from "@/redux"
 import { allRequests } from "@/requests"
 import localforage from "localforage"
 
-import { CategoryClass } from "../components/Category"
 
-
-export function deleteCategory(this: CategoryClass): void {
-  const { selectedCategory, vocabularyCategoryList } = this.props
+export function deleteCategory(): void {
+  const { selectedCategory, vocabularyCategoryList } = getReduxState()
   if (!selectedCategory) {
     return
   }

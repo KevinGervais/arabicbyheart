@@ -32,6 +32,9 @@ export interface VocabularyCategory {
   _id: string
 }
 
+export interface SelectedCategory extends VocabularyCategory {
+  isMultipleCategory?: boolean
+}
 export interface VocabularyItem {
   _id: string
   image?: string

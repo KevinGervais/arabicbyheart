@@ -1,11 +1,11 @@
 import { VocabularyItem } from "@/model"
+import { getReduxState } from "@/redux"
 
-import { CategoryClass } from "../components/Category"
 import { CategoryInitState } from "../model"
 
 
-export function getInitialState(this: CategoryClass, isSkipOptions?: boolean): CategoryInitState {
-  const { selectedCategory, diapositiveSettings } = this.props
+export function getInitialState(isSkipOptions?: boolean): CategoryInitState {
+  const { selectedCategory, diapositiveSettings } = getReduxState()
   if (!selectedCategory) {
     return {
       selectedTitle: "",

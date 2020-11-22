@@ -1,29 +1,29 @@
-import { DiapositiveSettings } from "@/model"
+import { diapositiveDelay, DiapositiveSettings } from "@/model"
+import { setReduxState } from "@/redux"
 
-import { CategoryClass } from "../components/Category"
-let timeoutId: number = -1
-export function saveDiapositiveSettings(this: CategoryClass): void {
-  window.clearTimeout(timeoutId)
-  timeoutId = window.setTimeout(() => {
-    const {
-      isSelectedTitleActive,
-      isArabicTitleActive,
-      isMicrophone,
-      isShuffle,
-      delay,
-      isDiaporamaImage,
-      isHarakat
-    } = this.state
+export function saveDiapositiveSettings(
+  isSelectedTitleActive: boolean,
+  isArabicTitleActive: boolean,
+  isMicrophone: boolean,
+  isShuffle: boolean,
+  delay: diapositiveDelay,
+  isImage: boolean,
+  isHarakat: boolean,
+  isPageChange?: boolean
+): void {
 
-    const diapositiveSettings: DiapositiveSettings = {
-      isSelectedTitleActive,
-      isArabicTitleActive,
-      isMicrophone,
-      isShuffle,
-      delay,
-      isHarakat,
-      isImage: isDiaporamaImage
-    }
-    window.localStorage.setItem("diapositiveSettings", JSON.stringify(diapositiveSettings))
-  }, 1000)
+
+  const diapositiveSettings: DiapositiveSettings = {
+    isSelectedTitleActive,
+    isArabicTitleActive,
+    isMicrophone,
+    isShuffle,
+    delay,
+    isImage,
+    isHarakat
+  }
+  if (isPageChange) {
+    setReduxState({ diapositiveSettings, page: "diapositive" })
+  }
+  window.localStorage.setItem("diapositiveSettings", JSON.stringify(diapositiveSettings))
 }

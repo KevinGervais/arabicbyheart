@@ -5,15 +5,18 @@ import localforage from "localforage"
 import { allRequests } from "@/requests"
 import { ALL_SPEECH_LANGUAGES } from "@/constants"
 
-import { CategoryClass } from "../components/Category"
-import { CategoryState } from "../model"
 
 import { getImage } from "."
 
-export function createVocabulary(this: CategoryClass): void {
-  const { selectedCategory, selectedLanguage } = this.props
-  const { selectedTitle, selectedAudio, arabicTitle, arabicAudio, isCreatingWithImage } = this.state
-  const { vocabularyCategoryList } = getReduxState()
+export function createVocabulary(
+  selectedTitle: string,
+  selectedAudio: string,
+  arabicTitle: string,
+  arabicAudio: string,
+  isCreatingWithImage: boolean,
+  callback: () => void
+): void {
+  const { selectedCategory, selectedLanguage, vocabularyCategoryList } = getReduxState()
   if ([selectedTitle, arabicTitle].some((title: string) => !title.split(" ").join("")) || !selectedCategory) {
     return
   }
@@ -65,8 +68,7 @@ export function createVocabulary(this: CategoryClass): void {
         vocabularyCategoryList: newVocabularyCategoryList
       })
       localforage.setItem("vocabularyCategoryList", newVocabularyCategoryList)
-
-      this.setState({ ...this.getInitialState(true) as unknown as CategoryState, editingVocabularyIndex: -1, })
+      callback()
     })
   }
   if (isCreatingWithImage) {

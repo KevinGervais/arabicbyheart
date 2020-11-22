@@ -1,18 +1,20 @@
-import { VocabularyItem } from "@/model"
 import { ReduxState } from "@/redux/model"
 import React from "react"
 import { connect } from "react-redux"
 import ArrowIcon from "@/images/rightArrow"
 import { playAudio } from "@/functions/playAudio"
 
+import { DiapositiveItemObject, DiapositiveProps, DiapositiveState } from "../model"
+import { getDiapositiveItems } from "../functions/getDiapositiveItems"
+
 import { DiapositiveStyled } from "./DiapositiveStyled"
-import { DiapositiveItemObject, DiapositiveProps, DiapositiveState } from "./model"
 import { DiapositiveItem } from "./DiapositiveItem"
 export class DiapositiveClass extends React.Component<DiapositiveProps, DiapositiveState> {
   items: DiapositiveItemObject[] = []
   timeRef: HTMLInputElement | undefined
   lastInterval: number = -1
   timeoutId: number = -1
+
   constructor(props: DiapositiveProps) {
     super(props)
     const { selectedCategory, diapositiveSettings } = props
@@ -27,58 +29,16 @@ export class DiapositiveClass extends React.Component<DiapositiveProps, Diaposit
         currentIndex: 0,
         timeCounter: diapositiveSettings.delay,
       }
-      this.setItems(props)
+      this.items = getDiapositiveItems()
     }
   }
 
-  setItems(props: DiapositiveProps): void {
-    const { selectedCategory, diapositiveSettings, selectedLanguage } = props
-    if (!selectedCategory || !diapositiveSettings) {
-      this.items = []
-      return
-    }
-    this.items = selectedCategory.items.map((vocabularyItem: VocabularyItem) => {
-      const diapositiveItems: DiapositiveItemObject[] = []
-      if (diapositiveSettings.isSelectedTitleActive) {
-        diapositiveItems.push({
-          currentLanguageItem: { ...vocabularyItem.languageItems[selectedLanguage] },
-          image: vocabularyItem.image,
-          isImageOnly: false,
-          language: selectedLanguage,
-          languageItems: vocabularyItem.languageItems
-        })
-      }
-      if (diapositiveSettings.isArabicTitleActive) {
-        diapositiveItems.push({
-          currentLanguageItem: { ...vocabularyItem.languageItems.ar },
-          image: vocabularyItem.image,
-          isImageOnly: false,
-          language: "ar",
-          languageItems: vocabularyItem.languageItems
-        })
-      }
-      if (diapositiveItems.length === 0) {
-        diapositiveItems.push({
-          currentLanguageItem: { ...vocabularyItem.languageItems.ar },
-          image: vocabularyItem.image,
-          isImageOnly: true,
-          language: "ar",
-          languageItems: vocabularyItem.languageItems
-        })
-      }
-      return diapositiveItems
-    }).flat()
-    if (diapositiveSettings.isShuffle) {
-      this.items = this.items.sort(() => Math.random() - 0.5)
-      this.items = this.items.sort(() => Math.random() - 0.5)
-      this.items = this.items.sort(() => Math.random() - 0.5)
-    }
-  }
+
 
   UNSAFE_componentWillUpdate(newProps: DiapositiveProps): void {
     const { selectedCategory, diapositiveSettings } = this.props
     if ((!selectedCategory && newProps.selectedCategory) || (!diapositiveSettings && newProps.diapositiveSettings)) {
-      this.setItems(newProps)
+      this.items = getDiapositiveItems()
     }
   }
   render(): JSX.Element | null {

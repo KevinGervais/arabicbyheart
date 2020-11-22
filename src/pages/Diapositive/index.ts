@@ -1,1 +1,1 @@
-export { Diapositive } from "./Diapositive"
+export { Diapositive } from "./components/Diapositive"

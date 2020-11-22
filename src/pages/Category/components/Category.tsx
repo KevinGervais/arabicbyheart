@@ -16,7 +16,7 @@ import { SpeechLanguages, VocabularyItem } from "@/model"
 import { Toggle } from "@/ui/components"
 import Tooltip from "react-tooltip"
 
-import { CategoryInitState, CategoryProps, CategoryState, CreatedLanguageItemProps, VocabularyItemProps } from "../model"
+import { CategoryProps, CategoryState, CreatedLanguageItemProps, VocabularyItemProps } from "../model"
 import * as functions from "../functions"
 
 import { CategoryStyled } from "./CategoryStyled"
@@ -37,32 +37,18 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
   setFinalAudio: () => void
   setAudio: (evt: any) => void
   setTitle: (evt: SpeechRecognitionEvent) => void
-  createVocabulary: () => void
-  deleteItem: (index: number) => void
-  goToDiapositive: () => void
-  deleteCategory: () => void
   onAudioStop: () => void
-  saveDiapositiveSettings: () => void
-  getInitialState: (isSkipOptions?: boolean | undefined) => CategoryInitState
   activateAudio: () => void
   CreatedLanguageItem: (props: CreatedLanguageItemProps) => JSX.Element
   VocabularyItemComponent: (props: VocabularyItemProps) => JSX.Element
-  editVocabulary: (vocabularyItem: VocabularyItem, index: number) => void
 
   constructor(props: CategoryProps) {
     super(props)
     this.setTitle = functions.setTitle.bind(this)
     this.setFinalAudio = functions.setFinalAudio.bind(this)
     this.setAudio = functions.setAudio.bind(this)
-    this.getInitialState = functions.getInitialState.bind(this)
-    this.createVocabulary = functions.createVocabulary.bind(this)
-    this.deleteItem = functions.deleteItem.bind(this)
-    this.goToDiapositive = functions.goToDiapositive.bind(this)
-    this.deleteCategory = functions.deleteCategory.bind(this)
     this.onAudioStop = functions.onAudioStop.bind(this)
-    this.saveDiapositiveSettings = functions.saveDiapositiveSettings.bind(this)
     this.activateAudio = functions.activateAudio.bind(this)
-    this.editVocabulary = functions.editVocabulary.bind(this)
     this.CreatedLanguageItem = CreatedLanguageItem.bind(this)
     this.VocabularyItemComponent = VocabularyItemComponent.bind(this)
     let state: CategoryState = {
@@ -77,7 +63,7 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
 
     state = {
       ...state,
-      ...this.getInitialState(),
+      ...functions.getInitialState(),
       isCreatingVocabulary: false,
       isBottomMenuOpened: false,
       recordingLanguage: undefined,
@@ -92,7 +78,7 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
     const { selectedCategory } = this.props
     const { recordingLanguage, isCreatingVocabulary, editingVocabularyIndex } = this.state
     if (!oldProps.selectedCategory && selectedCategory) {
-      this.setState(this.getInitialState() as unknown as CategoryState)
+      this.setState(functions.getInitialState() as unknown as CategoryState)
     }
     if (
       (isCreatingVocabulary && !oldState.isCreatingVocabulary)
@@ -124,8 +110,12 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
       delay,
       isAskingDelete,
       isDiaporamaImage,
-      isCreatingWithImage,
       isHarakat,
+      selectedTitle,
+      selectedAudio,
+      arabicTitle,
+      arabicAudio,
+      isCreatingWithImage,
     } = this.state
     if (!selectedCategory) {
       return null
@@ -143,7 +133,7 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
           <div className="add-button" onClick={() => {
             this.activateAudio()
             this.setState({
-              ...this.getInitialState(true) as CategoryState,
+              ...functions.getInitialState(true) as CategoryState,
               isCreatingVocabulary: true,
               recordingLanguage: undefined,
               editingVocabularyIndex: -1
@@ -164,11 +154,23 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
                   label={say.isWithImage}
                   onChange={() => this.setState({ isCreatingWithImage: !isCreatingWithImage })}
                 />
-                <div data-for={"save-tooltip"} data-tip className="button" onClick={this.createVocabulary}>
+                <div
+                  data-for={"save-tooltip"}
+                  data-tip
+                  className="button"
+                  onClick={() => functions.createVocabulary(
+                    selectedTitle,
+                    selectedAudio,
+                    arabicTitle,
+                    arabicAudio,
+                    isCreatingWithImage,
+                    () => this.setState({ ...functions.getInitialState(true) as unknown as CategoryState, editingVocabularyIndex: -1, })
+                  )}
+                >
                   <SaveIcon />
                 </div>
                 <div data-for={"cancel-tooltip"} data-tip={say.cancel} className="button" onClick={() => this.setState({
-                  ...this.getInitialState(true) as CategoryState,
+                  ...functions.getInitialState(true) as CategoryState,
                   isCreatingVocabulary: false,
                   recordingLanguage: undefined,
                 })}>
@@ -193,7 +195,15 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
 
               onClick={(evt: React.MouseEvent<HTMLDivElement>) => {
                 evt.stopPropagation()
-                this.saveDiapositiveSettings()
+                functions.saveDiapositiveSettings(
+                  isSelectedTitleActive,
+                  isArabicTitleActive,
+                  isMicrophone,
+                  isShuffle,
+                  delay,
+                  isDiaporamaImage,
+                  isHarakat,
+                )
               }}
               className="left-content"
             >
@@ -258,7 +268,16 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
               if (!isBottomMenuOpened) {
                 this.setState({ isBottomMenuOpened: true })
               } else {
-                this.goToDiapositive()
+                functions.saveDiapositiveSettings(
+                  isSelectedTitleActive,
+                  isArabicTitleActive,
+                  isMicrophone,
+                  isShuffle,
+                  delay,
+                  isDiaporamaImage,
+                  isHarakat,
+                  true
+                )
               }
             }}
           >
@@ -273,7 +292,7 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
           {isAskingDelete && (
             <div className="right-content">
               {say.askDelete}
-              <div onClick={this.deleteCategory}>{say.yes}</div>
+              <div onClick={() => functions.deleteCategory()}>{say.yes}</div>
             </div>
           )}
         </DeleteButtonStyled>

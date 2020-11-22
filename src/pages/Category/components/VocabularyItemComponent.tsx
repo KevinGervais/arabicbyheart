@@ -10,6 +10,7 @@ import { playAudio } from "@/functions/playAudio"
 
 import { VocabularyItemProps } from "../model"
 import * as functions from "../functions"
+import { deleteItem, editVocabulary } from "../functions"
 
 import { CategoryClass } from "./Category"
 import { VocabularyItemStyled } from "./VocabularyItemStyled"
@@ -17,6 +18,12 @@ import { VocabularyItemStyled } from "./VocabularyItemStyled"
 export function VocabularyItemComponent(this: CategoryClass, props: VocabularyItemProps): JSX.Element {
   const { vocabularyItem, index } = props
   const { selectedCategory, say, vocabularyCategoryList, selectedLanguage } = this.props
+  const {
+    selectedTitle,
+    selectedAudio,
+    arabicTitle,
+    arabicAudio
+  } = this.state
   const {
     editingVocabularyIndex
   } = this.state
@@ -68,12 +75,26 @@ export function VocabularyItemComponent(this: CategoryClass, props: VocabularyIt
                 selectedAudio: vocabularyItem.languageItems[selectedLanguage].audio || "",
                 arabicAudio: vocabularyItem.languageItems.ar.audio || "",
               })} />
-              <DeleteIcon data-tip={say.delete} onClick={() => this.deleteItem(index)} />
+              <DeleteIcon data-tip={say.delete} onClick={() => deleteItem(index)} />
             </>
           )}
           {editingVocabularyIndex === index && (
             <>
-              <SaveIcon data-tip={say.save} onClick={() => this.editVocabulary(vocabularyItem, index)} />
+              <SaveIcon data-tip={say.save} onClick={() => editVocabulary(
+                selectedTitle,
+                selectedAudio,
+                arabicTitle,
+                arabicAudio,
+                vocabularyItem,
+                index,
+                () => this.setState({
+                  editingVocabularyIndex: -1,
+                  selectedTitle: "",
+                  arabicTitle: "",
+                  selectedAudio: "",
+                  arabicAudio: "",
+                })
+              )} />
               <CloseIcon data-tip={say.cancel} onClick={() => this.setState({
                 editingVocabularyIndex: -1,
                 selectedTitle: "",

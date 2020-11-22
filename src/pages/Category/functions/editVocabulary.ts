@@ -5,12 +5,16 @@ import localforage from "localforage"
 import { allRequests } from "@/requests"
 import { ALL_SPEECH_LANGUAGES } from "@/constants"
 
-import { CategoryClass } from "../components/Category"
-
-export function editVocabulary(this: CategoryClass, vocabularyItem: VocabularyItem, index: number): void {
-  const { selectedCategory, selectedLanguage } = this.props
-  const { selectedTitle, selectedAudio, arabicTitle, arabicAudio } = this.state
-  const { vocabularyCategoryList } = getReduxState()
+export function editVocabulary(
+  selectedTitle: string,
+  selectedAudio: string,
+  arabicTitle: string,
+  arabicAudio: string,
+  vocabularyItem: VocabularyItem,
+  index: number,
+  callback: () => void
+): void {
+  const { selectedCategory, selectedLanguage, vocabularyCategoryList } = getReduxState()
   if ([selectedTitle, arabicTitle].some((title: string) => !title.split(" ").join("")) || !selectedCategory) {
     return
   }
@@ -51,12 +55,6 @@ export function editVocabulary(this: CategoryClass, vocabularyItem: VocabularyIt
       vocabularyCategoryList: newVocabularyCategoryList
     })
     localforage.setItem("vocabularyCategoryList", newVocabularyCategoryList)
-    this.setState({
-      editingVocabularyIndex: -1,
-      selectedTitle: "",
-      arabicTitle: "",
-      selectedAudio: "",
-      arabicAudio: "",
-    })
+    callback()
   })
 }
