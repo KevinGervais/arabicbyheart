@@ -5,12 +5,11 @@ import { DiapositiveItemObject } from "../model"
 
 export function getDiapositiveItems(): DiapositiveItemObject[] {
   const { selectedCategory, diapositiveSettings, selectedLanguage } = getReduxState()
-  let diapositiveItems: DiapositiveItemObject[] = []
   if (!selectedCategory || !diapositiveSettings) {
-    return diapositiveItems = []
-
+    return []
   }
-  diapositiveItems = selectedCategory.items.map((vocabularyItem: VocabularyItem) => {
+  const final: DiapositiveItemObject[] = selectedCategory.items.map((vocabularyItem: VocabularyItem) => {
+    const diapositiveItems: DiapositiveItemObject[] = []
     if (diapositiveSettings.isSelectedTitleActive) {
       diapositiveItems.push({
         currentLanguageItem: { ...vocabularyItem.languageItems[selectedLanguage] },
@@ -41,7 +40,9 @@ export function getDiapositiveItems(): DiapositiveItemObject[] {
     return diapositiveItems
   }).flat()
   if (diapositiveSettings.isShuffle) {
-    diapositiveItems.sort(() => Math.random() - 0.5)
+    final.sort(() => Math.random() - 0.5)
+    final.sort(() => Math.random() - 0.5)
+    final.sort(() => Math.random() - 0.5)
   }
-  return diapositiveItems
+  return final
 }
