@@ -15,6 +15,7 @@ export const TitleBarStyled = styled.div<TitleBarStyledProps>`
   flex-shrink: 0;
   background: ${window.theme.primary500};
   box-shadow: 0 0 5px hsla(0, 0%, 0%, 0.3);
+  transition: all 0.3s ease-in-out;
   h1 {
     padding: 10px 0;
     font-size: 24px;
@@ -22,12 +23,26 @@ export const TitleBarStyled = styled.div<TitleBarStyledProps>`
     width: max-content;
     flex-shrink: 0;
   }
-  svg {
+  .fa-chevron-right {
     ${clickable};
     height: 30px;
     margin-right: 20px;
     color: white;
     transform: rotate(-180deg);
+  }
+  .fa-pencil-alt, .fa-save, .fa-times {
+    ${clickable};
+    height: 20px;
+    margin-left: 20px;
+    color: white;
+  }
+  input {
+    margin: 10px 0;
+    padding-left: 15px;
+    height: 30px;
+    font-size: 24px;
+    color: white;
+    background: ${() => window.theme.primary400};
   }
   ${(props: TitleBarStyledProps) => props.page === "diapositive" && css`
     background: hsla(0, 0%, 0%, 0.15);

@@ -61,7 +61,7 @@ export function VocabularyItemComponent(this: CategoryClass, props: VocabularyIt
         <div className="buttons">
           {editingVocabularyIndex !== index && (
             <>
-              <PencilIcon onClick={() => this.setState({
+              <PencilIcon data-tip={say.edit} onClick={() => this.setState({
                 editingVocabularyIndex: index,
                 selectedTitle: vocabularyItem.languageItems[selectedLanguage].title,
                 arabicTitle: vocabularyItem.languageItems.ar.title,
@@ -73,8 +73,8 @@ export function VocabularyItemComponent(this: CategoryClass, props: VocabularyIt
           )}
           {editingVocabularyIndex === index && (
             <>
-              <SaveIcon data-tip={say.delete} onClick={() => this.editVocabulary(vocabularyItem, index)} />
-              <CloseIcon onClick={() => this.setState({
+              <SaveIcon data-tip={say.save} onClick={() => this.editVocabulary(vocabularyItem, index)} />
+              <CloseIcon data-tip={say.cancel} onClick={() => this.setState({
                 editingVocabularyIndex: -1,
                 selectedTitle: "",
                 arabicTitle: "",

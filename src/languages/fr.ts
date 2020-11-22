@@ -33,4 +33,5 @@ export const fr: Say = {
   transitionDelay: "Chrono d'une question",
   record: "Enregistrer la prononciation",
   harakat: "Question avec harakat",
+  edit: "Modifier"
 }

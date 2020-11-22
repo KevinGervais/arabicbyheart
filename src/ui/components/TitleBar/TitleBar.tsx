@@ -3,6 +3,10 @@ import { connect } from "react-redux"
 import { ReduxState } from "@/redux/model"
 import RightArrowIcon from "@/images/rightArrow"
 import { setReduxState } from "@/redux"
+import PencilIcon from "@/images/pencil"
+import CloseIcon from "@/images/close"
+import SaveIcon from "@/images/save"
+import { editCategoryTitle } from "@/pages/Category/functions"
 
 import { TitleBarStyled } from "./TitleBarStyled"
 import { TitleBarProps, TitleBarState } from "./model"
@@ -10,7 +14,11 @@ import { TitleBarProps, TitleBarState } from "./model"
 class TitleBarClass extends React.Component<TitleBarProps, TitleBarState> {
   constructor(props: TitleBarProps) {
     super(props)
-    this.state = { isFullScreen: window.innerHeight === window.screen.height }
+    this.state = {
+      isFullScreen: window.innerHeight === window.screen.height,
+      isEditingCategory: false,
+      categoryTitle: "",
+    }
     this.toggleFullScreen = this.toggleFullScreen.bind(this)
     window.addEventListener("resize", this.toggleFullScreen)
   }
@@ -24,18 +32,66 @@ class TitleBarClass extends React.Component<TitleBarProps, TitleBarState> {
       this.setState({ isFullScreen: false })
     }
   }
+
+  public componentDidUpdate(oldProps: TitleBarProps): void {
+    const { page } = this.props
+    const { isEditingCategory } = this.state
+    if (oldProps.page !== page && isEditingCategory) {
+      this.setState({ isEditingCategory: false, categoryTitle: "" })
+    }
+  }
   public componentWillUnmount(): void {
     window.removeEventListener("resize", this.toggleFullScreen)
   }
 
   public render(): JSX.Element | null {
+    const { isEditingCategory, categoryTitle } = this.state
     const { page, say, selectedCategory, selectedLanguage } = this.props
-    return (
-      <TitleBarStyled page={page}>
-        {page !== "home" && <div onClick={() => setReduxState({ page: page === "diapositive" ? "category" : "home" })}><RightArrowIcon /></div>}
-        <h1>{page === "category" ? ((selectedCategory ? selectedCategory.title[selectedLanguage] : " ") || say[page]) : say[page]}</h1>
-      </TitleBarStyled>
-    )
+    if (page === "home") {
+      return (
+        <TitleBarStyled page={page}>
+          <h1>{say.home}</h1>
+        </TitleBarStyled>
+      )
+    } else if (page === "category") {
+      if (selectedCategory) {
+        if (isEditingCategory) {
+          return (
+            <TitleBarStyled page={page}>
+              <div onClick={() => setReduxState({ page: "home" })}><RightArrowIcon /></div>
+              <input
+                value={categoryTitle}
+                onChange={(evt: React.ChangeEvent<HTMLInputElement>) => this.setState({ categoryTitle: evt.target.value })}
+              />
+              <SaveIcon
+                data-tip={say.save}
+                onClick={() => editCategoryTitle(categoryTitle, () => this.setState({ isEditingCategory: false, categoryTitle: "" }))}
+              />
+              <CloseIcon
+                data-tip={say.cancel}
+                onClick={() => this.setState({ isEditingCategory: false, categoryTitle: "" })}
+              />
+            </TitleBarStyled>
+          )
+        } else {
+          return (
+            <TitleBarStyled page={page}>
+              <div onClick={() => setReduxState({ page: "home" })}><RightArrowIcon /></div>
+              <h1>{selectedCategory.title[selectedLanguage]}</h1>
+              <PencilIcon onClick={() => this.setState({ isEditingCategory: true, categoryTitle: selectedCategory.title[selectedLanguage] })} />
+            </TitleBarStyled>
+          )
+        }
+      }
+    } else if (page === "diapositive") {
+      return (
+        <TitleBarStyled page={page}>
+          <div onClick={() => setReduxState({ page: "category" })}><RightArrowIcon /></div>
+          <h1>{say.diapositive}</h1>
+        </TitleBarStyled>
+      )
+    }
+    return <TitleBarStyled page={page} />
   }
 }
 

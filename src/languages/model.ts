@@ -39,5 +39,6 @@ export type SayKeywords =
   | "transitionDelay"
   | "record"
   | "harakat"
+  | "edit"
 
 

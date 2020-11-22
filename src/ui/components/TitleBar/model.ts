@@ -5,6 +5,8 @@ import { PageNames } from "@/ui/routes/model"
 
 export interface TitleBarState {
   readonly isFullScreen: boolean
+  readonly isEditingCategory: boolean
+  readonly categoryTitle: string
 }
 
 export interface TitleBarProps {

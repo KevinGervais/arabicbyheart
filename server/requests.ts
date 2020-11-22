@@ -2,8 +2,8 @@ import path from 'path'
 import { Db } from 'mongodb'
 import { Express, Request, Response } from 'express'
 
-import { AddCategoryQuery, AddVocabularyQuery } from "../../src/requests/model"
-import { VocabularyItem, VocabularyCategory } from "../../src/model"
+import { AddCategoryQuery, AddVocabularyQuery } from "../src/requests/model"
+import { VocabularyItem, VocabularyCategory } from "../src/model"
 
 import { schemas } from './schemas'
 import { dbQueries } from './dbQueries'
@@ -34,11 +34,11 @@ export function handleRequests(app: Express, db: Db): void {
 
       const foundCategory = await dbQueries.findOne(db, 'category', { _id })
       if (foundCategory) {
-        await dbQueries.updateOne(db, 'category', { _id }, { ...query, lastModif: date })
+        await dbQueries.updateOne(db, 'category', { _id }, { $set: { ...query, lastModif: date } })
       } else {
         await dbQueries.insertOne(db, 'category', { ...query, lastModif: date })
       }
-      res.send("category added")
+      res.send(foundCategory ? "category updated" : "category added")
     } catch (error) {
       res.status(400).send({
         message: error.toString()
