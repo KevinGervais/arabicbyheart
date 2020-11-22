@@ -7,7 +7,7 @@ export const Toggle = (props: ToggleProps): JSX.Element => (
   <ToggleStyled
     active={!!props.active}
     className={`toggle ${props.className || ""}`}
-    onClick={(): void => props.onChange(!props.active)}
+    onClick={(evt: React.MouseEvent<HTMLDivElement>): void => props.onChange(evt, !props.active)}
   >
     {props.topLabel}
     <div className="square">✓</div>

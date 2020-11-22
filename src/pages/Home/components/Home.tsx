@@ -5,11 +5,12 @@ import { connect } from "react-redux"
 import RightArrowIcon from "@/images/rightArrow"
 import SaveIcon from "@/images/save"
 import CloseIcon from "@/images/close"
-import { setReduxState } from "@/redux"
 import Tooltip from "react-tooltip"
+import { Toggle } from "@/ui/components"
 
 import { HomeProps, HomeState } from "../model"
 import { createVocabularyCategory } from "../functions"
+import { goToCategory } from "../functions/goToCategory"
 
 import { HomeStyled } from "./HomeStyled"
 import { VocabularyCategoryStyled } from "./VocabularyCategoryStyled"
@@ -20,13 +21,14 @@ export class HomeClass extends React.Component<HomeProps, HomeState> {
     this.state = {
       newCategoryTitle: "",
       isCreatingCategory: false,
+      _idMap: {}
 
     }
   }
 
   render(): JSX.Element {
     const { vocabularyCategoryList, say, selectedLanguage } = this.props
-    const { isCreatingCategory, newCategoryTitle } = this.state
+    const { isCreatingCategory, newCategoryTitle, _idMap } = this.state
     return (
       <HomeStyled>
         {!isCreatingCategory && (
@@ -55,10 +57,12 @@ export class HomeClass extends React.Component<HomeProps, HomeState> {
           {vocabularyCategoryList.map((category: VocabularyCategory) => (
             <VocabularyCategoryStyled
               key={category._id}
-              onClick={() => {
-                setReduxState({ selectedCategory: category, page: "category" })
-              }}
+              onClick={() => goToCategory(_idMap, category)}
             >
+              <Toggle active={_idMap[category._id]} onChange={(evt: React.MouseEvent<HTMLDivElement>) => {
+                evt.stopPropagation()
+                this.setState({ _idMap: { ..._idMap, [category._id]: !_idMap[category._id] } })
+              }} />
               <h1>{category.title[selectedLanguage] || say.category}</h1>
               <RightArrowIcon />
             </VocabularyCategoryStyled>

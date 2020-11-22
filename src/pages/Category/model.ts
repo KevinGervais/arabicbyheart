@@ -1,9 +1,9 @@
 import { Languages, Say } from "@/languages/model"
-import { diapositiveDelay, DiapositiveSettings, SpeechLanguages, VocabularyCategory, VocabularyItem } from "@/model"
+import { diapositiveDelay, DiapositiveSettings, SelectedCategory, SpeechLanguages, VocabularyCategory, VocabularyItem } from "@/model"
 
 export interface CategoryProps {
   readonly say: Say
-  readonly selectedCategory?: VocabularyCategory
+  readonly selectedCategory?: SelectedCategory
   readonly vocabularyCategoryList: VocabularyCategory[]
   readonly diapositiveSettings?: DiapositiveSettings
   readonly selectedLanguage: Languages
@@ -32,6 +32,11 @@ export interface CategoryState {
 
 export interface BottomMenuItemStyledProps {
   readonly isActive: boolean
+}
+
+
+export interface CategoryStyledProps {
+  readonly isMultipleCategory?: boolean
 }
 
 export interface CategoryInitState {

@@ -74,11 +74,14 @@ class TitleBarClass extends React.Component<TitleBarProps, TitleBarState> {
             </TitleBarStyled>
           )
         } else {
+          const { isMultipleCategory } = selectedCategory
           return (
             <TitleBarStyled page={page}>
               <div onClick={() => setReduxState({ page: "home" })}><RightArrowIcon /></div>
               <h1>{selectedCategory.title[selectedLanguage]}</h1>
-              <PencilIcon onClick={() => this.setState({ isEditingCategory: true, categoryTitle: selectedCategory.title[selectedLanguage] })} />
+              {!isMultipleCategory && (
+                <PencilIcon onClick={() => this.setState({ isEditingCategory: true, categoryTitle: selectedCategory.title[selectedLanguage] })} />
+              )}
             </TitleBarStyled>
           )
         }

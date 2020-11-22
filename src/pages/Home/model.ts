@@ -10,4 +10,7 @@ export interface HomeProps {
 export interface HomeState {
   readonly newCategoryTitle: string
   readonly isCreatingCategory: boolean
+  readonly _idMap: IdMap
 }
+
+export type IdMap = { [_id: string]: boolean | undefined }

@@ -2,7 +2,9 @@ import { getOS } from "@/functions"
 import { center, clickable } from "@/styles/mixins"
 import styled, { css } from "styled-components"
 
-export const CategoryStyled = styled.div<{}>`
+import { CategoryStyledProps } from "../model"
+
+export const CategoryStyled = styled.div<CategoryStyledProps>`
   position: relative;
   display: flex;
   flex-direction: column;
@@ -14,7 +16,8 @@ export const CategoryStyled = styled.div<{}>`
     position: absolute;
     background: hsla(0, 0%, 100%, 0.1);
     width: 100%;
-    padding: 20px 0;
+    height: 80px;
+    flex-shrink: 0;
     backdrop-filter: blur(2px);
     border-bottom: 2px solid ${() => window.theme.primary200};
   }
@@ -99,7 +102,9 @@ export const CategoryStyled = styled.div<{}>`
     overflow: scroll;
     flex-wrap: wrap;
     width: 100%;
-    padding-top: 80px;
+    ${(props: CategoryStyledProps) => !props.isMultipleCategory && css`
+      padding-top: 80px;
+    `}
     padding-bottom: 100px;
   }
 `

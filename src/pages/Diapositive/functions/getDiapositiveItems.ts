@@ -42,8 +42,6 @@ export function getDiapositiveItems(): DiapositiveItemObject[] {
   }).flat()
   if (diapositiveSettings.isShuffle) {
     diapositiveItems.sort(() => Math.random() - 0.5)
-    diapositiveItems.sort(() => Math.random() - 0.5)
-    diapositiveItems.sort(() => Math.random() - 0.5)
   }
   return diapositiveItems
 }

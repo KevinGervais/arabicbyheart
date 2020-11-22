@@ -15,7 +15,7 @@ import { deleteItem, editVocabulary } from "../functions"
 import { CategoryClass } from "./Category"
 import { VocabularyItemStyled } from "./VocabularyItemStyled"
 
-export function VocabularyItemComponent(this: CategoryClass, props: VocabularyItemProps): JSX.Element {
+export function VocabularyItemComponent(this: CategoryClass, props: VocabularyItemProps): JSX.Element | null {
   const { vocabularyItem, index } = props
   const { selectedCategory, say, vocabularyCategoryList, selectedLanguage } = this.props
   const {
@@ -27,6 +27,11 @@ export function VocabularyItemComponent(this: CategoryClass, props: VocabularyIt
   const {
     editingVocabularyIndex
   } = this.state
+  if (!selectedCategory) {
+    return null
+  }
+  const { isMultipleCategory } = selectedCategory
+
   return (
     <VocabularyItemStyled key={vocabularyItem._id}>
       {vocabularyItem.image && (
@@ -66,7 +71,7 @@ export function VocabularyItemComponent(this: CategoryClass, props: VocabularyIt
         )}
 
         <div className="buttons">
-          {editingVocabularyIndex !== index && (
+          {!isMultipleCategory && editingVocabularyIndex !== index && (
             <>
               <PencilIcon data-tip={say.edit} onClick={() => this.setState({
                 editingVocabularyIndex: index,

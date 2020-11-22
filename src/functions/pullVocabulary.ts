@@ -76,7 +76,7 @@ function setVocabularyState(vocabularyCategoryList: VocabularyCategory[], isStor
   if (currentCategory) {
     setReduxState({ selectedCategory: cloneCategory(currentCategory), vocabularyCategoryList: newVocabularyCategoryList })
   } else {
-    setReduxState({ vocabularyCategoryList: newVocabularyCategoryList })
+    setReduxState({ vocabularyCategoryList: newVocabularyCategoryList, page: "home" })
   }
   if (isStorageUpdate) {
     localforage.setItem("vocabularyCategoryList", newVocabularyCategoryList)

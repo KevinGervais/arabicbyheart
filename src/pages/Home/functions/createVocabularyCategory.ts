@@ -8,6 +8,9 @@ import localforage from "localforage"
 
 export function createVocabularyCategory(newCategoryTitle: string, callback: () => void): void {
   const { vocabularyCategoryList, selectedLanguage } = getReduxState()
+  if (!newCategoryTitle) {
+    return
+  }
   const title: any = {}
   ALL_UI_LANGUAGES.forEach((lang: Languages) => (
     lang === selectedLanguage ? title[lang] = newCategoryTitle : ""

@@ -1,5 +1,5 @@
 import { Languages, Say } from "@/languages/model"
-import { VocabularyCategory } from "@/model"
+import { SelectedCategory } from "@/model"
 import { AllColors } from "@/styles/model"
 import { PageNames } from "@/ui/routes/model"
 
@@ -13,7 +13,7 @@ export interface TitleBarProps {
   readonly themeColor: keyof AllColors
   readonly page: PageNames
   readonly say: Say
-  readonly selectedCategory?: VocabularyCategory
+  readonly selectedCategory?: SelectedCategory
   readonly selectedLanguage: Languages
 }
 

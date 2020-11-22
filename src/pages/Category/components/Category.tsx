@@ -40,7 +40,7 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
   onAudioStop: () => void
   activateAudio: () => void
   CreatedLanguageItem: (props: CreatedLanguageItemProps) => JSX.Element
-  VocabularyItemComponent: (props: VocabularyItemProps) => JSX.Element
+  VocabularyItemComponent: (props: VocabularyItemProps) => JSX.Element | null
 
   constructor(props: CategoryProps) {
     super(props)
@@ -120,29 +120,35 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
     if (!selectedCategory) {
       return null
     }
+    const { isMultipleCategory } = selectedCategory
     return (
-      <CategoryStyled onClick={() => {
-        if (isBottomMenuOpened) {
-          this.setState({ isBottomMenuOpened: false })
-        }
-        if (isAskingDelete) {
-          this.setState({ isAskingDelete: false })
-        }
-      }}>
-        <div className="add-button-wrapper">
-          <div className="add-button" onClick={() => {
-            this.activateAudio()
-            this.setState({
-              ...functions.getInitialState(true) as CategoryState,
-              isCreatingVocabulary: true,
-              recordingLanguage: undefined,
-              editingVocabularyIndex: -1
-            })
-          }}>
-            {say.addVocabulary}
-            <PlusIcon />
+      <CategoryStyled
+        isMultipleCategory={isMultipleCategory}
+        onClick={() => {
+          if (isBottomMenuOpened) {
+            this.setState({ isBottomMenuOpened: false })
+          }
+          if (isAskingDelete) {
+            this.setState({ isAskingDelete: false })
+          }
+        }}
+      >
+        {!isMultipleCategory &&
+          <div className="add-button-wrapper">
+            <div className="add-button" onClick={() => {
+              this.activateAudio()
+              this.setState({
+                ...functions.getInitialState(true) as CategoryState,
+                isCreatingVocabulary: true,
+                recordingLanguage: undefined,
+                editingVocabularyIndex: -1
+              })
+            }}>
+              {say.addVocabulary}
+              <PlusIcon />
+            </div>
           </div>
-        </div>
+        }
         {isCreatingVocabulary && (
           <div className="create-vocabulary-wrapper">
             <div className="create-vocabulary">
@@ -285,17 +291,19 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
             {isBottomMenuOpened && <PlayIcon data-tip={say.playDiapositive} />}
           </div>
         </BottomMenuStyled>}
-        <DeleteButtonStyled onClick={(evt: React.MouseEvent<HTMLDivElement>) => evt.stopPropagation()} >
-          <div className="left-content" onClick={() => this.setState({ isAskingDelete: !isAskingDelete })}>
-            <DeleteIcon />
-          </div>
-          {isAskingDelete && (
-            <div className="right-content">
-              {say.askDelete}
-              <div onClick={() => functions.deleteCategory()}>{say.yes}</div>
+        {!isMultipleCategory && (
+          <DeleteButtonStyled onClick={(evt: React.MouseEvent<HTMLDivElement>) => evt.stopPropagation()} >
+            <div className="left-content" onClick={() => this.setState({ isAskingDelete: !isAskingDelete })}>
+              <DeleteIcon />
             </div>
-          )}
-        </DeleteButtonStyled>
+            {isAskingDelete && (
+              <div className="right-content">
+                {say.askDelete}
+                <div onClick={() => functions.deleteCategory()}>{say.yes}</div>
+              </div>
+            )}
+          </DeleteButtonStyled>
+        )}
         <Tooltip effect="solid" place="left" />
       </CategoryStyled>
     )

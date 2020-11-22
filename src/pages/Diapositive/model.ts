@@ -1,9 +1,9 @@
 import { Languages, Say } from "@/languages/model"
-import { DiapositiveSettings, SpeechLanguages, VocabularyCategory, VocabularyItem, LanguageItem, LanguageItems } from "@/model"
+import { DiapositiveSettings, SpeechLanguages, LanguageItem, LanguageItems, SelectedCategory } from "@/model"
 
 export interface DiapositiveProps {
   readonly say: Say
-  readonly selectedCategory?: VocabularyCategory
+  readonly selectedCategory?: SelectedCategory
   readonly diapositiveSettings?: DiapositiveSettings
   readonly selectedLanguage: Languages
 }

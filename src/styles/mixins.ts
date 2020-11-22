@@ -27,7 +27,6 @@ export const noSelection: any = css`
 export const ellipsis: any = css`
   white-space: nowrap;
   overflow: hidden;
-  -o-text-overflow: ellipsis;
   text-overflow: ellipsis;
 `
 

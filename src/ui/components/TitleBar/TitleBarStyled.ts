@@ -1,5 +1,5 @@
 import { getOS } from "@/functions"
-import { center, clickable } from "@/styles/mixins"
+import { center, clickable, ellipsis } from "@/styles/mixins"
 import styled, { css } from "styled-components"
 
 import { TitleBarStyledProps } from "./model"
@@ -17,10 +17,12 @@ export const TitleBarStyled = styled.div<TitleBarStyledProps>`
   box-shadow: 0 0 5px hsla(0, 0%, 0%, 0.3);
   transition: all 0.3s ease-in-out;
   h1 {
+    ${ellipsis};
     padding: 10px 0;
     font-size: 24px;
     color: white;
     width: max-content;
+    max-width: 80vw;
     flex-shrink: 0;
   }
   .fa-chevron-right {

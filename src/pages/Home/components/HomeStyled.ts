@@ -29,7 +29,9 @@ export const HomeStyled = styled.div<{}>`
       background: ${() => window.theme.primary600};
     }
   }
-
+  .toggle {
+    margin-left: 0px;
+  }
   .input {
     display: flex;
     box-shadow: 0 0 5px hsla(0, 0%, 0%, 0.3);
