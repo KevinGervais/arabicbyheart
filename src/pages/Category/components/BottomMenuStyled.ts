@@ -8,14 +8,14 @@ export const BottomMenuStyled = styled.div`
   right: 30px;
   box-shadow: 0 0 5px hsla(0, 0%, 0%, 0.3);
   overflow: hidden;
-  border-radius: 30px;
+  border-radius: 25px;
   background: white;
   .right-content {
     ${center};
     ${clickable};
-    width: 60px;
-    height: 60px;
-    border-radius: 30px;
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
     background: ${() => window.theme.secondary500};
     ${() => ["mac", "windows"].includes(getOS()) && css`
       &:hover {
@@ -27,7 +27,7 @@ export const BottomMenuStyled = styled.div`
     }
     svg {
       color: white;
-      height: 25px;
+      height: 20px;
     }
   }
 `

@@ -7,6 +7,7 @@ import SaveIcon from "@/images/save"
 import CloseIcon from "@/images/close"
 import Tooltip from "react-tooltip"
 import { Toggle } from "@/ui/components"
+import { setReduxState } from "@/redux"
 
 import { HomeProps, HomeState } from "../model"
 import { createVocabularyCategory } from "../functions"
@@ -57,7 +58,7 @@ export class HomeClass extends React.Component<HomeProps, HomeState> {
           {vocabularyCategoryList.map((category: VocabularyCategory) => (
             <VocabularyCategoryStyled
               key={category._id}
-              onClick={() => goToCategory(_idMap, category)}
+              onClick={() => setReduxState({ selectedCategory: category, page: "category" })}
             >
               <Toggle active={_idMap[category._id]} onChange={(evt: React.MouseEvent<HTMLDivElement>) => {
                 evt.stopPropagation()
@@ -69,6 +70,7 @@ export class HomeClass extends React.Component<HomeProps, HomeState> {
           )
           )}
         </div>
+        {Object.values(_idMap).includes(true) && <RightArrowIcon onClick={() => goToCategory(_idMap)} />}
       </HomeStyled>
     )
   }

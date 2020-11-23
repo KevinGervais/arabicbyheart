@@ -3,6 +3,7 @@ import ListenIcon from "@/images/listen"
 import { playAudio } from "@/functions/playAudio"
 
 import { DiapositiveItemProps, DiapositiveItemState } from "../model"
+
 import { DiapositiveItemStyled } from "./DiapositiveItemStyled"
 
 export class DiapositiveItem extends React.Component<DiapositiveItemProps, DiapositiveItemState>{
@@ -43,7 +44,7 @@ export class DiapositiveItem extends React.Component<DiapositiveItemProps, Diapo
               />
             )}
             {!currentDiapositiveItem.isImageOnly && (
-              <span>
+              <span className={currentDiapositiveItem.language === "ar" ? "arabic" : ""}>
                 {isHarakat ? currentDiapositiveItem.currentLanguageItem.title : removeHarakat(currentDiapositiveItem.currentLanguageItem.title)}
                 {currentDiapositiveItem.currentLanguageItem.audio && (
                   <ListenIcon onClick={() => playAudio(currentDiapositiveItem.currentLanguageItem.audio as string)} />
@@ -57,13 +58,13 @@ export class DiapositiveItem extends React.Component<DiapositiveItemProps, Diapo
         )}
         {isAnswerShown &&
           <>
-            <span>
+            <span className={currentDiapositiveItem.language === "ar" ? "arabic" : ""}>
               {currentDiapositiveItem.currentLanguageItem.title}
               {currentDiapositiveItem.currentLanguageItem.audio !== "" && (
                 <ListenIcon onClick={() => playAudio(currentDiapositiveItem.currentLanguageItem.audio as string)} />
               )}
             </span>
-            <span>
+            <span className={notCurrentLanguage === "ar" ? "arabic" : ""}>
               {currentDiapositiveItem.languageItems[notCurrentLanguage].title}
               {currentDiapositiveItem.languageItems[notCurrentLanguage].audio !== "" && (
                 <ListenIcon onClick={() => playAudio(currentDiapositiveItem.languageItems[notCurrentLanguage].audio as string)} />

@@ -10,14 +10,14 @@ export const DeleteButtonStyled = styled.div<{}>`
   left: 30px;
   box-shadow: 0 0 5px hsla(0, 0%, 0%, 0.3);
   overflow: hidden;
-  border-radius: 30px;
+  border-radius: 25px;
   background: white;
   .left-content {
     ${center};
     ${clickable};
-    width: 60px;
-    height: 60px;
-    border-radius: 30px;
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
     background: ${() => window.theme.secondary500};
     ${() => ["mac", "windows"].includes(getOS()) && css`
       &:hover {
@@ -29,7 +29,7 @@ export const DeleteButtonStyled = styled.div<{}>`
     }
     svg {
       color: white;
-      height: 25px;
+      height: 20px;
     }
   }
   .right-content {
@@ -38,9 +38,9 @@ export const DeleteButtonStyled = styled.div<{}>`
     div {
       ${center};
       ${clickable};
-      padding: 10px;
-      height: 30px;
-      border-radius: 10px;
+      padding: 0 10px;
+      height: 25px;
+      border-radius: 12.5px;
       border: 2px solid ${() => getColor("red", "secondary").secondary500};
       color: ${() => getColor("red", "secondary").secondary500};
       margin-left: 20px;

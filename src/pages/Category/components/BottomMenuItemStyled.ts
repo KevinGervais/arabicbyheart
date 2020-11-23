@@ -7,13 +7,13 @@ import { BottomMenuItemStyledProps } from "../model"
 export const BottomMenuItemStyled = styled.div<BottomMenuItemStyledProps>`
   ${center};
   ${clickable};
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   margin: 5px;
   border-radius: 25px;
   border: 1px solid ${() => window.theme.secondary300};
   svg {
-    height: 25px;
+    height: 20px;
     color: inherit;
   }
   ${() => ["mac", "windows"].includes(getOS()) && css`

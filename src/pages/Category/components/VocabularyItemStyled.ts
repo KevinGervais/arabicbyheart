@@ -12,6 +12,7 @@ export const VocabularyItemStyled = styled.div`
   max-width: 500px;
   box-shadow: 0 0 5px hsla(0, 0%, 0%, 0.3);
   background: white;
+
   .vertical-container {
     width: 100%;
     display: flex;
@@ -84,6 +85,10 @@ export const VocabularyItemStyled = styled.div`
     display: flex;
     width: 100%;
     border-bottom: 1px solid ${() => window.theme.primary100};
+    &:nth-child(2) h4 {
+    font-size: 24px;
+    font-family: arial;
+  }
     svg {
       ${clickable};
       width: 30px;
@@ -113,6 +118,4 @@ export const VocabularyItemStyled = styled.div`
       background: ${() => window.theme.grey200};
     }
   }
-
-
 `

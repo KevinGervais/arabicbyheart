@@ -75,4 +75,16 @@ export const HomeStyled = styled.div<{}>`
     max-width: 600px;
     box-shadow: 0 0 5px hsla(0, 0%, 0%, 0.3);
   }
+  & > .fa-chevron-right {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 20px;
+    height: 20px;
+    padding: 15px;
+    box-shadow: 0 0 5px hsla(0, 0%, 0%, 0.3);
+    border-radius: 25px;
+    background: ${() => window.theme.secondary500};
+    color: white;
+  }
 `
