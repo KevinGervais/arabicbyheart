@@ -27,7 +27,7 @@ app.once('ready', () => {
     }
   })
   mainWindowState.manage(window);
-  (isDev && isLocal) ? window.loadURL('http://localhost:4000') : window.loadFile('../build/index.html')
+  (isDev && isLocal) ? window.loadURL('http://localhost:4000') : window.loadFile('./build/index.html')
 
   window.once('ready-to-show', () => {
     window.show()

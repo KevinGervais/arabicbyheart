@@ -7,10 +7,10 @@
   "mac": {
     "target": "mas",
     "bundleVersion": "1",
-    "category": "public.app-category.productivity",
-    "entitlements": "./desktop/sign/entitlements.mas.plist",
-    "entitlementsInherit": "./desktop/sign/entitlements.mas.inherit.plist",
-    "provisioningProfile": "./desktop/sign/.provisionprofile",
+    "category": "public.app-category.education",
+    "entitlements": "./sign/entitlements.mas.plist",
+    "entitlementsInherit": "./sign/entitlements.mas.inherit.plist",
+    "provisioningProfile": "./sign/.provisionprofile",
     "darkModeSupport": false,
     "helperBundleId": "Arabic by heart",
     "minimumSystemVersion": "10.12.0",
@@ -22,10 +22,15 @@
     "hardenedRuntime": false,
     "gatekeeperAssess": false
   },
+  "files": [
+    "./build/**/*",
+    "./index.js",
+    "./menubar/**/*"
+  ],
   "directories": {
-    "buildResources": "./desktop/index.js",
+    "buildResources": "./index.js",
     "output": "./release"
   },
-  "cscLink": "./desktop/sign/all-certs.p12",
+  "cscLink": "./sign/all-certs.p12",
   "cscKeyPassword": "9yr7xnjuwc"
 }

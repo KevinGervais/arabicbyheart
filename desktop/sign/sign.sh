@@ -1,7 +1,7 @@
 #!/bin/bash
 cd ./
 pwd
-APP="ArabicByHeart"
+APP="Arabic by heart"
 PROJECT_PATH="$(PWD)"
 APP_PATH="$PROJECT_PATH/release/mas/$APP.app"
 RESULT_PATH="$PROJECT_PATH/release/mas/$APP.pkg"
