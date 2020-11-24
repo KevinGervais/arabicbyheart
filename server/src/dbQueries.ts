@@ -1,6 +1,6 @@
 import { CollectionInsertOneOptions, Db, FilterQuery, FindOneOptions, MongoError, UpdateQuery, UpdateWriteOpResult } from "mongodb"
 
-import { Collections } from "./model"
+import { Collections } from "../model"
 
 class DbQueries {
 

@@ -1,0 +1,35 @@
+{
+  "name": "vocabulary-by-hearth",
+  "private": true,
+  "author": "Kevin Gervais Gilman",
+  "version": "0.0.1",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron ./index.js dev local",
+    "start-build": "electron ./index.js dev",
+    "build": "sudo electron-builder --config ./build.json",
+    "import-p12": "security import ./sign/all-certs.p12 -P 9yr7xnjuwc",
+    "sign": "sudo sh ./sign/sign.mas.sh "
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "electron": "^11.0.3",
+    "electron-builder": "^22.9.1",
+    "electron-window-state": "^5.0.3"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
