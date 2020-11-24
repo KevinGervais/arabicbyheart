@@ -187,6 +187,6 @@ export function handleRequests(app: Express, db: Db): void {
   })
 
   app.get('*/', (req: Request, res: Response) => {
-    res.sendFile(path.join(__dirname, '../serverBuild/index.html'))
+    res.sendFile(path.join(__dirname, '../../client/build/index.html'))
   })
 }
