@@ -87,7 +87,7 @@ export const VocabularyItemStyled = styled.div`
     border-bottom: 1px solid ${() => window.theme.primary100};
     &:nth-child(2) h4 {
     font-size: 24px;
-    font-family: arial;
+    font-family: system-ui;
   }
     svg {
       ${clickable};

@@ -58,3 +58,7 @@ export interface VocabularyItemProps {
   vocabularyItem: VocabularyItem
   index: number
 }
+
+export interface HarakatProps {
+  onChange: (char: string) => void
+}

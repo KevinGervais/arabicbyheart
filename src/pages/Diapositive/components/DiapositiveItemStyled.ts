@@ -56,6 +56,6 @@ export const DiapositiveItemStyled = styled.div<{}>`
       border-radius: 30px;
     }
   .arabic {
-    font-family: arial;
+    font-family: system-ui;
   }
 `

@@ -1,6 +1,7 @@
-import React from "react"
+import React, { useState } from "react"
 import MicroIcon from "@/images/micro"
 import StopIcon from "@/images/stop"
+import KeyboardIcon from "@/images/keyboard"
 import Tooltip from "react-tooltip"
 
 import * as functions from "../functions"
@@ -12,6 +13,7 @@ import { CreatedLanguageItemStyled } from "./CreatedLanguageItemStyled"
 export function CreatedLanguageItem(this: CategoryClass, props: CreatedLanguageItemProps): JSX.Element {
   const { isArabic } = props
   const { say, selectedLanguage } = this.props
+  const [isKeyboardOpened, setKeyboardActivity] = useState(false)
   const {
     selectedTitle,
     arabicTitle,
@@ -21,15 +23,16 @@ export function CreatedLanguageItem(this: CategoryClass, props: CreatedLanguageI
   const language = isArabic ? "ar" : selectedLanguage
   const isRecording = isArabic ? recordingLanguage === "ar" : recordingLanguage === selectedLanguage
   return (
-    <CreatedLanguageItemStyled>
+    <CreatedLanguageItemStyled className={language === "ar" ? "arabic" : ""}>
 
       <h4>{isArabic ? "ar" : selectedLanguage}</h4>
       <input
+        lang={language}
         className={language === "ar" ? "arabic-input" : "selected-language-input"}
         placeholder={say.vocabularyPlacehoder}
         value={title}
         onKeyDown={(evt: React.KeyboardEvent<HTMLInputElement>) => {
-          if (evt.key.length === 1 && language === "ar") {
+          if (evt.key.length === 1 && language === "ar" && !evt.metaKey) {
             evt.preventDefault()
             let newTitle = title
             const key = evt.altKey && evt.key === " " ? "ُ" : functions.latinKeyToArabic(evt.key)
@@ -48,8 +51,14 @@ export function CreatedLanguageItem(this: CategoryClass, props: CreatedLanguageI
             this.setState({ selectedTitle: evt.target.value })
           }
         }}
-
       />
+      {isArabic && (
+        <div className="keyboard-button">
+          <KeyboardIcon onClick={() => setKeyboardActivity(!isKeyboardOpened)} />
+          {isKeyboardOpened && <this.Harakat onChange={(newChar: string) => this.setState({ arabicTitle: `${title}${newChar}` })} />}
+
+        </div>
+      )}
       {!isRecording && <MicroIcon data-for="record-tooltip" data-tip onClick={() => {
         this.setState({ recordingLanguage: language })
         try {
@@ -63,7 +72,6 @@ export function CreatedLanguageItem(this: CategoryClass, props: CreatedLanguageI
         }
       }} />}
       <Tooltip id="record-tooltip" effect="solid" place="right" getContent={() => say.record} />
-
       {isRecording && <StopIcon onClick={this.onAudioStop} />}
     </CreatedLanguageItemStyled>
   )

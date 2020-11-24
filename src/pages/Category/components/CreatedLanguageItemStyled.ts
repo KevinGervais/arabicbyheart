@@ -10,9 +10,13 @@ export const CreatedLanguageItemStyled = styled.div<{}>`
   }
   display: flex;
   align-items: center;
-  overflow: hidden;
   height: 40px;
-
+  &.arabic {
+    height: 50px;
+    .fa-stop, .fa-micro {
+      padding: 15px 20px;
+    }
+  }
 
   input {
     width: 100%;
@@ -20,11 +24,13 @@ export const CreatedLanguageItemStyled = styled.div<{}>`
     padding: 0 20px;
     background: ${() => window.theme.grey100};
     transition: 0.3s all ease-in-out;
-    &::placeholder {
-      color: ${() => window.theme.grey400};
-    }
     &.arabic-input {
-      direction:RTL;
+      direction: RTL;
+      font-size: 24px;
+    }
+    &::placeholder {
+      font-size: 16px;
+      color: ${() => window.theme.grey400};
     }
   }
   h4 {
@@ -42,7 +48,27 @@ export const CreatedLanguageItemStyled = styled.div<{}>`
     width: 100px;
     flex-shrink: 0;
   }
-  svg {
+  .keyboard-button {
+    ${center};
+    height: 100%;
+    padding: 10px;
+    position: relative;
+    background: ${() => window.theme.grey100};
+  }
+  .fa-keyboard {
+    height: 30px;
+    color: ${() => window.theme.secondary500};
+
+    ${() => ["mac", "windows"].includes(getOS()) && css`
+      &:hover {
+        color: ${() => window.theme.secondary600};
+      }
+    `}
+      &:active {
+        color: ${() => window.theme.secondary700};
+      }
+  }
+  .fa-stop, .fa-micro {
     ${clickable};
     width: 30px;
     height: 20px;

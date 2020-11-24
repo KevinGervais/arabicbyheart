@@ -16,7 +16,7 @@ import { SpeechLanguages, VocabularyItem } from "@/model"
 import { Toggle } from "@/ui/components"
 import Tooltip from "react-tooltip"
 
-import { CategoryProps, CategoryState, CreatedLanguageItemProps, VocabularyItemProps } from "../model"
+import { CategoryProps, CategoryState, CreatedLanguageItemProps, HarakatProps, VocabularyItemProps } from "../model"
 import * as functions from "../functions"
 
 import { CategoryStyled } from "./CategoryStyled"
@@ -25,6 +25,7 @@ import { BottomMenuItemStyled } from "./BottomMenuItemStyled"
 import { DeleteButtonStyled } from "./DeleteButtonStyled"
 import { CreatedLanguageItem } from "./CreatedLanguageItem"
 import { VocabularyItemComponent } from "./VocabularyItemComponent"
+import { Harakat } from "./Harakat"
 
 export const speechLanguages: SpeechLanguages[] = ["fr", "ar", "en"]
 
@@ -41,6 +42,7 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
   activateAudio: () => void
   CreatedLanguageItem: (props: CreatedLanguageItemProps) => JSX.Element
   VocabularyItemComponent: (props: VocabularyItemProps) => JSX.Element | null
+  Harakat: (props: HarakatProps) => JSX.Element
 
   constructor(props: CategoryProps) {
     super(props)
@@ -51,6 +53,7 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
     this.activateAudio = functions.activateAudio.bind(this)
     this.CreatedLanguageItem = CreatedLanguageItem.bind(this)
     this.VocabularyItemComponent = VocabularyItemComponent.bind(this)
+    this.Harakat = Harakat.bind(this)
     let state: CategoryState = {
       isMicrophone: true,
       isShuffle: true,
