@@ -46,9 +46,7 @@ export class DiapositiveItem extends React.Component<DiapositiveItemProps, Diapo
             {!currentDiapositiveItem.isImageOnly && (
               <span className={currentDiapositiveItem.language === "ar" ? "arabic" : ""}>
                 {isHarakat ? currentDiapositiveItem.currentLanguageItem.title : removeHarakat(currentDiapositiveItem.currentLanguageItem.title)}
-                {currentDiapositiveItem.currentLanguageItem.audio && (
-                  <ListenIcon onClick={() => playAudio(currentDiapositiveItem.currentLanguageItem.audio as string)} />
-                )}
+                <ListenIcon onClick={() => playAudio(currentDiapositiveItem.currentLanguageItem.title, currentDiapositiveItem.language)} />
               </span>)}
             <h4 onClick={() => this.setState({ isAnswerShown: true })}>{say.showAnswer}</h4>
           </>
@@ -60,15 +58,11 @@ export class DiapositiveItem extends React.Component<DiapositiveItemProps, Diapo
           <>
             <span className={currentDiapositiveItem.language === "ar" ? "arabic" : ""}>
               {currentDiapositiveItem.currentLanguageItem.title}
-              {currentDiapositiveItem.currentLanguageItem.audio !== "" && (
-                <ListenIcon onClick={() => playAudio(currentDiapositiveItem.currentLanguageItem.audio as string)} />
-              )}
+              <ListenIcon onClick={() => playAudio(currentDiapositiveItem.currentLanguageItem.title, currentDiapositiveItem.language)} />
             </span>
             <span className={notCurrentLanguage === "ar" ? "arabic" : ""}>
               {currentDiapositiveItem.languageItems[notCurrentLanguage].title}
-              {currentDiapositiveItem.languageItems[notCurrentLanguage].audio !== "" && (
-                <ListenIcon onClick={() => playAudio(currentDiapositiveItem.languageItems[notCurrentLanguage].audio as string)} />
-              )}
+              <ListenIcon onClick={() => playAudio(currentDiapositiveItem.languageItems[notCurrentLanguage].title, "ar")} />
             </span>
           </>
         }

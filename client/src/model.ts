@@ -8,6 +8,7 @@ declare global {
     require: { context: any }
     cordova: any,
     StatusBar: any
+    responsiveVoice: any
     device?: {
       available: boolean
       cordova: string
@@ -50,7 +51,6 @@ export type LanguageItems = {
 export interface LanguageItem {
   _id: string
   title: string
-  audio?: string
 }
 
 export type diapositiveDelay = 2 | 3 | 5 | 10 | 15 | false

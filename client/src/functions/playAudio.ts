@@ -1,9 +1,16 @@
-export function playAudio(base64Audio: string): void {
+import { SpeechLanguages } from "@/model"
+
+export function playAudio(text: string, lang: SpeechLanguages): void {
   try {
-    const AudioPLayer = Audio || (window as any).webkitAudio
-    if (AudioPLayer) {
-      const audio = new Audio(base64Audio)
-      audio.play()
+    if (lang === "ar") {
+      console.log(window.responsiveVoice.speak(text, "Arabic Male", { rate: 0.75 }))
+    } else {
+      const Utterance = SpeechSynthesisUtterance || (window as any).WebkitSpeechSynthesisUtterance
+      const speech = speechSynthesis || (window as any).WebkitSpeechSynthesis
+      const utterance = new Utterance(text)
+      utterance.lang = lang
+      utterance.rate = 0.75
+      speech.speak(utterance)
     }
   } catch (err) {
     console.log(err)

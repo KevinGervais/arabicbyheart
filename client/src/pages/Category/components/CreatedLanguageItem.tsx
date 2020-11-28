@@ -1,8 +1,5 @@
 import React, { useState } from "react"
-import MicroIcon from "@/images/micro"
-import StopIcon from "@/images/stop"
 import KeyboardIcon from "@/images/keyboard"
-import Tooltip from "react-tooltip"
 
 import * as functions from "../functions"
 import { CreatedLanguageItemProps } from "../model"
@@ -17,11 +14,9 @@ export function CreatedLanguageItem(this: CategoryClass, props: CreatedLanguageI
   const {
     selectedTitle,
     arabicTitle,
-    recordingLanguage,
   } = this.state
   const title = isArabic ? arabicTitle : selectedTitle
   const language = isArabic ? "ar" : selectedLanguage
-  const isRecording = isArabic ? recordingLanguage === "ar" : recordingLanguage === selectedLanguage
   return (
     <CreatedLanguageItemStyled className={language === "ar" ? "arabic" : ""}>
 
@@ -59,20 +54,6 @@ export function CreatedLanguageItem(this: CategoryClass, props: CreatedLanguageI
 
         </div>
       )}
-      {!isRecording && <MicroIcon data-for="record-tooltip" data-tip onClick={() => {
-        this.setState({ recordingLanguage: language })
-        try {
-          this.titleRecorder.start()
-          if (this.titleSpeech) {
-            this.titleSpeech.lang = language
-            this.titleSpeech.start()
-          }
-        } catch (err) {
-          // do nothing
-        }
-      }} />}
-      <Tooltip id="record-tooltip" effect="solid" place="right" getContent={() => say.record} />
-      {isRecording && <StopIcon onClick={this.onAudioStop} />}
     </CreatedLanguageItemStyled>
   )
 }

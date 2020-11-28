@@ -49,8 +49,8 @@ export class DiapositiveClass extends React.Component<DiapositiveProps, Diaposit
       return <DiapositiveStyled index={0} indexCount={this.items.length} />
     }
 
-    if (diapositiveSettings.isMicrophone && item.currentLanguageItem.audio) {
-      playAudio(item.currentLanguageItem.audio)
+    if (diapositiveSettings.isMicrophone) {
+      playAudio(item.currentLanguageItem.title, selectedLanguage)
     }
     let hasChanged: boolean = false
     if (diapositiveSettings.delay !== false && currentIndex !== this.items.length - 1) {

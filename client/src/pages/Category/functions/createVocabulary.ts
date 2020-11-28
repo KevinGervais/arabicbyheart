@@ -10,9 +10,7 @@ import { getImage } from "."
 
 export function createVocabulary(
   selectedTitle: string,
-  selectedAudio: string,
   arabicTitle: string,
-  arabicAudio: string,
   isCreatingWithImage: boolean,
   callback: () => void
 ): void {
@@ -25,19 +23,16 @@ export function createVocabulary(
     if (selectedLanguage === language) {
       languageItems[language] = {
         title: selectedTitle,
-        audio: selectedAudio,
         _id: generateId()
       }
     } else if (language === "ar") {
       languageItems[language] = {
         title: arabicTitle,
-        audio: arabicAudio,
         _id: generateId()
       }
     } else {
       languageItems[language] = {
         title: "",
-        audio: undefined,
         _id: generateId()
       }
     }

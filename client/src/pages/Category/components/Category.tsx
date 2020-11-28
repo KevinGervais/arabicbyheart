@@ -35,22 +35,12 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
   titleReader?: FileReader
   audioChanged: boolean = false
   titleChanged: boolean = false
-  setFinalAudio: () => void
-  setAudio: (evt: any) => void
-  setTitle: (evt: SpeechRecognitionEvent) => void
-  onAudioStop: () => void
-  activateAudio: () => void
   CreatedLanguageItem: (props: CreatedLanguageItemProps) => JSX.Element
   VocabularyItemComponent: (props: VocabularyItemProps) => JSX.Element | null
   Harakat: (props: HarakatProps) => JSX.Element
 
   constructor(props: CategoryProps) {
     super(props)
-    this.setTitle = functions.setTitle.bind(this)
-    this.setFinalAudio = functions.setFinalAudio.bind(this)
-    this.setAudio = functions.setAudio.bind(this)
-    this.onAudioStop = functions.onAudioStop.bind(this)
-    this.activateAudio = functions.activateAudio.bind(this)
     this.CreatedLanguageItem = CreatedLanguageItem.bind(this)
     this.VocabularyItemComponent = VocabularyItemComponent.bind(this)
     this.Harakat = Harakat.bind(this)
@@ -69,7 +59,6 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
       ...functions.getInitialState(),
       isCreatingVocabulary: false,
       isBottomMenuOpened: false,
-      recordingLanguage: undefined,
       isAskingDelete: false
     }
 
@@ -79,7 +68,7 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
 
   componentDidUpdate(oldProps: CategoryProps, oldState: CategoryState): void {
     const { selectedCategory } = this.props
-    const { recordingLanguage, isCreatingVocabulary, editingVocabularyIndex } = this.state
+    const { isCreatingVocabulary, editingVocabularyIndex } = this.state
     if (!oldProps.selectedCategory && selectedCategory) {
       this.setState(functions.getInitialState() as unknown as CategoryState)
     }
@@ -91,13 +80,6 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
       if (input) {
         input.focus()
       }
-    }
-    if (recordingLanguage !== oldState.recordingLanguage && recordingLanguage !== undefined) {
-      window.setTimeout(() => {
-        if (this.state.recordingLanguage !== undefined) {
-          this.onAudioStop()
-        }
-      }, 10000)
     }
   }
 
@@ -115,9 +97,7 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
       isDiaporamaImage,
       isHarakat,
       selectedTitle,
-      selectedAudio,
       arabicTitle,
-      arabicAudio,
       isCreatingWithImage,
     } = this.state
     if (!selectedCategory) {
@@ -139,11 +119,9 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
         {!isMultipleCategory &&
           <div className="add-button-wrapper">
             <div className="add-button" onClick={() => {
-              this.activateAudio()
               this.setState({
                 ...functions.getInitialState(true) as CategoryState,
                 isCreatingVocabulary: true,
-                recordingLanguage: undefined,
                 editingVocabularyIndex: -1
               })
             }}>
@@ -169,9 +147,7 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
                   className="button"
                   onClick={() => functions.createVocabulary(
                     selectedTitle,
-                    selectedAudio,
                     arabicTitle,
-                    arabicAudio,
                     isCreatingWithImage,
                     () => this.setState({ ...functions.getInitialState(true) as unknown as CategoryState, editingVocabularyIndex: -1, })
                   )}
@@ -181,7 +157,6 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
                 <div data-for={"cancel-tooltip"} data-tip={say.cancel} className="button" onClick={() => this.setState({
                   ...functions.getInitialState(true) as CategoryState,
                   isCreatingVocabulary: false,
-                  recordingLanguage: undefined,
                 })}>
                   <CloseIcon />
                 </div>

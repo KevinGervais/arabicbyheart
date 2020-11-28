@@ -20,9 +20,7 @@ export function VocabularyItemComponent(this: CategoryClass, props: VocabularyIt
   const { selectedCategory, say, vocabularyCategoryList, selectedLanguage } = this.props
   const {
     selectedTitle,
-    selectedAudio,
     arabicTitle,
-    arabicAudio
   } = this.state
   const {
     editingVocabularyIndex
@@ -50,16 +48,12 @@ export function VocabularyItemComponent(this: CategoryClass, props: VocabularyIt
             <div className="item">
               <span>{selectedLanguage}</span>
               <h4>{vocabularyItem.languageItems[selectedLanguage].title}</h4>
-              {vocabularyItem.languageItems[selectedLanguage].audio && (
-                <ListenIcon onClick={() => playAudio(vocabularyItem.languageItems[selectedLanguage].audio as string)} />
-              )}
+              <ListenIcon onClick={() => playAudio(vocabularyItem.languageItems[selectedLanguage].title, selectedLanguage)} />
             </div>
             <div className="item">
               <span>ar</span>
               <h4>{vocabularyItem.languageItems.ar.title}</h4>
-              {vocabularyItem.languageItems.ar.audio && (
-                <ListenIcon onClick={() => playAudio(vocabularyItem.languageItems.ar.audio as string)} />
-              )}
+              <ListenIcon onClick={() => playAudio(vocabularyItem.languageItems.ar.title, "ar")} />
             </div>
           </>
         )}
@@ -77,8 +71,6 @@ export function VocabularyItemComponent(this: CategoryClass, props: VocabularyIt
                 editingVocabularyIndex: index,
                 selectedTitle: vocabularyItem.languageItems[selectedLanguage].title,
                 arabicTitle: vocabularyItem.languageItems.ar.title,
-                selectedAudio: vocabularyItem.languageItems[selectedLanguage].audio || "",
-                arabicAudio: vocabularyItem.languageItems.ar.audio || "",
               })} />
               <DeleteIcon data-tip={say.delete} onClick={() => deleteItem(index)} />
             </>
@@ -87,25 +79,19 @@ export function VocabularyItemComponent(this: CategoryClass, props: VocabularyIt
             <>
               <SaveIcon data-tip={say.save} onClick={() => editVocabulary(
                 selectedTitle,
-                selectedAudio,
                 arabicTitle,
-                arabicAudio,
                 vocabularyItem,
                 index,
                 () => this.setState({
                   editingVocabularyIndex: -1,
                   selectedTitle: "",
                   arabicTitle: "",
-                  selectedAudio: "",
-                  arabicAudio: "",
                 })
               )} />
               <CloseIcon data-tip={say.cancel} onClick={() => this.setState({
                 editingVocabularyIndex: -1,
                 selectedTitle: "",
                 arabicTitle: "",
-                selectedAudio: "",
-                arabicAudio: "",
               })} />
             </>
           )}

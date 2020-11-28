@@ -7,9 +7,7 @@ import { ALL_SPEECH_LANGUAGES } from "@/constants"
 
 export function editVocabulary(
   selectedTitle: string,
-  selectedAudio: string,
   arabicTitle: string,
-  arabicAudio: string,
   vocabularyItem: VocabularyItem,
   index: number,
   callback: () => void
@@ -25,13 +23,11 @@ export function editVocabulary(
     if (selectedLanguage === language) {
       languageItems[language] = {
         title: selectedTitle,
-        audio: selectedAudio,
         _id: generateId()
       }
     } else if (language === "ar") {
       languageItems[language] = {
         title: arabicTitle,
-        audio: arabicAudio,
         _id: generateId()
       }
     }

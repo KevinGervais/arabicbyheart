@@ -9,16 +9,12 @@ export function getInitialState(isSkipOptions?: boolean): CategoryInitState {
   if (!selectedCategory) {
     return {
       selectedTitle: "",
-      selectedAudio: "",
       arabicTitle: "",
-      arabicAudio: ""
     } as CategoryInitState
   }
   let state: CategoryInitState = {
     selectedTitle: "",
     arabicTitle: "",
-    selectedAudio: "",
-    arabicAudio: "",
     isSelectedTitleActive: true,
     isArabicTitleActive: true
   }

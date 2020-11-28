@@ -12,12 +12,9 @@ export interface CategoryProps {
 export interface CategoryState {
   readonly isCreatingVocabulary: boolean
   readonly isBottomMenuOpened: boolean
-  readonly recordingLanguage: SpeechLanguages | undefined
   readonly editingVocabularyIndex: number
   readonly selectedTitle: string
   readonly arabicTitle: string
-  readonly selectedAudio: string
-  readonly arabicAudio: string
   readonly isSelectedTitleActive: boolean
   readonly isArabicTitleActive: boolean
   readonly isHarakat: boolean
@@ -41,9 +38,7 @@ export interface CategoryStyledProps {
 
 export interface CategoryInitState {
   selectedTitle: string
-  selectedAudio: string
   arabicTitle: string
-  arabicAudio: string
   isSelectedTitleActive: boolean
   isArabicTitleActive: boolean
   isCreatingWithImage?: boolean
