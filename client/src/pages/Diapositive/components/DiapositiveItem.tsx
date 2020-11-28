@@ -8,13 +8,14 @@ import { DiapositiveItemStyled } from "./DiapositiveItemStyled"
 
 export class DiapositiveItem extends React.Component<DiapositiveItemProps, DiapositiveItemState>{
   state: DiapositiveItemState = {
-    isAnswerShown: false
+    isAnswerShown: false,
+    isHarakatShown: false
   }
   componentDidUpdate(oldProps: DiapositiveItemProps): void {
     const { currentDiapositiveItem, } = this.props
-    const { isAnswerShown } = this.state
+    const { isAnswerShown, isHarakatShown } = this.state
     if (
-      isAnswerShown
+      (isAnswerShown || isHarakatShown)
       && (
         (
           currentDiapositiveItem
@@ -25,13 +26,13 @@ export class DiapositiveItem extends React.Component<DiapositiveItemProps, Diapo
           currentDiapositiveItem.image !== oldProps.currentDiapositiveItem.image
         ))
     ) {
-      this.setState({ isAnswerShown: false })
+      this.setState({ isAnswerShown: false, isHarakatShown: false })
     }
   }
 
   render(): JSX.Element {
     const { currentDiapositiveItem, say, isImage, isHarakat, selectedLanguage } = this.props
-    const { isAnswerShown } = this.state
+    const { isAnswerShown, isHarakatShown } = this.state
     const notCurrentLanguage = currentDiapositiveItem.language === "ar" ? selectedLanguage : "ar"
     return (
       <DiapositiveItemStyled>
@@ -45,7 +46,14 @@ export class DiapositiveItem extends React.Component<DiapositiveItemProps, Diapo
             )}
             {!currentDiapositiveItem.isImageOnly && (
               <span className={currentDiapositiveItem.language === "ar" ? "arabic" : ""}>
-                {isHarakat ? currentDiapositiveItem.currentLanguageItem.title : removeHarakat(currentDiapositiveItem.currentLanguageItem.title)}
+                {
+                  (isHarakat || isHarakatShown)
+                    ? currentDiapositiveItem.currentLanguageItem.title
+                    : removeHarakat(currentDiapositiveItem.currentLanguageItem.title)
+                }
+                {!isHarakatShown && !isHarakat && currentDiapositiveItem.language === "ar" && (
+                  <div className="harakat" onClick={() => this.setState({ isHarakatShown: true })}><div>َّ</div></div>
+                )}
                 <ListenIcon onClick={() => playAudio(currentDiapositiveItem.currentLanguageItem.title, currentDiapositiveItem.language)} />
               </span>)}
             <h4 onClick={() => this.setState({ isAnswerShown: true })}>{say.showAnswer}</h4>
@@ -58,10 +66,16 @@ export class DiapositiveItem extends React.Component<DiapositiveItemProps, Diapo
           <>
             <span className={currentDiapositiveItem.language === "ar" ? "arabic" : ""}>
               {currentDiapositiveItem.currentLanguageItem.title}
+              {!isHarakatShown && !isHarakat && currentDiapositiveItem.language === "ar" && (
+                <div className="harakat" onClick={() => this.setState({ isHarakatShown: true })}><div>َّ</div></div>
+              )}
               <ListenIcon onClick={() => playAudio(currentDiapositiveItem.currentLanguageItem.title, currentDiapositiveItem.language)} />
             </span>
             <span className={notCurrentLanguage === "ar" ? "arabic" : ""}>
               {currentDiapositiveItem.languageItems[notCurrentLanguage].title}
+              {!isHarakatShown && !isHarakat && notCurrentLanguage === "ar" && (
+                <div className="harakat" onClick={() => this.setState({ isHarakatShown: true })}><div>َّ</div></div>
+              )}
               <ListenIcon onClick={() => playAudio(currentDiapositiveItem.languageItems[notCurrentLanguage].title, "ar")} />
             </span>
           </>

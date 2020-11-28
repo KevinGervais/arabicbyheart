@@ -19,8 +19,11 @@ export const DiapositiveStyled = styled.div<DiapositiveStyledProps>`
     const color = colors[colorName]
     return css`
       background: ${color[100]};
-      span, svg, input, h4, h3 {
+      span, svg, input, h4, h3, .harakat div {
         color: ${color[700]};
+      }
+      .harakat {
+        border:  3px dashed ${color[700]};
       }
       ${props.index === 0 && css`
         .content > svg:first-child {
@@ -119,5 +122,6 @@ export const DiapositiveStyled = styled.div<DiapositiveStyledProps>`
         right: auto;
         left: calc(50vw + 50px)  !important;
       }
+    }
   }
 `

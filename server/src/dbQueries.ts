@@ -74,7 +74,7 @@ class DbQueries {
     })
   }
 
-  updateMany(db: Db, collection: Collections, query: FilterQuery<any>, data: any[]): Promise<UpdateWriteOpResult> {
+  updateMany(db: Db, collection: Collections, query: FilterQuery<any>, data: any): Promise<UpdateWriteOpResult> {
     return new Promise((resolve: (result: UpdateWriteOpResult) => void, reject: (error: string) => void) => {
       db.collection(collection).updateMany(query, data, (err: MongoError, result: UpdateWriteOpResult) => {
         if (err) {

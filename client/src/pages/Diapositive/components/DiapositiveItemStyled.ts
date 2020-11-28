@@ -12,6 +12,28 @@ export const DiapositiveItemStyled = styled.div<{}>`
       font-weight: bold;
       height: 100px;
     }
+    .harakat {
+      ${clickable}
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      position: relative;
+      margin-left: 20px;
+      ${() => ["mac", "windows"].includes(getOS()) && css`
+          &:hover {
+            transform: scale(1.025);
+          }
+        `}
+        &:active {
+          transform: scale(1.025);
+        }
+      div {
+        font-size: 50px;
+        position: absolute;
+        left: 6px;
+        top: 10px;
+      }
+    }
     span {
       ${center};
       svg {

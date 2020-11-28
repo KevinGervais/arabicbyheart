@@ -10,6 +10,13 @@ export function goToCategory(_idMap: IdMap): void {
   const trueIDList = Object.entries(_idMap)
     .filter(([_id, isActive]: [string, boolean | undefined]) => isActive)
     .map(([_id]: [string, boolean | undefined]) => _id)
+  if (trueIDList.length === 1) {
+    setReduxState({
+      selectedCategory: vocabularyCategoryList.find((catItem: VocabularyCategory) => trueIDList.includes(catItem._id)),
+      page: "category"
+    })
+    return
+  }
   const items: VocabularyItem[] = []
   const title: CategoryTitle = {} as CategoryTitle
 

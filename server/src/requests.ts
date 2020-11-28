@@ -2,8 +2,8 @@ import path from 'path'
 import { Db } from 'mongodb'
 import { Express, Request, Response } from 'express'
 
-import { AddCategoryQuery, AddVocabularyQuery } from "../src/requests/model"
-import { VocabularyItem, VocabularyCategory } from "../src/model"
+import { AddCategoryQuery, AddVocabularyQuery } from "../../client/src/requests/model"
+import { VocabularyItem, VocabularyCategory } from "../../client/src/model"
 
 import { schemas } from './schemas'
 import { dbQueries } from './dbQueries'

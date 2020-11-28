@@ -28,6 +28,7 @@ export interface DiapositiveItemProps {
 
 export interface DiapositiveItemState {
   readonly isAnswerShown: boolean
+  readonly isHarakatShown: boolean
 }
 
 export interface DiapositiveItemObject {
