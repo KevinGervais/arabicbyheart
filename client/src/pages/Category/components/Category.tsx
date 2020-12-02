@@ -38,6 +38,8 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
   CreatedLanguageItem: (props: CreatedLanguageItemProps) => JSX.Element
   VocabularyItemComponent: (props: VocabularyItemProps) => JSX.Element | null
   Harakat: (props: HarakatProps) => JSX.Element
+  arabicInputRef?: HTMLInputElement | null
+  selectedInputRef?: HTMLInputElement | null
 
   constructor(props: CategoryProps) {
     super(props)

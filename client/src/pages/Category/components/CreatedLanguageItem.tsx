@@ -3,6 +3,7 @@ import KeyboardIcon from "@/images/keyboard"
 
 import * as functions from "../functions"
 import { CreatedLanguageItemProps } from "../model"
+import { updateArabicValue } from "../functions"
 
 import { CategoryClass } from "./Category"
 import { CreatedLanguageItemStyled } from "./CreatedLanguageItemStyled"
@@ -17,26 +18,35 @@ export function CreatedLanguageItem(this: CategoryClass, props: CreatedLanguageI
   } = this.state
   const title = isArabic ? arabicTitle : selectedTitle
   const language = isArabic ? "ar" : selectedLanguage
+  const currentRef = isArabic ? this.arabicInputRef : this.selectedInputRef
   return (
     <CreatedLanguageItemStyled className={language === "ar" ? "arabic" : ""}>
 
       <h4>{isArabic ? "ar" : selectedLanguage}</h4>
       <input
+        ref={(ref: HTMLInputElement) => isArabic ? this.arabicInputRef = ref : this.selectedInputRef = ref}
         lang={language}
         className={language === "ar" ? "arabic-input" : "selected-language-input"}
         placeholder={say.vocabularyPlacehoder}
         value={title}
+        onBlur={(evt: React.FocusEvent<HTMLInputElement>) => {
+          const ref = isArabic ? this.arabicInputRef : this.selectedInputRef
+          console.log()
+          if (!evt.relatedTarget) {
+            ref?.focus()
+          }
+        }}
         onKeyDown={(evt: React.KeyboardEvent<HTMLInputElement>) => {
-          if (evt.key.length === 1 && language === "ar" && !evt.metaKey) {
+          if (evt.key.length === 1 && isArabic && !evt.metaKey) {
             evt.preventDefault()
-            let newTitle = title
+            const selectionStart = currentRef?.selectionStart as number
+            const selectionEnd = currentRef?.selectionEnd as number
             const key = evt.altKey && evt.key === " " ? "ُ" : functions.latinKeyToArabic(evt.key)
-            newTitle = newTitle + key
-            if (isArabic) {
-              this.setState({ arabicTitle: newTitle })
-            } else {
-              this.setState({ selectedTitle: newTitle })
-            }
+            this.setState({
+              arabicTitle: updateArabicValue(selectionStart, selectionEnd, key, title)
+            }, () => {
+              currentRef?.setSelectionRange(selectionStart + 1, selectionStart + 1)
+            })
           }
         }}
         onChange={(evt: React.ChangeEvent<HTMLInputElement>) => {
@@ -50,7 +60,15 @@ export function CreatedLanguageItem(this: CategoryClass, props: CreatedLanguageI
       {isArabic && (
         <div className="keyboard-button">
           <KeyboardIcon onClick={() => setKeyboardActivity(!isKeyboardOpened)} />
-          {isKeyboardOpened && <this.Harakat onChange={(newChar: string) => this.setState({ arabicTitle: `${title}${newChar}` })} />}
+          {isKeyboardOpened && <this.Harakat onChange={(newChar: string) => {
+            const selectionStart = currentRef?.selectionStart as number
+            const selectionEnd = currentRef?.selectionEnd as number
+            this.setState({
+              arabicTitle: updateArabicValue(selectionStart, selectionEnd, newChar, title)
+            }, () => {
+              currentRef?.setSelectionRange(selectionStart + 1, selectionStart + 1)
+            })
+          }} />}
 
         </div>
       )}
