@@ -1,5 +1,5 @@
 import { Languages, Say } from "@/languages/model"
-import { diapositiveDelay, DiapositiveSettings, SelectedCategory, SpeechLanguages, VocabularyCategory, VocabularyItem } from "@/model"
+import { BookmarkItem, diapositiveDelay, DiapositiveSettings, SelectedCategory, SpeechLanguages, VocabularyCategory, VocabularyItem } from "@/model"
 
 export interface CategoryProps {
   readonly say: Say
@@ -7,6 +7,7 @@ export interface CategoryProps {
   readonly vocabularyCategoryList: VocabularyCategory[]
   readonly diapositiveSettings?: DiapositiveSettings
   readonly selectedLanguage: Languages
+  readonly bookmarks: BookmarkItem[]
 }
 
 export interface CategoryState {

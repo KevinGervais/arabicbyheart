@@ -1,10 +1,11 @@
 import { Languages, Say } from "@/languages/model"
-import { VocabularyCategory } from "@/model"
+import { BookmarkItem, VocabularyCategory } from "@/model"
 
 export interface HomeProps {
   readonly vocabularyCategoryList: VocabularyCategory[]
   readonly selectedLanguage: Languages
   readonly say: Say
+  readonly bookmarks: BookmarkItem[]
 }
 
 export interface HomeState {

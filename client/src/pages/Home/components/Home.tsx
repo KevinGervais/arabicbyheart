@@ -8,10 +8,11 @@ import CloseIcon from "@/images/close"
 import Tooltip from "react-tooltip"
 import { Toggle } from "@/ui/components"
 import { setReduxState } from "@/redux"
+import BookmarkActiveIcon from "@/images/bookmarkActive"
 
 import { HomeProps, HomeState } from "../model"
-import { createVocabularyCategory } from "../functions"
-import { goToCategory } from "../functions/goToCategory"
+import { createVocabularyCategory, goToCategory, goToBookmarks } from "../functions"
+
 
 import { HomeStyled } from "./HomeStyled"
 import { VocabularyCategoryStyled } from "./VocabularyCategoryStyled"
@@ -28,7 +29,7 @@ export class HomeClass extends React.Component<HomeProps, HomeState> {
   }
 
   render(): JSX.Element {
-    const { vocabularyCategoryList, say, selectedLanguage } = this.props
+    const { vocabularyCategoryList, say, selectedLanguage, bookmarks } = this.props
     const { isCreatingCategory, newCategoryTitle, _idMap } = this.state
     return (
       <HomeStyled>
@@ -55,6 +56,13 @@ export class HomeClass extends React.Component<HomeProps, HomeState> {
           </div>
         )}
         <div className="category-list">
+          {bookmarks.length !== 0 && <VocabularyCategoryStyled
+            onClick={() => goToBookmarks()}
+          >
+            <BookmarkActiveIcon />
+            <h1>{say.bookmarks}</h1>
+            <RightArrowIcon />
+          </VocabularyCategoryStyled>}
           {vocabularyCategoryList.map((category: VocabularyCategory) => (
             <VocabularyCategoryStyled
               key={category._id}
@@ -79,5 +87,6 @@ export class HomeClass extends React.Component<HomeProps, HomeState> {
 export const Home = connect((state: ReduxState): HomeProps => ({
   say: state.say,
   vocabularyCategoryList: state.vocabularyCategoryList,
-  selectedLanguage: state.selectedLanguage
+  selectedLanguage: state.selectedLanguage,
+  bookmarks: state.bookmarks
 }))(HomeClass)

@@ -5,19 +5,21 @@ import DeleteIcon from "@/images/delete"
 import PencilIcon from "@/images/pencil"
 import CloseIcon from "@/images/close"
 import SaveIcon from "@/images/save"
-import { VocabularyCategory } from "@/model"
+import BookmarkActiveIcon from "@/images/bookmarkActive"
+import BookmarkInactiveIcon from "@/images/bookmarkInactive"
+import { BookmarkItem, VocabularyCategory } from "@/model"
 import { playAudio } from "@/functions/playAudio"
 
 import { VocabularyItemProps } from "../model"
 import * as functions from "../functions"
-import { deleteItem, editVocabulary } from "../functions"
+import { deleteItem, editVocabulary, updateBookmarks } from "../functions"
 
 import { CategoryClass } from "./Category"
 import { VocabularyItemStyled } from "./VocabularyItemStyled"
 
 export function VocabularyItemComponent(this: CategoryClass, props: VocabularyItemProps): JSX.Element | null {
   const { vocabularyItem, index } = props
-  const { selectedCategory, say, vocabularyCategoryList, selectedLanguage } = this.props
+  const { selectedCategory, say, vocabularyCategoryList, selectedLanguage, bookmarks } = this.props
   const {
     selectedTitle,
     arabicTitle,
@@ -28,6 +30,7 @@ export function VocabularyItemComponent(this: CategoryClass, props: VocabularyIt
   if (!selectedCategory) {
     return null
   }
+  const bookmarkIndex = bookmarks.findIndex((bookmark: BookmarkItem) => bookmark.vocabularyId === vocabularyItem._id)
   const { isMultipleCategory } = selectedCategory
 
   return (
@@ -65,6 +68,16 @@ export function VocabularyItemComponent(this: CategoryClass, props: VocabularyIt
         )}
 
         <div className="buttons">
+          {bookmarkIndex !== -1 && (
+            <BookmarkActiveIcon
+              onClick={() => updateBookmarks(bookmarkIndex, selectedCategory._id, vocabularyItem._id)}
+            />
+          )}
+          {bookmarkIndex === -1 && (
+            <BookmarkInactiveIcon
+              onClick={() => updateBookmarks(bookmarkIndex, selectedCategory._id, vocabularyItem._id)}
+            />
+          )}
           {!isMultipleCategory && editingVocabularyIndex !== index && (
             <>
               <PencilIcon data-tip={say.edit} onClick={() => this.setState({

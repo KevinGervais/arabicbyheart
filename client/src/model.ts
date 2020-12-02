@@ -26,6 +26,11 @@ declare global {
 
 export type NotchPosition = "left" | "right" | "top" | "bottom" | undefined
 
+export interface BookmarkItem {
+  categoryId: string
+  vocabularyId: string
+}
+
 export interface VocabularyCategory {
   title: CategoryTitle
   items: VocabularyItem[]

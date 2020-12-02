@@ -40,5 +40,6 @@ export type SayKeywords =
   | "record"
   | "harakat"
   | "edit"
+  | "bookmarks"
 
 

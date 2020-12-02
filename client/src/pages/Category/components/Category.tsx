@@ -295,5 +295,6 @@ export const Category = connect((state: ReduxState): CategoryProps => ({
   selectedCategory: state.selectedCategory,
   selectedLanguage: state.selectedLanguage,
   vocabularyCategoryList: state.vocabularyCategoryList,
-  diapositiveSettings: state.diapositiveSettings
+  diapositiveSettings: state.diapositiveSettings,
+  bookmarks: state.bookmarks,
 }))(CategoryClass)

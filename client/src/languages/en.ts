@@ -33,6 +33,7 @@ export const en: Say = {
   transitionDelay: "Chrono of a question",
   record: "Record pronunciation",
   harakat: "Question with harakat",
-  edit: "Edit"
+  edit: "Edit",
+  bookmarks: "Bookmarks"
 
 }
