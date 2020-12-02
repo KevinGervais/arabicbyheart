@@ -55,7 +55,7 @@ export const CreatedLanguageItemStyled = styled.div<{}>`
     position: relative;
     background: ${() => window.theme.grey100};
     @media screen and (max-width: 630px) {
-      padding-left: 40px;
+      padding-left: 20px;
     }
   }
   .fa-keyboard {

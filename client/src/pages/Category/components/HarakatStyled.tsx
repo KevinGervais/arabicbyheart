@@ -23,7 +23,7 @@ export const HarakatStyled = styled.div`
     grid-template-rows: 50px;
     grid-column-gap: 5px;
     grid-row-gap: 5px;
-    padding: 20px;
+    padding: 10px;
     height: max-content;
     border-radius: 10px;
     background: hsla(0, 0%, 100%, 0.8);
@@ -54,8 +54,18 @@ export const HarakatStyled = styled.div`
     flex-direction: row;
     right: 25px;
     bottom: auto;
+
     .content {
       grid-template-columns: 40px;
+      overflow: auto;
+      height: 300px;
+      &::-webkit-scrollbar {
+        width: 0 !important;
+        height: 0 !important;
+      }
+      & > span:last-child {
+        margin-bottom: 20px;
+      }
     }
     .triangle {
       border-top: 15px solid  transparent;
