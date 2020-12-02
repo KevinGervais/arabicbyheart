@@ -87,7 +87,5 @@ export const HomeStyled = styled.div<{}>`
     background: ${() => window.theme.secondary500};
     color: white;
   }
-  .fa-bookmark {
-    margin: 0 15px 0 5px;
-  }
+  
 `

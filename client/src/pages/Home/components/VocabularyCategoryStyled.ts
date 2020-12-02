@@ -41,4 +41,7 @@ export const VocabularyCategoryStyled = styled.div`
             background: ${() => window.theme.grey400};
           }
       }
+  .fa-bookmark {
+    margin: 0 30px 0 5px;
+  }
 `
