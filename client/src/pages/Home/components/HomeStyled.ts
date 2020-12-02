@@ -87,5 +87,4 @@ export const HomeStyled = styled.div<{}>`
     background: ${() => window.theme.secondary500};
     color: white;
   }
-  
 `
