@@ -21,8 +21,22 @@ export function CreatedLanguageItem(this: CategoryClass, props: CreatedLanguageI
   const currentRef = isArabic ? this.arabicInputRef : this.selectedInputRef
   return (
     <CreatedLanguageItemStyled className={language === "ar" ? "arabic" : ""}>
-
       <h4>{isArabic ? "ar" : selectedLanguage}</h4>
+      {isArabic && (
+        <div className="keyboard-button">
+          <KeyboardIcon onClick={() => setKeyboardActivity(!isKeyboardOpened)} />
+          {isKeyboardOpened && <this.Harakat onChange={(newChar: string) => {
+            const selectionStart = currentRef?.selectionStart as number
+            const selectionEnd = currentRef?.selectionEnd as number
+            this.setState({
+              arabicTitle: updateArabicValue(selectionStart, selectionEnd, newChar, title)
+            }, () => {
+              currentRef?.setSelectionRange(selectionStart + 1, selectionStart + 1)
+            })
+          }} />}
+
+        </div>
+      )}
       <input
         ref={(ref: HTMLInputElement) => isArabic ? this.arabicInputRef = ref : this.selectedInputRef = ref}
         lang={language}
@@ -57,21 +71,7 @@ export function CreatedLanguageItem(this: CategoryClass, props: CreatedLanguageI
           }
         }}
       />
-      {isArabic && (
-        <div className="keyboard-button">
-          <KeyboardIcon onClick={() => setKeyboardActivity(!isKeyboardOpened)} />
-          {isKeyboardOpened && <this.Harakat onChange={(newChar: string) => {
-            const selectionStart = currentRef?.selectionStart as number
-            const selectionEnd = currentRef?.selectionEnd as number
-            this.setState({
-              arabicTitle: updateArabicValue(selectionStart, selectionEnd, newChar, title)
-            }, () => {
-              currentRef?.setSelectionRange(selectionStart + 1, selectionStart + 1)
-            })
-          }} />}
 
-        </div>
-      )}
     </CreatedLanguageItemStyled>
   )
 }

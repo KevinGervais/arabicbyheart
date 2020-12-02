@@ -51,9 +51,12 @@ export const CreatedLanguageItemStyled = styled.div<{}>`
   .keyboard-button {
     ${center};
     height: 100%;
-    padding: 10px;
+    padding-left: 10px;
     position: relative;
     background: ${() => window.theme.grey100};
+    @media screen and (max-width: 630px) {
+      padding-left: 40px;
+    }
   }
   .fa-keyboard {
     height: 30px;

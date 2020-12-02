@@ -50,4 +50,17 @@ export const HarakatStyled = styled.div`
       transform: scale(1.1);
     }
   }
+  @media screen and (max-width: 630px) {
+    flex-direction: row;
+    right: 25px;
+    bottom: auto;
+    .content {
+      grid-template-columns: 40px;
+    }
+    .triangle {
+      border-top: 15px solid  transparent;
+      border-left: 15px solid  hsla(0, 0%, 100%, 0.8);
+      border-bottom: 15px solid  transparent;
+    }
+  }
 `
