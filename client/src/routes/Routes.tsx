@@ -3,7 +3,7 @@ import { connect } from "react-redux"
 import { ReduxState } from "@/redux/model"
 
 import { TitleBar } from "../components"
-import { Home, Category, Diapositive } from "../../pages"
+import { Home, Category, Diapositive } from "../pages"
 
 import { RoutesStyled } from "./RoutesStyled"
 import { RoutesProps } from "./model"

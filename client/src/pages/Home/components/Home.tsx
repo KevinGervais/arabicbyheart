@@ -6,7 +6,7 @@ import RightArrowIcon from "@/images/rightArrow"
 import SaveIcon from "@/images/save"
 import CloseIcon from "@/images/close"
 import Tooltip from "react-tooltip"
-import { Toggle } from "@/ui/components"
+import { Toggle } from "@/components"
 import { setReduxState } from "@/redux"
 import BookmarkActiveIcon from "@/images/bookmarkActive"
 

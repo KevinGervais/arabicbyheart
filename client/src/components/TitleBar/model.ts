@@ -1,7 +1,7 @@
 import { Languages, Say } from "@/languages/model"
 import { SelectedCategory } from "@/model"
 import { AllColors } from "@/styles/model"
-import { PageNames } from "@/ui/routes/model"
+import { PageNames } from "@/routes/model"
 
 export interface TitleBarState {
   readonly isFullScreen: boolean

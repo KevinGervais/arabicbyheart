@@ -1,7 +1,7 @@
 import React from "react"
 import ReactDOM from "react-dom"
 import moment from "moment"
-import { Scrollbar } from "@/ui/components"
+import { Scrollbar } from "@/components"
 
 import { DropdownStyled, DropdownItemStyled } from "./DropdownStyled"
 import { DropdownProps, DropdownState } from "./model"

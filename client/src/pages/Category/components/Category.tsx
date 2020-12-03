@@ -13,7 +13,7 @@ import ImageIcon from "@/images/image"
 import NoMicroIcon from "@/images/noMicro"
 import ShuffleIcon from "@/images/shuffle"
 import { SpeechLanguages, VocabularyItem } from "@/model"
-import { Toggle } from "@/ui/components"
+import { Toggle } from "@/components"
 import Tooltip from "react-tooltip"
 
 import { CategoryProps, CategoryState, CreatedLanguageItemProps, HarakatProps, VocabularyItemProps } from "../model"

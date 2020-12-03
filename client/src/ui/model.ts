@@ -1,6 +1,6 @@
 import { NotchPosition } from "@/model"
 
-import { PageNames } from "./routes/model"
+import { PageNames } from "../routes/model"
 
 export interface UiReduxInitState {
   readonly page: PageNames,

@@ -1,5 +1,5 @@
 import React from "react"
-import { Scrollbar } from "@/ui/components"
+import { Scrollbar } from "@/components"
 
 import { NavDropdownProps } from "../model"
 

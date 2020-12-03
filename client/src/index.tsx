@@ -7,7 +7,7 @@ import "@/styles/theme"
 import "react-perfect-scrollbar/dist/css/styles.css"
 
 
-import { Routes } from "./ui/routes/Routes"
+import { Routes } from "./routes/Routes"
 import { getOS, handleNotchPositionChange } from "./functions"
 import { phonesWithNatch } from "./functions/handleNotchPositionChange"
 
