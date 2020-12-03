@@ -10,7 +10,6 @@ export const DiapositiveItemStyled = styled.div<{}>`
     span:not(:last-child) {
       font-size: 50px;
       font-weight: bold;
-      height: 100px;
     }
     .harakat {
       ${clickable}
@@ -35,13 +34,16 @@ export const DiapositiveItemStyled = styled.div<{}>`
       }
     }
     span {
-      ${center};
+      ${center}
+      flex-wrap: wrap;
+      margin-bottom: 40px;
       svg {
       ${clickable};
         margin-left: 20px;
         width: 20px;
         border: none;
         margin-top: 5px;
+        flex-shrink: 0;
         ${() => ["mac", "windows"].includes(getOS()) && css`
           &:hover {
             transform: scale(1.025);

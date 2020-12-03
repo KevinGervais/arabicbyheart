@@ -9,13 +9,13 @@ import { DiapositiveItemStyled } from "./DiapositiveItemStyled"
 export class DiapositiveItem extends React.Component<DiapositiveItemProps, DiapositiveItemState>{
   state: DiapositiveItemState = {
     isAnswerShown: false,
-    isHarakatShown: false
+    isHarakatShown: false,
   }
   componentDidUpdate(oldProps: DiapositiveItemProps): void {
     const { currentDiapositiveItem, } = this.props
     const { isAnswerShown, isHarakatShown } = this.state
     if (
-      (isAnswerShown || isHarakatShown)
+      (isAnswerShown || isHarakatShown || isHarakatShown)
       && (
         (
           currentDiapositiveItem
@@ -65,14 +65,22 @@ export class DiapositiveItem extends React.Component<DiapositiveItemProps, Diapo
         {isAnswerShown &&
           <>
             <span className={currentDiapositiveItem.language === "ar" ? "arabic" : ""}>
-              {currentDiapositiveItem.currentLanguageItem.title}
+              {
+                (isHarakat || isHarakatShown)
+                  ? currentDiapositiveItem.currentLanguageItem.title
+                  : removeHarakat(currentDiapositiveItem.currentLanguageItem.title)
+              }
               {!isHarakatShown && !isHarakat && currentDiapositiveItem.language === "ar" && (
                 <div className="harakat" onClick={() => this.setState({ isHarakatShown: true })}><div>َّ</div></div>
               )}
               <ListenIcon onClick={() => playAudio(currentDiapositiveItem.currentLanguageItem.title, currentDiapositiveItem.language)} />
             </span>
             <span className={notCurrentLanguage === "ar" ? "arabic" : ""}>
-              {currentDiapositiveItem.languageItems[notCurrentLanguage].title}
+              {
+                (isHarakat || isHarakatShown)
+                  ? currentDiapositiveItem.languageItems[notCurrentLanguage].title
+                  : removeHarakat(currentDiapositiveItem.languageItems[notCurrentLanguage].title)
+              }
               {!isHarakatShown && !isHarakat && notCurrentLanguage === "ar" && (
                 <div className="harakat" onClick={() => this.setState({ isHarakatShown: true })}><div>َّ</div></div>
               )}
