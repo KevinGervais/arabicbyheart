@@ -1,4 +1,6 @@
-import styled from "styled-components"
+import { getOS } from "@/functions"
+import { center, clickable } from "@/styles/mixins"
+import styled, { css } from "styled-components"
 
 export const ModalFooterStyled = styled.div<{}>`
   display: flex;
@@ -11,7 +13,21 @@ export const ModalFooterStyled = styled.div<{}>`
   color: white;
   justify-content: flex-end;
   .button {
+    ${center};
+    ${clickable};
+    height: 30px;
+    padding: 0 15px;
     margin-left: 10px;
     min-width: 100px;
+    background: ${() => window.theme.secondary500};
+    color: white;
+    ${() => ["mac", "windows"].includes(getOS()) && css`
+      &:hover {
+        background: ${() => window.theme.secondary600};
+      }
+    `}
+    &:active {
+      background: ${() => window.theme.secondary700};
+    }
   }
 `

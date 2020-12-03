@@ -4,7 +4,7 @@ import { getReduxState, setReduxState } from "@/redux"
 import { allRequests } from "@/requests"
 import localforage from "localforage"
 
-export function deleteItem(index: number): void {
+export function deleteItem(index: number, callback: () => void): void {
   const { vocabularyCategoryList, selectedCategory } = getReduxState()
   const newSelectedCategory: VocabularyCategory = cloneCategory(selectedCategory as VocabularyCategory)
   const vocabularyItemId = newSelectedCategory.items[index]._id
@@ -20,5 +20,6 @@ export function deleteItem(index: number): void {
       vocabularyCategoryList: newVocabularyCategoryList
     })
     localforage.setItem("vocabularyCategoryList", newVocabularyCategoryList)
+    callback()
   })
 }

@@ -25,6 +25,7 @@ export interface CategoryState {
   readonly isShuffle: boolean
   readonly delay: diapositiveDelay
   readonly isAskingDelete: boolean
+  readonly deletingIndex: number
 }
 
 

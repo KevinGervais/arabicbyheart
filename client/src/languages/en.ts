@@ -34,6 +34,7 @@ export const en: Say = {
   record: "Record pronunciation",
   harakat: "Question with harakat",
   edit: "Edit",
-  bookmarks: "Bookmarks"
+  bookmarks: "Bookmarks",
+  askDeleteVocabulary: "Are you sure you want to delete this vocabulary?"
 
 }

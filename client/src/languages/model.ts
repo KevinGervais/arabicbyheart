@@ -41,5 +41,6 @@ export type SayKeywords =
   | "harakat"
   | "edit"
   | "bookmarks"
+  | "askDeleteVocabulary"
 
 

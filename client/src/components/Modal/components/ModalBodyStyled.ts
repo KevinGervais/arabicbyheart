@@ -8,4 +8,7 @@ export const ModalBodyStyled = styled.div<{}>`
     font-weight: 400;
     margin-bottom: 20px;
   }
+  p {
+    font-size: 30px;
+  }
 `

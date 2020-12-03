@@ -9,6 +9,7 @@ import BookmarkActiveIcon from "@/images/bookmarkActive"
 import BookmarkInactiveIcon from "@/images/bookmarkInactive"
 import { BookmarkItem, VocabularyCategory } from "@/model"
 import { playAudio } from "@/functions/playAudio"
+import { Modal } from "@/components"
 
 import { VocabularyItemProps } from "../model"
 import * as functions from "../functions"
@@ -23,6 +24,7 @@ export function VocabularyItemComponent(this: CategoryClass, props: VocabularyIt
   const {
     selectedTitle,
     arabicTitle,
+    deletingIndex
   } = this.state
   const {
     editingVocabularyIndex
@@ -85,7 +87,7 @@ export function VocabularyItemComponent(this: CategoryClass, props: VocabularyIt
                 selectedTitle: vocabularyItem.languageItems[selectedLanguage].title,
                 arabicTitle: vocabularyItem.languageItems.ar.title,
               })} />
-              <DeleteIcon data-tip={say.delete} onClick={() => deleteItem(index)} />
+              <DeleteIcon data-tip={say.delete} onClick={() => this.setState({ deletingIndex: index })} />
             </>
           )}
           {editingVocabularyIndex === index && (
@@ -110,6 +112,18 @@ export function VocabularyItemComponent(this: CategoryClass, props: VocabularyIt
           )}
         </div>
       </div>
+      {deletingIndex === index && (
+        <Modal>
+          <Modal.Header>{say.askDeleteVocabulary}</Modal.Header>
+          <Modal.Body>
+            <p>{`${vocabularyItem.languageItems[selectedLanguage].title} - ${vocabularyItem.languageItems.ar.title}`}</p>
+          </Modal.Body>
+          <Modal.Footer>
+            <div className="button" onClick={() => this.setState({ deletingIndex: -1 })}>{say.cancel}</div>
+            <div className="button" onClick={() => deleteItem(index, () => this.setState({ deletingIndex: -1 }))}>{say.delete}</div>
+          </Modal.Footer>
+        </Modal>
+      )}
     </VocabularyItemStyled>
   )
 }

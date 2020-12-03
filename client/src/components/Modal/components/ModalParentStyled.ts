@@ -9,6 +9,7 @@ export const ModalParentStyled = styled.div<{}>`
   background-color: white;
   width: calc(100% - 100px);
   border-radius: 10px;
+  box-shadow: 0 0 5px hsla(0, 0%, 0%, 0.3);
   &.full-screen {
     width: 100vw;
     height: 100vh;

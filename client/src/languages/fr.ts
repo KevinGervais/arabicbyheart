@@ -34,5 +34,6 @@ export const fr: Say = {
   record: "Enregistrer la prononciation",
   harakat: "Question avec harakat",
   edit: "Modifier",
-  bookmarks: "Signets"
+  bookmarks: "Signets",
+  askDeleteVocabulary: "Êtes-vous sûr de vouloir supprimer ce vocabulaire?"
 }

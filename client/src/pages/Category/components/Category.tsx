@@ -53,7 +53,8 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
       isCreatingWithImage: true,
       isHarakat: true,
       delay: 5,
-      editingVocabularyIndex: -1
+      editingVocabularyIndex: -1,
+      deletingIndex: -1
     } as any
 
     state = {
