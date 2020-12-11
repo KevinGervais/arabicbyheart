@@ -21,9 +21,9 @@ export class AppClass extends React.Component {
     window.addEventListener("resize", () => this.forceUpdate())
     document.addEventListener("deviceready", () => {
       if (
-        (os === "ios" || os === "android")
-        && window.device
-        && phonesWithNatch.includes(window.device.model)) {
+        window.device
+        && (os === "android" || (os === "ios" && phonesWithNatch.includes(window.device.model)))
+      ) {
         handleNotchPositionChange()
         window.addEventListener('orientationchange', handleNotchPositionChange)
       }
@@ -32,7 +32,6 @@ export class AppClass extends React.Component {
         window.StatusBar.backgroundColorByHexString("#00000000")
       }
     })
-
   }
 
   componentDidMount(): void {

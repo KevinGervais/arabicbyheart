@@ -12,7 +12,7 @@ export const DiapositiveStyled = styled.div<DiapositiveStyledProps>`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   ${(props: DiapositiveStyledProps) => {
     const index = props.index % 15
     const colorName = colorList[index] as keyof AllColors

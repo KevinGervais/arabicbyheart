@@ -7,6 +7,7 @@ export const HomeStyled = styled.div<{}>`
   flex-direction: column;
   align-items: center;
   width: 100%;
+  height: 100%;
   .add-button {
     ${center};
     ${clickable};
@@ -73,6 +74,8 @@ export const HomeStyled = styled.div<{}>`
     background: white;
     width: 100%;
     max-width: 600px;
+    height: calc(100% -80px);
+    overflow: auto;
     box-shadow: 0 0 5px hsla(0, 0%, 0%, 0.3);
   }
   & > .fa-chevron-right {

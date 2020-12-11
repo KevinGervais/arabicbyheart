@@ -1,5 +1,6 @@
 import { Languages } from "./languages/model"
 import { Theme } from "./styles/model"
+type GetPxFunc = (callback: (px: number) => void) => void
 
 declare global {
   interface Window {
@@ -9,6 +10,12 @@ declare global {
     cordova: any,
     StatusBar: any
     responsiveVoice: any
+    AndroidNotch?: {
+      getInsetTop: GetPxFunc
+      getInsetRight: GetPxFunc
+      getInsetBottom: GetPxFunc
+      getInsetLeft: GetPxFunc
+    }
     device?: {
       available: boolean
       cordova: string

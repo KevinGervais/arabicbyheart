@@ -1,24 +1,26 @@
 import { getOS } from "@/functions"
-import { center, clickable, ellipsis } from "@/styles/mixins"
+import { center, clickable, ellipsis, getNotch } from "@/styles/mixins"
 import styled, { css } from "styled-components"
 
 import { TitleBarStyledProps } from "./model"
 
 export const TitleBarStyled = styled.div<TitleBarStyledProps>`
-  ${center}
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
   z-index: 1000;
   display: flex;
   width: 100%;
+  height: calc(50px + ${() => getNotch("top")});
+  padding-bottom: 5px;
   background-size: 150px;
   -webkit-app-region: drag;
-  padding-top: 20px;
   flex-shrink: 0;
   background: ${window.theme.primary500};
   box-shadow: 0 0 5px hsla(0, 0%, 0%, 0.3);
   transition: all 0.3s ease-in-out;
   h1 {
     ${ellipsis};
-    padding: 10px 0;
     font-size: 24px;
     color: white;
     width: max-content;

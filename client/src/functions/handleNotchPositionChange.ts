@@ -42,6 +42,28 @@ export function handleNotchPositionChange(): void {
     } else {
       window.StatusBar.show()
     }
+    if (window.AndroidNotch) {
+      const style = document.documentElement.style
+      window.AndroidNotch.getInsetTop((px: number) => {
+        if (notchPosition === "top" && String(px) === "0") {
+          style.setProperty("--safe-area-inset-top", "24px")
+        } else {
+          style.setProperty("--safe-area-inset-top", px + "px")
+        }
+      })
+
+      window.AndroidNotch.getInsetRight((px: number) => {
+        style.setProperty("--safe-area-inset-right", px + "px")
+      })
+
+      window.AndroidNotch.getInsetBottom((px: number) => {
+        style.setProperty("--safe-area-inset-bottom", px + "px")
+      })
+
+      window.AndroidNotch.getInsetLeft((px: number) => {
+        style.setProperty("--safe-area-inset-left", px + "px")
+      })
+    }
   }
 
   setReduxState({ notchPosition })

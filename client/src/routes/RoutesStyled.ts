@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components"
 import { getOS, isElectron } from "@/functions"
+import { getNotch } from "@/styles/mixins"
 
 export const RoutesStyled = styled.div<{}>`
   display: flex;
@@ -22,7 +23,7 @@ export const RoutesStyled = styled.div<{}>`
   `}
   & > .page-content {
     display: flex;
-    height: inherit;
+    height: calc(100vh - 50px - ${getNotch("top")});
     @media screen and (orientation: portrait) {
       ${() => getOS() === "android" && css`
         height: calc(100vh - max(env(safe-area-inset-top), 24px));

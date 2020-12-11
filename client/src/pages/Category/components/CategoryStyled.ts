@@ -10,7 +10,7 @@ export const CategoryStyled = styled.div<CategoryStyledProps>`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: calc(100% - 20px);
+  height: 100%;
   .add-button-wrapper {
     ${center};
     position: absolute;

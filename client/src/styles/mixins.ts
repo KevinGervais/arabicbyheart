@@ -1,3 +1,4 @@
+import { getOS } from "@/functions"
 import { css } from "styled-components"
 
 export const center: any = css`
@@ -23,6 +24,10 @@ export const noSelection: any = css`
   -ms-user-select: none;
   user-select: none;
 `
+
+export const getNotch = (postion: "left" | "right" | "top" | "bottom"): string => (
+  getOS() === "android" ? `var(--safe-area-inset-${postion})` : `env(safe-area-inset-${postion})`
+)
 
 export const ellipsis: any = css`
   white-space: nowrap;
