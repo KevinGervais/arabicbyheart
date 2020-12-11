@@ -4,3 +4,8 @@ release
 **/node_modules
 **/build
 **/release
+mobile/platforms
+mobile/plugins
+mobile/release
+mobile/yarn-error.log
+mobile/www

@@ -1,0 +1,55 @@
+{
+  "name": "arabic-by-heart",
+  "displayName": "Arabic By Heart",
+  "version": "0.14.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "fix-ios": "sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer",
+    "import-p12": "security import ./certificat.p12 -P 9yr7xnjuwc",
+    "add-ios": "cordova platform add ios",
+    "build-ios": "cordova build ios",
+    "add-android": "cordova platform add android",
+    "fix-android": "chmod 755 ./platforms/android/gradlew; chmod 755 ./platforms/android/build.gradle; yes | ~/Library/Android/sdk/tools/bin/sdkmanager --licenses",
+    "prebuild-android": "yarn global add cordova; cordova platform remove android; cordova platform add android",
+    "build-android": "cordova build android",
+    "release-android": "cordova build --release android --stacktrace"
+  },
+  "keywords": [
+    "ecosystem:cordova"
+  ],
+  "author": "Apache Cordova Team",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "cordova": "^10.0.0",
+    "cordova-clipboard": "^1.3.0",
+    "cordova-ios": "^6.1.1",
+    "cordova-plugin-device": "^2.0.3",
+    "cordova-plugin-keyboard": "^1.2.0",
+    "cordova-plugin-screen-orientation": "^3.0.2"
+  },
+  "devDependencies": {
+    "cordova-android": "^9.0.0",
+    "cordova-plugin-android-notch": "^1.0.3",
+    "cordova-plugin-nativeclicksound": "0.0.4",
+    "cordova-plugin-statusbar": "^2.4.3",
+    "cordova-plugin-whitelist": "^1.3.4",
+    "es6-promise-plugin": "^4.2.2"
+  },
+  "cordova": {
+    "plugins": {
+      "cordova-plugin-whitelist": {},
+      "cordova-clipboard": {},
+      "cordova-plugin-device": {},
+      "cordova-plugin-screen-orientation": {},
+      "cordova-plugin-keyboard": {},
+      "cordova-plugin-statusbar": {},
+      "cordova-plugin-android-notch": {},
+      "cordova-plugin-nativeclicksound": {}
+    },
+    "platforms": [
+      "ios",
+      "android"
+    ]
+  }
+}
