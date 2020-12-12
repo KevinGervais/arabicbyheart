@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.resolveme.io" version="0.14.1" ios-CFBundleVersion="14" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Resolve Me</name>
+<widget id="com.arabicbyheart.io" version="0.0.1" ios-CFBundleVersion="0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Arabic by heart</name>
     <description>
-        The powerfull calculator for all your needs
+        app for learing arabic vocabulary
     </description>
-    <author email="support@resolveme.io" href="https://resolveme.io">
+    <author email="kevin.gervais@tutanota.com" href="https://arabicbyheart.herokuapp.com">
        MSV84366NV
     </author>
     <content src="index.html" />
@@ -17,36 +17,25 @@
     <allow-intent href="geo:*" />
     <preference name="DisallowOverscroll" value="true" />
     <preference name="StatusBarOverlaysWebView" value="true" />
-    <icon src="res/Icon-16.png" width="16" />
-    <icon src="res/Icon-20.png" width="20" />
-    <icon src="res/Icon-29.png" width="29" />
-    <icon src="res/Icon-32.png" width="32" />
-    <icon src="res/Icon-40.png" width="40" />
-    <icon src="res/Icon-48.png" width="48" />
-    <icon src="res/Icon-50.png" width="50" />
-    <icon src="res/Icon-57.png" width="57" />
-    <icon src="res/Icon-58.png" width="58" />
-    <icon src="res/Icon-60.png" width="60" />
-    <icon src="res/Icon-64.png" width="64" />
-    <icon src="res/Icon-72.png" width="72" />
-    <icon src="res/Icon-76.png" width="76" />
-    <icon src="res/Icon-80.png" width="80" />
-    <icon src="res/Icon-87.png" width="87" />
-    <icon src="res/Icon-88.png" width="88" />
-    <icon src="res/Icon-100.png" width="100" />
-    <icon src="res/Icon-114.png" width="114" />
-    <icon src="res/Icon-120.png" width="120" />
-    <icon src="res/Icon-128.png" width="128" />
-    <icon src="res/Icon-144.png" width="144" />
-    <icon src="res/Icon-152.png" width="152" />
-    <icon src="res/Icon-167.png" width="167" />
-    <icon src="res/Icon-172.png" width="172" />
-    <icon src="res/Icon-180.png" width="180" />
-    <icon src="res/Icon-196.png" width="196" />
-    <icon src="res/Icon-256.png" width="256" />
-    <icon src="res/Icon-512.png" width="512" />
-    <icon src="res/Icon-1024.png" width="1024" />
-     
+    <icon src="res/20.png" width="20" />
+    <icon src="res/29.png" width="29" />
+    <icon src="res/40.png" width="40" />
+    <icon src="res/50.png" width="50" />
+    <icon src="res/57.png" width="57" />
+    <icon src="res/58.png" width="58" />
+    <icon src="res/60.png" width="60" />
+    <icon src="res/72.png" width="72" />
+    <icon src="res/76.png" width="76" />
+    <icon src="res/80.png" width="80" />
+    <icon src="res/87.png" width="87" />
+    <icon src="res/100.png" width="100" />
+    <icon src="res/114.png" width="114" />
+    <icon src="res/120.png" width="120" />
+    <icon src="res/144.png" width="144" />
+    <icon src="res/152.png" width="152" />
+    <icon src="res/167.png" width="167" />
+    <icon src="res/180.png" width="180" />
+    <icon src="res/1024.png" width="1024" />
     <platform name="android">
         <preference name="StatusBarStyle" value="lightcontent" />
         <allow-intent href="market:*" />

@@ -4,7 +4,7 @@
       "codeSignIdentity": "iPhone Developer",
       "developmentTeam": "MSV84366NV",
       "packageType": "app-store",
-      "provisioningProfile": "./iosprod.mobileprovision",
+      "provisioningProfile": "./arabic.mobileprovision",
       "buildFlag": [
         "EMBEDDED_CONTENT_CONTAINS_SWIFT = YES",
         "ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES=NO",
@@ -15,7 +15,7 @@
       "codeSignIdentity": "iPhone Developer",
       "developmentTeam": "MSV84366NV",
       "packageType": "app-store",
-      "provisioningProfile": "./iosprod.mobileprovision",
+      "provisioningProfile": "./arabic.mobileprovision",
       "buildFlag": [
         "EMBEDDED_CONTENT_CONTAINS_SWIFT = YES",
         "ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES=NO",
