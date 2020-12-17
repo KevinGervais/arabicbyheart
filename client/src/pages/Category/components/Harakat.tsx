@@ -10,7 +10,7 @@ export function Harakat(this: CategoryClass, props: HarakatProps): JSX.Element {
   return (
     <HarakatStyled>
       <div className="content">
-        {["أ", "إ", "ى", "َ", "ُ", "ِ", "ْ", "ََ", "ُُ", "ِِ"].map((char: string) =>
+        {["أ", "إ", "ى", "ئ", "ؤ", "َ", "ُ", "ِ", "ْ", "ََ", "ُُ", "ِِ"].map((char: string) =>
           <span onClick={() => onChange(char)}>{char}</span>
         )}
       </div>
