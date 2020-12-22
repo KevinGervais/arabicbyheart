@@ -1,9 +1,7 @@
 /* eslint-disable no-template-curly-in-string */
 import "moment/locale/fr"
 
-import { Say } from "./model"
-
-export const en: Say = {
+export const en = {
   home: "Arabic by hearth",
   category: "No name category",
   diapositive: "Diapositive",
@@ -35,6 +33,8 @@ export const en: Say = {
   harakat: "Question with harakat",
   edit: "Edit",
   bookmarks: "Bookmarks",
-  askDeleteVocabulary: "Are you sure you want to delete this vocabulary?"
+  askDeleteVocabulary: "Are you sure you want to delete this vocabulary?",
+  searchQuranVerses: "Verses using this word",
+  versesTitle: "Quranic verses matching with {word}"
 
 }

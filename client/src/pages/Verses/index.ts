@@ -1,0 +1,1 @@
+export { Verses } from "./components/Verses"

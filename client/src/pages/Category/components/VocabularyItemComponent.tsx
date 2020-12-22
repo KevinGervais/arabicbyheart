@@ -3,6 +3,7 @@ import SyncIcon from "@/images/sync"
 import ListenIcon from "@/images/listen"
 import DeleteIcon from "@/images/delete"
 import PencilIcon from "@/images/pencil"
+import QuranIcon from "@/images/quran"
 import CloseIcon from "@/images/close"
 import SaveIcon from "@/images/save"
 import BookmarkActiveIcon from "@/images/bookmarkActive"
@@ -10,6 +11,7 @@ import BookmarkInactiveIcon from "@/images/bookmarkInactive"
 import { BookmarkItem, VocabularyCategory } from "@/model"
 import { playAudio } from "@/functions/playAudio"
 import { Modal } from "@/components"
+import { setReduxState } from "@/redux"
 
 import { VocabularyItemProps } from "../model"
 import * as functions from "../functions"
@@ -70,6 +72,10 @@ export function VocabularyItemComponent(this: CategoryClass, props: VocabularyIt
         )}
 
         <div className="buttons">
+          <QuranIcon data-tip={say.searchQuranVerses} onClick={() => {
+            setReduxState({ page: "verses", selectedVocabularyItem: vocabularyItem })
+            window.localStorage.setItem("selectedVocabularyItem", JSON.stringify(vocabularyItem))
+          }} />
           {bookmarkIndex !== -1 && (
             <BookmarkActiveIcon
               onClick={() => updateBookmarks(bookmarkIndex, selectedCategory._id, vocabularyItem._id)}

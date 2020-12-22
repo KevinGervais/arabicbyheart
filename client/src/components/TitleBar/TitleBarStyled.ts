@@ -1,5 +1,5 @@
 import { getOS } from "@/functions"
-import { center, clickable, ellipsis, getNotch } from "@/styles/mixins"
+import { clickable, ellipsis, getNotch } from "@/styles/mixins"
 import styled, { css } from "styled-components"
 
 import { TitleBarStyledProps } from "./model"

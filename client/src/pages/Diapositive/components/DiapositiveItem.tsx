@@ -1,6 +1,7 @@
 import React from "react"
 import ListenIcon from "@/images/listen"
 import { playAudio } from "@/functions/playAudio"
+import { removeHarakat } from "@/functions"
 
 import { DiapositiveItemProps, DiapositiveItemState } from "../model"
 
@@ -97,17 +98,3 @@ export class DiapositiveItem extends React.Component<DiapositiveItemProps, Diapo
     )
   }
 }
-
-const removeHarakat = (str: string): string => (
-  str
-    .split("َ").join("")
-    .split("ُ").join("")
-    .split("ِ").join("")
-    .split("ََ").join("")
-    .split("ُُ").join("")
-    .split("ِِ").join("")
-    .split("ْ").join("")
-    .split("ّ").join("")
-    .split("أ").join("ا")
-    .split("إ").join("ا")
-)

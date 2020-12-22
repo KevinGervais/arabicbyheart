@@ -1,5 +1,7 @@
+import { en } from "./en"
+
 export type Say = {
-  [key in SayKeywords]: string
+  [key in keyof typeof en]: string
 }
 
 export type Languages = "en" | "fr"
@@ -9,38 +11,5 @@ export interface LanguageReduxInitState {
   say: Say
 }
 
-export type SayKeywords =
-  | "home"
-  | "category"
-  | "diapositive"
-  | "addCategory"
-  | "categoryPlacehoder"
-  | "addVocabulary"
-  | "vocabularyTitle"
-  | "vocabularyPlacehoder"
-  | "en"
-  | "fr"
-  | "ar"
-  | "askDelete"
-  | "yes"
-  | "badBrowser"
-  | "showAnswer"
-  | "isWithImage"
-  | "wordDefinition"
-  | "save"
-  | "cancel"
-  | "delete"
-  | "diapositiveSettings"
-  | "playDiapositive"
-  | "language"
-  | "image"
-  | "sound"
-  | "shuffle"
-  | "transitionDelay"
-  | "record"
-  | "harakat"
-  | "edit"
-  | "bookmarks"
-  | "askDeleteVocabulary"
 
 

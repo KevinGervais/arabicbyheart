@@ -3,7 +3,7 @@ import { connect } from "react-redux"
 import { ReduxState } from "@/redux/model"
 
 import { TitleBar } from "../components"
-import { Home, Category, Diapositive } from "../pages"
+import { Home, Category, Diapositive, Verses } from "../pages"
 
 import { RoutesStyled } from "./RoutesStyled"
 import { RoutesProps } from "./model"
@@ -17,6 +17,7 @@ const RoutesNotConnected = (props: RoutesProps): JSX.Element => {
         {page === "home" && <Home />}
         {page === "category" && <Category />}
         {page === "diapositive" && <Diapositive />}
+        {page === "verses" && <Verses />}
       </div>
     </RoutesStyled>
   )

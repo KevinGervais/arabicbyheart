@@ -35,5 +35,7 @@ export const fr: Say = {
   harakat: "Question avec harakat",
   edit: "Modifier",
   bookmarks: "Signets",
-  askDeleteVocabulary: "Êtes-vous sûr de vouloir supprimer ce vocabulaire?"
+  askDeleteVocabulary: "Êtes-vous sûr de vouloir supprimer ce vocabulaire?",
+  searchQuranVerses: "Versets utilisant ce mot",
+  versesTitle: "Versets Coraniques correspondants à {word}"
 }
