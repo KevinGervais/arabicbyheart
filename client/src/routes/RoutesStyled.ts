@@ -5,7 +5,7 @@ import { getNotch } from "@/styles/mixins"
 export const RoutesStyled = styled.div<{}>`
   display: flex;
   flex-direction: column;
-  background: url("tasbih.svg");
+  background: url("images/tasbih.svg");
   background-size: 200px;
   background-color: ${() => window.theme.primary50};
   ${() =>

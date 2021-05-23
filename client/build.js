@@ -89,7 +89,7 @@ async function postBuild() {
   const mainJsFile = jsFileList.find((str) => str.startsWith('main'))
   if (process.env.platform === 'windows') {
     await replaceFileContent(`./build-temp/static/js/${mainJsFile}`, 'appVersion:""', `appVersion:"${windowsAppVersion}"`)
-  } else if (process.env.platform === 'mac' || process.env.platform === 'web') {
+  } else if (process.env.platform === 'desktop' || process.env.platform === 'web') {
     await replaceFileContent(`./build-temp/static/js/${mainJsFile}`, 'appVersion:""', `appVersion:"${macAppVersion}"`)
   } else if (process.env.platform === 'mobile') {
     await replaceFileContent(`./build-temp/static/js/${mainJsFile}`, 'appVersion:""', `appVersion:"${mobileAppVersion}"`)
@@ -107,21 +107,13 @@ async function postBuild() {
 
   await replaceFileContent('./build-temp/index.html', 'href="/', 'href="./')
   await replaceFileContent('./build-temp/index.html', 'src="/', 'src="./')
-  if (process.env.platform === 'mac') {
-    await ereaseFile('../mac/build/static')
-    await ereaseFile('../mac/build/images')
-    await ereaseFile('../mac/build/index.html')
-    await copyFiles('./build-temp/static', '../mac/build/static')
-    await copyFiles('./build-temp/images', '../mac/build/images')
-    await copyFiles('./build-temp/index.html', '../mac/build/index.html')
-  } else if (process.env.platform === 'windows') {
-    await ereaseFile('../windows/static')
-    await ereaseFile('../windows/images')
-    await ereaseFile('../windows/index.html')
-    await copyFiles('./build-temp/static', '../windows/static')
-    await copyFiles('./build-temp/images', '../windows/images')
-    await copyFiles('./build-temp/index.html', '../windows/index.html')
-    await replaceFileContent('../windows/index.html', '<body>', '<body><script src="./titlebar.js"></script>')
+  if (process.env.platform === 'desktop') {
+    await ereaseFile('../desktop/build/static')
+    await ereaseFile('../desktop/build/images')
+    await ereaseFile('../desktop/build/index.html')
+    await copyFiles('./build-temp/static', '../desktop/build/static')
+    await copyFiles('./build-temp/images', '../desktop/build/images')
+    await copyFiles('./build-temp/index.html', '../desktop/build/index.html')
   } else if (process.env.platform === 'web') {
     await ereaseFile('../../resolve-me.io/appBuild')
     await copyFiles('./build-temp', '../../resolve-me.io/appBuild')
