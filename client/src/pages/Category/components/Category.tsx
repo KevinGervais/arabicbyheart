@@ -47,12 +47,12 @@ export class CategoryClass extends React.Component<CategoryProps, CategoryState>
     this.VocabularyItemComponent = VocabularyItemComponent.bind(this)
     this.Harakat = Harakat.bind(this)
     let state: CategoryState = {
-      isMicrophone: true,
+      isMicrophone: false,
       isShuffle: true,
       isDiaporamaImage: true,
       isCreatingWithImage: true,
       isHarakat: true,
-      delay: 5,
+      delay: false,
       editingVocabularyIndex: -1,
       deletingIndex: -1
     } as any
