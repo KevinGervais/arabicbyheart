@@ -18,8 +18,9 @@ export const CategoryStyled = styled.div<CategoryStyledProps>`
     width: 100%;
     height: 80px;
     flex-shrink: 0;
+    z-index: 1;
     backdrop-filter: blur(2px);
-    border-bottom: 2px solid ${() => window.theme.primary200};
+    border-bottom: 2px solid ${() => window.theme.isDark ? window.theme.primary800 : window.theme.primary200};
   }
   .add-button {
     display: flex;
@@ -29,8 +30,8 @@ export const CategoryStyled = styled.div<CategoryStyledProps>`
     height: 40px;
     padding: 0 20px;
     border-radius: 20px;
-    background: ${() => window.theme.primary500};
-    color: white;
+    background: ${() => window.theme.isDark ? window.theme.primary800 : window.theme.primary500};
+    color: ${() => window.theme.isDark ? window.theme.primary50 : "white"};
     box-shadow: 0 0 5px hsla(0, 0%, 0%, 0.3);
     transition: 0.3s all ease-in-out;
     ${() => ["mac", "windows"].includes(getOS()) && css`
@@ -40,12 +41,12 @@ export const CategoryStyled = styled.div<CategoryStyledProps>`
     `}
     &:active {
       transform: scale(1.025);
-      background: ${() => window.theme.primary600};
+      background: ${() => window.theme.isDark ? window.theme.primary700 : window.theme.primary600};
     }
     svg {
       margin-left: 20px;
       width: 15px;
-      color: white;
+      color: ${() => window.theme.isDark ? window.theme.primary50 : "white"};
     }
   }
   .create-vocabulary-wrapper {
@@ -56,7 +57,7 @@ export const CategoryStyled = styled.div<CategoryStyledProps>`
     z-index: 1000;
     width: 100%;
     height: 100%;
-    background: hsla(0, 0%, 100%, 0.1);
+    background: ${() => window.theme.isDark ? "hsla(0, 0%, 0%, 0.5)" : "hsla(0, 0%, 100%, 0.1)"};
     backdrop-filter: blur(2px);
   }
   .create-vocabulary {
@@ -69,7 +70,7 @@ export const CategoryStyled = styled.div<CategoryStyledProps>`
     width: calc(100vw - 20px);
     max-width: 500px;
     box-shadow: 0 0 5px hsla(0, 0%, 0%, 0.3);
-    background: white;
+    background: ${() => window.theme.isDark ? window.theme.grey900 : "white"};
     .buttons {
       display: flex;
       width: 100%;
@@ -83,15 +84,15 @@ export const CategoryStyled = styled.div<CategoryStyledProps>`
           padding: 5px 10px;
           margin-left: 10px;
           border-radius: 15px;
-          background: ${() => window.theme.primary500};
-          color: white;
+          background: ${() => window.theme.isDark ? window.theme.primary800 : window.theme.primary500};
+          color:  ${() => window.theme.isDark ? window.theme.primary50 : "white"};
           ${() => ["mac", "windows"].includes(getOS()) && css`
             &:hover {
-              background: ${() => window.theme.primary600};
+              background: ${() => window.theme.isDark ? window.theme.primary700 : window.theme.primary600};
             }
           `}
           &:active {
-            background: ${() => window.theme.primary700};
+            background: ${() => window.theme.isDark ? window.theme.primary600 : window.theme.primary700};
           }
         }
     }

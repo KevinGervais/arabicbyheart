@@ -9,7 +9,7 @@ export const ModalBackgroundStyled = styled.div<{}>`
   top: 0;
   left: 0;
   z-index: 20000;
-  background: hsla(0, 0%, 100%, 0.1);
+  background: ${() => window.theme.isDark ? "hsla(0, 0%, 0%, 0.5)" : "hsla(0, 0%, 100%, 0.1)"};
   backdrop-filter: blur(2px);
   @media (max-width: 500px) {
     padding: 0 !important;

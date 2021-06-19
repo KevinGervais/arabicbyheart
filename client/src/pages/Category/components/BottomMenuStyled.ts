@@ -9,24 +9,25 @@ export const BottomMenuStyled = styled.div`
   box-shadow: 0 0 5px hsla(0, 0%, 0%, 0.3);
   overflow: hidden;
   border-radius: 25px;
-  background: white;
+   background: ${() => window.theme.isDark ? window.theme.grey900 : "white"};
+
   .right-content {
     ${center};
     ${clickable};
     width: 50px;
     height: 50px;
     border-radius: 25px;
-    background: ${() => window.theme.secondary500};
+    background: ${() => window.theme.isDark ? window.theme.secondary300 : window.theme.secondary500};
     ${() => ["mac", "windows"].includes(getOS()) && css`
       &:hover {
-        background: ${() => window.theme.secondary600};
+        background: ${() => window.theme.isDark ? window.theme.secondary400 : window.theme.secondary600};
       }
     `}
     &:active {
-      background: ${() => window.theme.secondary700};
+      background: ${() => window.theme.isDark ? window.theme.secondary500 : window.theme.secondary700};
     }
     svg {
-      color: white;
+      color: ${() => window.theme.isDark ? window.theme.secondary50 : "white"};
       height: 20px;
     }
   }

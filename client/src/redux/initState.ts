@@ -17,6 +17,7 @@ export const initState: ReduxState = {
   themeColor: (localStorage.getItem("themeColor") as keyof AllColors | null) || "lightblue",
   diapositiveSettings,
   bookmarks,
+  isDark: Boolean(localStorage.getItem("isDark")) || false,
   selectedVocabularyItem,
   ...uiReduxInitState,
   ...languageReduxInitState,

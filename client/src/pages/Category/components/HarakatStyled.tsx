@@ -26,7 +26,7 @@ export const HarakatStyled = styled.div`
     padding: 10px;
     height: max-content;
     border-radius: 10px;
-    background: hsla(0, 0%, 100%, 0.8);
+    background: ${() => window.theme.isDark ? "hsla(0, 0%, 0%, 0.7);" : "hsla(0, 0%, 100%, 0.8);"};
     backdrop-filter: blur(2px);
 
   }
@@ -38,15 +38,15 @@ export const HarakatStyled = styled.div`
     border-radius: 5px;
     font-size: 30px;
     font-family: system-ui;
-    background: ${() => window.theme.grey200};
+    background: ${() => window.theme.isDark ? window.theme.grey800 : window.theme.grey200};
     box-shadow: 0 0 2px hsla(0, 0%, 0%, 0.3);
     ${() => ["mac", "windows"].includes(getOS()) && css`
       &:hover {
-        background: ${() => window.theme.grey300};
+        background: ${() => window.theme.isDark ? window.theme.grey700 : window.theme.grey300};
       }
     `}
     &:active {
-      background: ${() => window.theme.grey300};
+      background: ${() => window.theme.isDark ? window.theme.grey600 : window.theme.grey300};
       transform: scale(1.1);
     }
   }
@@ -69,7 +69,7 @@ export const HarakatStyled = styled.div`
     }
     .triangle {
       border-top: 15px solid  transparent;
-      border-left: 15px solid  hsla(0, 0%, 100%, 0.8);
+      border-left: 15px solid ${() => window.theme.isDark ? "hsla(0, 0%, 0%, 0.7)" : "hsla(0, 0%, 100%, 0.8)"};
       border-bottom: 15px solid  transparent;
     }
   }

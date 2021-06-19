@@ -9,11 +9,11 @@ export const ToggleStyled = styled.div<ToggleStyledProps>`
     ${clickable}
     flex-direction: row;
     margin: 0 20px;
-    color: ${(): string => window.theme.primary700};
+    color: ${() => window.theme.isDark ? window.theme.primary300 : window.theme.primary700};
     text-align: center;
     ${() => (getOS() === "mac" || getOS() === "windows") && css`
       &:hover .square {
-          border-color: ${(): string => window.theme.primary700}
+          border-color: ${(): string => window.theme.isDark ? window.theme.primary300 : window.theme.primary700}
       }
     `}
     .square {
@@ -22,7 +22,7 @@ export const ToggleStyled = styled.div<ToggleStyledProps>`
         height: 26px;
         width: 26px;
         color: transparent;
-        border: 2px solid ${(): string => window.theme.primary500};
+        border: 2px solid ${(): string => window.theme.isDark ? window.theme.primary300 : window.theme.primary500};
         border-radius: 5px;
         transition: 0.1s font-size ease-in-out;
         font-size: 20px;
@@ -31,18 +31,18 @@ export const ToggleStyled = styled.div<ToggleStyledProps>`
 
     ${(props: ToggleStyledProps): any => props.active && css`
       .square {
-        color: ${window.theme.primary500};
+        color: ${window.theme.isDark ? window.theme.primary400 : window.theme.primary500};
       }
         ${() => (getOS() === "mac" || getOS() === "windows") && css`
           &:hover .square {
-              color: ${(): string => window.theme.primary700};
+              color: ${(): string => window.theme.isDark ? window.theme.primary500 : window.theme.primary700};
           }
         `}
     `}
     &:active {
-            color: ${(): string => window.theme.primary500};
+            color: ${(): string => window.theme.isDark ? window.theme.primary500 : window.theme.primary500};
             .square {
-              color: ${(): string => window.theme.primary500};
+              color: ${(): string => window.theme.isDark ? window.theme.primary500 : window.theme.primary500};
             }
     }
 `

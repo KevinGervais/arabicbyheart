@@ -18,30 +18,30 @@ export const DiapositiveStyled = styled.div<DiapositiveStyledProps>`
     const colorName = colorList[index] as keyof AllColors
     const color = colors[colorName]
     return css`
-      background: ${color[100]};
+      background: ${color[window.theme.isDark ? 900 : 100]}${window.theme.isDark ? 22 : ""};
       span, svg, input, h4, h3, .harakat div {
-        color: ${color[700]};
+        color: ${color[window.theme.isDark ? 300 : 700]};
       }
       .harakat {
-        border:  3px dashed ${color[700]};
+        border:  3px dashed ${color[window.theme.isDark ? 300 : 700]};
       }
       ${props.index === 0 && css`
         .content > svg:first-child {
-          color: ${color[200]} !important;
-          border: 3px solid ${color[200]};
+          color: ${color[window.theme.isDark ? 700 : 200]} !important;
+          border: 3px solid ${color[window.theme.isDark ? 700 : 200]};
           pointer-events: none;
         }
       `}
       ${props.index === props.indexCount - 1 && css`
         .content > svg:last-child {
-          color: ${color[200]} !important;
-          border: 3px solid ${color[200]};
+          color: ${color[window.theme.isDark ? 700 : 200]} !important;
+          border: 3px solid ${color[window.theme.isDark ? 700 : 200]};
           pointer-events: none;
         }
       `}
 
       svg:not(.fa-play), h4 {
-        border: 3px solid ${color[700]};
+        border: 3px solid ${color[window.theme.isDark ? 300 : 700]};
         ${() => ["mac", "windows"].includes(getOS()) && css`
           &:hover {
             transform: scale(1.05);
@@ -56,13 +56,13 @@ export const DiapositiveStyled = styled.div<DiapositiveStyledProps>`
           &:first-child {
             transform: rotate(180deg) scale(1.05);
           }
-          color: ${color[900]};
-          border: 3px solid ${color[900]};
+          color: ${color[window.theme.isDark ? 50 : 900]};
+          border: 3px solid ${color[window.theme.isDark ? 50 : 900]};
         }
       }
       h4 {
         width: max-content;
-        border: 2px solid ${color[700]};
+        border: 2px solid ${color[window.theme.isDark ? 300 : 700]};
       }
     `
   }}

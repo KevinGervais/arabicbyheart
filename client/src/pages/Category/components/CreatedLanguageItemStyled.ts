@@ -6,7 +6,7 @@ export const CreatedLanguageItemStyled = styled.div<{}>`
   display: flex;
   width: 100%;
   &:not(:first-child) {
-    border-top: 1px solid ${() => window.theme.primary100};
+    border-top: 1px solid ${() => window.theme.isDark ? window.theme.primary300 : window.theme.primary100};
   }
   display: flex;
   align-items: center;
@@ -22,7 +22,7 @@ export const CreatedLanguageItemStyled = styled.div<{}>`
     width: 100%;
     height: 100%;
     padding: 0 20px;
-    background: ${() => window.theme.grey100};
+    background: ${() => window.theme.isDark ? window.theme.grey850 : window.theme.grey100};
     transition: 0.3s all ease-in-out;
     &.arabic-input {
       direction: RTL;
@@ -30,21 +30,21 @@ export const CreatedLanguageItemStyled = styled.div<{}>`
     }
     &::placeholder {
       font-size: 16px;
-      color: ${() => window.theme.grey400};
+      color: ${() => window.theme.isDark ? window.theme.grey700 : window.theme.grey400};
     }
   }
   h4 {
     ${center};
     flex-shrink: 0;
     padding: 0 20px;
-    background: ${() => window.theme.grey200};
+    background: ${() => window.theme.isDark ? window.theme.grey800 : window.theme.grey200};
     width: 40px;
     height: 100%;
   }
   span {
     ${center}
     height: 100%;
-    background: ${() => window.theme.grey200};
+    background: ${() => window.theme.isDark ? window.theme.grey800 : window.theme.grey200};
     width: 100px;
     flex-shrink: 0;
   }
@@ -53,63 +53,22 @@ export const CreatedLanguageItemStyled = styled.div<{}>`
     height: 100%;
     padding-left: 10px;
     position: relative;
-    background: ${() => window.theme.grey100};
+    background: ${() => window.theme.isDark ? window.theme.grey850 : window.theme.grey100};
     @media screen and (max-width: 630px) {
       padding-left: 20px;
     }
   }
   .fa-keyboard {
     height: 30px;
-    color: ${() => window.theme.secondary500};
+    color: ${() => window.theme.isDark ? window.theme.secondary300 : window.theme.secondary500};
 
     ${() => ["mac", "windows"].includes(getOS()) && css`
       &:hover {
-        color: ${() => window.theme.secondary600};
+        color: ${() => window.theme.isDark ? window.theme.secondary400 : window.theme.secondary600};
       }
     `}
       &:active {
-        color: ${() => window.theme.secondary700};
+        color: ${() => window.theme.isDark ? window.theme.secondary500 : window.theme.secondary700};
       }
-  }
-  .fa-stop, .fa-micro {
-    ${clickable};
-    width: 30px;
-    height: 20px;
-    padding: 10px 20px;
-    background: ${() => window.theme.primary500};
-    color: white;
-    flex-shrink: 0;
-    ${() => ["mac", "windows"].includes(getOS()) && css`
-      &:hover {
-        background: ${() => window.theme.primary600};
-      }
-    `}
-    &:active {
-      background: ${() => window.theme.primary700};
-    }
-  }
-  .button {
-    ${center}
-    ${clickable}
-    height: 30px;
-    padding: 0 20px;
-    border-radius: 20px;
-    color: white;
-    background: ${() => window.theme.primary500};
-    &:not(:last-child) {
-      margin-right: 10px;
-    }
-    svg {
-      color: white;
-      height: 20px;
-    }
-    ${() => ["mac", "windows"].includes(getOS()) && css`
-      &:hover {
-        background: ${() => window.theme.primary600};
-      }
-    `}
-    &:active {
-      background: ${() => window.theme.primary700};
-    }
   }
 `

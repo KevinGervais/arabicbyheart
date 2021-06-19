@@ -1,5 +1,6 @@
 export interface Theme {
   // primary
+  readonly isDark: boolean
   readonly primary50: string
   readonly primary100: string
   readonly primary200: string
@@ -22,7 +23,9 @@ export interface Theme {
   readonly grey500: string
   readonly grey600: string
   readonly grey700: string
+  readonly grey750: string
   readonly grey800: string
+  readonly grey850: string
   readonly grey900: string
   readonly secondary50: string
   readonly secondary100: string
@@ -77,18 +80,20 @@ export interface AllColors {
 }
 
 export interface ColorItem {
-  readonly "50": string
-  readonly "100": string
-  readonly "200": string
-  readonly "300": string
-  readonly "400": string
-  readonly "500": string
-  readonly "600": string
-  readonly "700": string
-  readonly "800": string
-  readonly "900": string
-  readonly a100?: string
-  readonly a200?: string
-  readonly a400?: string
-  readonly a700?: string
+  "50": string
+  "100": string
+  "200": string
+  "300": string
+  "400": string
+  "500": string
+  "600": string
+  "700": string
+  "750"?: string
+  "800": string
+  "850"?: string
+  "900": string
+  a100?: string
+  a200?: string
+  a400?: string
+  a700?: string
 }

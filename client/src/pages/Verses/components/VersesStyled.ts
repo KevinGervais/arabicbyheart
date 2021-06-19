@@ -18,7 +18,7 @@ export const VersesStyled = styled.div`
     width: calc(100vw - 50px);
     max-width: 700px;
     box-shadow: 0 0 5px hsla(0, 0%, 0%, 0.3);
-    background: white;
+    background: ${() => window.theme.isDark ? window.theme.grey900 : "white"};
   }
   .arabic {
     text-align: right;
@@ -27,7 +27,7 @@ export const VersesStyled = styled.div`
     line-height: 150%;
     word-spacing: 7px;
     span {
-      color: ${() => window.theme.secondary500};
+      color: ${() => window.theme.isDark ? window.theme.secondary300 : window.theme.secondary500};
     }
   }
   .translation {
@@ -37,7 +37,7 @@ export const VersesStyled = styled.div`
     ${center};
     height: 30px;
     padding: 0 10px;
-    color: ${() => window.theme.primary500};
-    border: 2px solid ${() => window.theme.primary500}
+    color: ${() => window.theme.isDark ? window.theme.secondary300 : window.theme.primary500};
+    border: 2px solid ${() => window.theme.isDark ? window.theme.secondary300 : window.theme.primary500}
   }
 `

@@ -16,13 +16,13 @@ export const TitleBarStyled = styled.div<TitleBarStyledProps>`
   background-size: 150px;
   -webkit-app-region: drag;
   flex-shrink: 0;
-  background: ${window.theme.primary500};
+  background: ${() => window.theme.isDark ? window.theme.primary800 : window.theme.primary500};
   box-shadow: 0 0 5px hsla(0, 0%, 0%, 0.3);
   transition: all 0.3s ease-in-out;
   h1 {
     ${ellipsis};
     font-size: 24px;
-    color: white;
+    color: ${() => window.theme.isDark ? window.theme.primary50 : "white"};
     width: max-content;
     max-width: 80vw;
     flex-shrink: 0;
@@ -31,21 +31,21 @@ export const TitleBarStyled = styled.div<TitleBarStyledProps>`
     ${clickable};
     height: 30px;
     margin-right: 20px;
-    color: white;
+    color: ${() => window.theme.isDark ? window.theme.primary50 : "white"};
     transform: rotate(-180deg);
   }
   .fa-pencil-alt, .fa-save, .fa-times {
     ${clickable};
     height: 20px;
     margin-left: 20px;
-    color: white;
+    color: ${() => window.theme.isDark ? window.theme.primary50 : "white"};
   }
   input {
     margin: 10px 0;
     padding-left: 15px;
     height: 30px;
     font-size: 24px;
-    color: white;
+    color: ${() => window.theme.isDark ? window.theme.primary50 : "white"};
     background: ${() => window.theme.primary400};
   }
   ${(props: TitleBarStyledProps) => props.page === "diapositive" && css`
@@ -53,8 +53,11 @@ export const TitleBarStyled = styled.div<TitleBarStyledProps>`
     position: fixed;
     top: 0;
     left: 0;
+    .fa-chevron-right {
+      color: ${() => window.theme.isDark ? "#ffffff99" : "white"};
+    }
     h1, svg {
-      color: black;
+      color: ${() => window.theme.isDark ? "#ffffff55" : "black"};
     }
   `}
 

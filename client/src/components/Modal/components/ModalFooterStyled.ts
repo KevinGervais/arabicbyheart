@@ -19,15 +19,15 @@ export const ModalFooterStyled = styled.div<{}>`
     padding: 0 15px;
     margin-left: 10px;
     min-width: 100px;
-    background: ${() => window.theme.secondary500};
-    color: white;
+    background: ${() => window.theme.isDark ? window.theme.primary800 : window.theme.secondary500};
+    color: ${() => window.theme.isDark ? window.theme.primary50 : "white"};
     ${() => ["mac", "windows"].includes(getOS()) && css`
       &:hover {
-        background: ${() => window.theme.secondary600};
+        background: ${() => window.theme.isDark ? window.theme.primary700 : window.theme.secondary600};
       }
     `}
     &:active {
-      background: ${() => window.theme.secondary700};
+      background: ${() => window.theme.isDark ? window.theme.primary600 : window.theme.secondary700};
     }
   }
 `

@@ -7,7 +7,7 @@ export const RoutesStyled = styled.div<{}>`
   flex-direction: column;
   background: url("images/tasbih.svg");
   background-size: 200px;
-  background-color: ${() => window.theme.primary50};
+  background-color: ${() => window.theme.isDark ? window.theme.grey850 : window.theme.primary50};
   ${() =>
     getOS() === "windows" && isElectron()
       ? css`

@@ -16,6 +16,7 @@ export interface ReduxState {
   readonly selectedVocabularyItem?: VocabularyItem
   readonly diapositiveSettings?: DiapositiveSettings
   readonly bookmarks: BookmarkItem[]
+  readonly isDark: boolean
 
 }
 

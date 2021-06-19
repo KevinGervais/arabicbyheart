@@ -11,32 +11,32 @@ export const BottomMenuItemStyled = styled.div<BottomMenuItemStyledProps>`
   height: 40px;
   margin: 5px;
   border-radius: 25px;
-  border: 1px solid ${() => window.theme.secondary300};
+  border: 1px solid ${() => window.theme.isDark ? window.theme.secondary400 : window.theme.secondary300};
   svg {
     height: 20px;
     color: inherit;
   }
   ${() => ["mac", "windows"].includes(getOS()) && css`
       &:hover {
-        background: ${() => window.theme.secondary50};
+        background: ${() => window.theme.isDark ? window.theme.grey850 : window.theme.secondary50};
       }
     `}
     &:active {
-      background: ${() => window.theme.secondary100};
+      background: ${() => window.theme.isDark ? window.theme.grey800 : window.theme.secondary100};
     }
   ${(props: BottomMenuItemStyledProps) => props.isActive && css`
-    background: ${() => window.theme.secondary300};
-    color: white;
+    background: ${() => window.theme.isDark ? window.theme.secondary400 : window.theme.secondary300};
+    color: ${() => window.theme.isDark ? window.theme.secondary50 : "white"};
     svg {
       color: inherit;
     }
     ${() => ["mac", "windows"].includes(getOS()) && css`
       &:hover {
-        background: ${() => window.theme.secondary400};
+        background: ${() => window.theme.isDark ? window.theme.secondary500 : window.theme.secondary400};
       }
     `}
     &:active {
-      background: ${() => window.theme.secondary500};
+      background: ${() => window.theme.isDark ? window.theme.secondary600 : window.theme.secondary500};
     }
   `}
 `

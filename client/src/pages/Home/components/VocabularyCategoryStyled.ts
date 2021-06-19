@@ -10,7 +10,7 @@ export const VocabularyCategoryStyled = styled.div`
   height: 40px;
   padding: 0 20px;
   &:not(:last-child) {
-    border-bottom: 1px solid ${() => window.theme.grey300};
+    border-bottom: 1px solid ${() => window.theme.isDark ? window.theme.grey800 : window.theme.grey300};
   }
   h1 {
     flex: 1;
@@ -21,24 +21,24 @@ export const VocabularyCategoryStyled = styled.div`
     padding: 0 15px;
     margin-right: 20px;
     border-radius: 5px;
-    background: ${() => window.theme.grey200};
+    background: ${() => window.theme.isDark ? window.theme.grey800 : window.theme.grey200};
   }
   svg {
     width: 15px;
-    color: ${() => window.theme.primary500};
+    color: ${() => window.theme.isDark ? window.theme.primary300 : window.theme.primary500};
   }
   ${() => ["mac", "windows"].includes(getOS()) && css`
         &:hover {
-          background: ${() => window.theme.grey100};
+          background: ${() => window.theme.isDark ? window.theme.grey850 : window.theme.grey100};
           span {
-            background: ${() => window.theme.grey300};
+            background: ${() => window.theme.isDark ? window.theme.grey700 : window.theme.grey300};
           }
         }
   `}
       &:active {
-        background: ${() => window.theme.grey200};
+        background: ${() => window.theme.isDark ? window.theme.grey800 : window.theme.grey200};
         span {
-            background: ${() => window.theme.grey400};
+            background: ${() => window.theme.isDark ? window.theme.grey600 : window.theme.grey400};
           }
       }
   .fa-bookmark {

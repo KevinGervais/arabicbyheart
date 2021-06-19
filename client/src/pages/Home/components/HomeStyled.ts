@@ -8,6 +8,7 @@ export const HomeStyled = styled.div<{}>`
   align-items: center;
   width: 100%;
   height: 100%;
+  overflow: auto;
   .add-button {
     ${center};
     ${clickable};
@@ -16,8 +17,9 @@ export const HomeStyled = styled.div<{}>`
     padding: 0 20px;
     margin: 20px 0;
     border-radius: 20px;
-    background: ${() => window.theme.primary500};
-    color: white;
+    flex-shrink: 0;
+    background: ${() => window.theme.isDark ? window.theme.primary800 : window.theme.primary500};
+    color: ${() => window.theme.isDark ? window.theme.primary50 : "white"};
     box-shadow: 0 0 5px hsla(0, 0%, 0%, 0.3);
     transition: 0.3s all ease-in-out;
     ${() => ["mac", "windows"].includes(getOS()) && css`
@@ -27,7 +29,7 @@ export const HomeStyled = styled.div<{}>`
     `}
     &:active {
       transform: scale(1.025);
-      background: ${() => window.theme.primary600};
+      background: ${() => window.theme.isDark ? window.theme.primary700 : window.theme.primary600};
     }
   }
   .toggle {
@@ -71,11 +73,10 @@ export const HomeStyled = styled.div<{}>`
   }
 
   .category-list {
-    background: white;
+    background: ${() => window.theme.isDark ? window.theme.grey900 : "white"};
     width: 100%;
     max-width: 600px;
     height: calc(100% -80px);
-    overflow: auto;
     box-shadow: 0 0 5px hsla(0, 0%, 0%, 0.3);
   }
   & > .fa-chevron-right {
@@ -87,7 +88,7 @@ export const HomeStyled = styled.div<{}>`
     padding: 15px;
     box-shadow: 0 0 5px hsla(0, 0%, 0%, 0.3);
     border-radius: 25px;
-    background: ${() => window.theme.secondary500};
+    background: ${() => window.theme.isDark ? window.theme.primary300 : window.theme.secondary500};
     color: white;
   }
 `
