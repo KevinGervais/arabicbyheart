@@ -1,5 +1,4 @@
 import styled from "styled-components"
-import { center } from "@/styles/mixins"
 
 export const ModalHeaderStyled = styled.div<{}>`
   display: flex;

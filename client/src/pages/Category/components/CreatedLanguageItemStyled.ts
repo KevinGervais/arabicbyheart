@@ -1,5 +1,5 @@
 import { getOS } from "@/functions"
-import { center, clickable } from "@/styles/mixins"
+import { center } from "@/styles/mixins"
 import styled, { css } from "styled-components"
 
 export const CreatedLanguageItemStyled = styled.div<{}>`
